@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { CategoryCard, LessonCard } from "@/components/minassati/Cards";
+import { CategoryCard, PathCard } from "@/components/minassati/Cards";
+import { LearningBrowser } from "@/components/minassati/LearningBrowser";
 import { Section } from "@/components/minassati/Section";
 import { categories } from "@/data/categories";
 import { lessons } from "@/data/lessons";
+import { paths } from "@/data/paths";
 
 export const metadata: Metadata = {
   title: "التعلم",
@@ -31,12 +33,16 @@ export default function LearnPage() {
         </div>
       </Section>
 
-      <Section className="bg-white/70" title="دروس مقترحة">
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {lessons.map((lesson) => (
-            <LessonCard key={`${lesson.category}-${lesson.slug}`} lesson={lesson} />
+      <Section className="bg-white/70" title="مسارات التعلم">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {paths.map((path) => (
+            <PathCard key={path.slug} path={path} />
           ))}
         </div>
+      </Section>
+
+      <Section title="اكتشف الدروس" description="ابحث وصفّ حسب التصنيف والعمر والمستوى. تظهر حالة فارغة واضحة إذا لم توجد نتائج.">
+        <LearningBrowser lessons={lessons} categories={categories.map((category) => ({ slug: category.slug, title: category.title }))} />
       </Section>
     </>
   );
