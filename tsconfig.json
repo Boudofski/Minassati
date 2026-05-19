@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "src/app/**/*.ts",
+    "src/app/**/*.tsx",
+    "src/components/minassati/**/*.ts",
+    "src/components/minassati/**/*.tsx",
+    "src/data/**/*.ts",
+    "src/lib/**/*.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/pages",
+    "src/legacy-pages",
+    "src/contexts",
+    "src/integrations",
+    "src/components/ui",
+    "src/components/layout",
+    "src/components/dashboard",
+    "src/components/pricing",
+    "src/components/auth",
+    "src/App.tsx",
+    "src/main.tsx",
+    "vite.config.ts"
+  ]
+}
