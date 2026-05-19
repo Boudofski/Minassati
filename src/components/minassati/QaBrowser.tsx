@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { QuestionCard } from "./Cards";
@@ -53,7 +54,13 @@ export function QaBrowser() {
         ))}
       </div>
       {filtered.length === 0 ? (
-        <div className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-8 text-center text-slate-600">لا توجد نتائج مطابقة حاليًا.</div>
+        <div className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-8 text-center text-slate-600">
+          <p className="font-bold">لا توجد نتائج مطابقة حالياً. جرّب سؤالاً أقصر أو كلمة مثل الصلاة، الصدق، القرآن.</p>
+          <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/learn" className="rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white">استكشف الدروس</Link>
+            <Link href="/parents" className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-800">دليل الأهل</Link>
+          </div>
+        </div>
       ) : null}
     </div>
   );

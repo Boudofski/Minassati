@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "ابدأ من هنا - رحلة تعلم إسلامي للأطفال",
   description: "اختيار عمر الطفل والهدف التعليمي للحصول على أول مسار مناسب في منصتي: عقيدة، صلاة، قرآن، أو أخلاق.",
   alternates: { canonical: "/start" },
+  openGraph: {
+    title: "ابدأ من هنا | منصتي",
+    description: "اختاروا عمر الطفل والهدف، ثم ابدأوا بأول مسار إسلامي مناسب للأسرة.",
+  },
 };
 
 export default function StartPage() {

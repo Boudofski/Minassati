@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, CalendarDays, CheckCircle2, Heart, HelpCircle, Sparkles, Stars } from "lucide-react";
+import { ArrowLeft, BookOpen, CalendarDays, CheckCircle2, Heart, HelpCircle, Sparkles, Stars, Trophy } from "lucide-react";
 import { Section } from "@/components/minassati/Section";
 import { getDailyLearning } from "@/lib/daily";
 
 export const metadata: Metadata = {
   title: "التعلم اليومي للأطفال",
-  description: "ورد يومي للأسرة: درس إسلامي قصير، سؤال، ذكر، آية، ونشاط عملي للأطفال من منصتي.",
+  description: "درس اليوم وسؤال اليوم وذكر اليوم وآية اليوم ونشاط عملي وتحدي أسبوعي لتعليم الإسلام للأطفال بروتين عائلي قصير.",
   alternates: { canonical: "/daily" },
+  openGraph: {
+    title: "درس اليوم للأطفال | منصتي",
+    description: "ورد عائلي قصير: درس، سؤال، آية، ذكر، نشاط، وتحدي أسبوعي.",
+  },
 };
 
 export default function DailyPage() {
@@ -79,10 +83,18 @@ export default function DailyPage() {
             <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-violet-700">شاهد الخطوات <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" /></span>
           </Link>
         </div>
+        <Link href="/challenges" className="mt-5 flex flex-col gap-4 rounded-[2rem] border border-amber-200 bg-amber-50 p-6 shadow-soft transition hover:-translate-y-1 sm:flex-row sm:items-center sm:justify-between">
+          <span>
+            <span className="inline-flex items-center gap-2 text-sm font-black text-amber-700"><Trophy className="h-4 w-4" /> تحدي الأسبوع</span>
+            <strong className="mt-2 block text-2xl font-black text-slate-950">{daily.challenge.title}</strong>
+            <span className="mt-2 block leading-8 text-slate-700">{daily.challenge.summary}</span>
+          </span>
+          <span className="inline-flex items-center gap-2 text-sm font-black text-amber-800">افتح التحديات <ArrowLeft className="h-4 w-4" /></span>
+        </Link>
         <div className="mt-8 rounded-[2rem] bg-slate-950 p-6 text-white sm:flex sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-black">تريد بداية أهدأ؟</h2>
-            <p className="mt-2 leading-8 text-slate-300">استخدم صفحة البداية لاختيار عمر الطفل والهدف قبل متابعة ورد اليوم.</p>
+            <h2 className="text-2xl font-black">تابعوا الرحلة غداً</h2>
+            <p className="mt-2 leading-8 text-slate-300">عودوا غداً لبطاقات جديدة، أو استخدموا صفحة البداية لاختيار مسار أطول لطفلكم.</p>
           </div>
           <Link href="/start" className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 sm:mt-0">
             ابدأ من هنا <ArrowLeft className="h-4 w-4" />

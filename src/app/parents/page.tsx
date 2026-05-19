@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "دليل الأهل لتعليم الإسلام للأطفال",
   description: "دليل عملي للأهل لاستخدام منصتي يومياً: خطة 10 دقائق، تعليم القرآن بمحبة، وتعليم الصلاة بلا ضغط.",
   alternates: { canonical: "/parents" },
+  openGraph: {
+    title: "دليل الأهل | منصتي",
+    description: "منهجية يومية هادئة لتعليم الإسلام للأطفال مع حضور ولي الأمر.",
+  },
 };
 
 const guideSections = [
@@ -25,7 +29,7 @@ export default function ParentsPage() {
         <div className="rounded-[2.5rem] bg-slate-950 p-7 text-white shadow-navy-glow sm:p-10">
           <p className="inline-flex items-center gap-2 text-sm font-black text-teal-300"><ShieldCheck className="h-4 w-4" /> للأهل</p>
           <h1 className="mt-4 text-balance text-4xl font-black sm:text-6xl">دينٌ يُعلَّم بالرحمة والقدوة والروتين الصغير</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-300">دليل عملي يساعد الوالدين على تحويل منصتي إلى عادة تربوية يومية، بلا ضغط ولا ارتباك.</p>
+          <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-300">دليل عملي يساعد الوالدين على تحويل منصتي إلى عادة تربوية يومية: سؤال هادئ، درس قصير، وقدوة يراها الطفل في البيت.</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/start" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950">
               اختر مسار طفلك <ArrowLeft className="h-4 w-4" />
