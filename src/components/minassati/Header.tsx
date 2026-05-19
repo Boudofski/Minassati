@@ -8,9 +8,11 @@ import {
   Award,
   BookOpenCheck,
   Brain,
+  CalendarDays,
   Gamepad2,
   Headphones,
   Home,
+  Lightbulb,
   LayoutDashboard,
   Menu,
   MessageCircleQuestion,
@@ -23,16 +25,20 @@ import { cn } from "@/lib/utils";
 
 const primaryNav = [
   { href: "/", label: "الرئيسية", icon: Home },
+  { href: "/start", label: "ابدأ من هنا", icon: Sparkles },
   { href: "/learn", label: "التعلم", icon: Brain },
-  { href: "/qa", label: "الأسئلة", icon: MessageCircleQuestion },
   { href: "/quran", label: "القرآن", icon: BookOpenCheck },
-  { href: "/kids-zone", label: "منطقة الطفل", icon: Sparkles },
+  { href: "/qa", label: "الأسئلة", icon: MessageCircleQuestion },
+  { href: "/activities", label: "الأنشطة", icon: Lightbulb },
+  { href: "/parents", label: "للأهل", icon: LayoutDashboard },
 ];
 
 const megaSections = [
   {
     title: "التعلم اليومي",
     items: [
+      { href: "/daily", label: "ورد اليوم", icon: CalendarDays },
+      { href: "/quizzes", label: "اختبارات قصيرة", icon: Brain },
       { href: "/stories", label: "قصص الأنبياء والصحابة", icon: Stars },
       { href: "/adhkar", label: "الأذكار اليومية", icon: MoonStar },
       { href: "/challenges", label: "التحديات والسلاسل", icon: Award },
@@ -41,6 +47,7 @@ const megaSections = [
   {
     title: "التجربة التفاعلية",
     items: [
+      { href: "/kids-zone", label: "منطقة الطفل", icon: Sparkles },
       { href: "/games", label: "ألعاب إسلامية", icon: Gamepad2 },
       { href: "/audio", label: "الاستماع للقرآن", icon: Headphones },
       { href: "/family-dashboard", label: "منطقة الوالدين", icon: LayoutDashboard },

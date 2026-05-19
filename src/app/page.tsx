@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpen, CheckCircle2, Headphones, Heart, MessageCircleQuestion, MoonStar, Play, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowLeft, BookOpen, CalendarDays, CheckCircle2, Headphones, Heart, Lightbulb, MessageCircleQuestion, MoonStar, Play, ShieldCheck, Sparkles, Trophy } from "lucide-react";
 import { ButtonLink } from "@/components/minassati/ButtonLink";
 import { CategoryCard, QuestionCard } from "@/components/minassati/Cards";
 import { FadeUp } from "@/components/minassati/Motion";
@@ -13,6 +13,15 @@ const faqs = [
   { q: "هل منصتي مناسبة للأطفال الصغار؟", a: "نعم، الدروس قصيرة ولغتها مبسطة، مع توجيه للأسرة في طريقة الشرح والحوار." },
   { q: "هل المحتوى موجه للآباء أيضاً؟", a: "كل درس يراعي دور الوالدين، ويقدم أنشطة عملية تساعد على تحويل المعرفة إلى عادة." },
   { q: "هل التجربة تعتمد على الحفظ فقط؟", a: "لا. منصتي تجمع بين الفهم، التطبيق، السؤال، القصة، والروتين اليومي." },
+];
+
+const returnFeatures = [
+  { href: "/daily", title: "ورد اليوم", text: "درس وسؤال وذكر وآية ونشاط يتغير يومياً بشكل ثابت.", icon: CalendarDays },
+  { href: "/start", title: "ابدأ من هنا", text: "اختيار العمر والهدف ثم مسار بداية مناسب للأسرة.", icon: Sparkles },
+  { href: "/quizzes", title: "اختبارات قصيرة", text: "تغذية راجعة لطيفة تثبت المعنى بعد التعلم.", icon: MessageCircleQuestion },
+  { href: "/activities", title: "أنشطة عائلية", text: "أفكار عملية قابلة للتطبيق في البيت والمدرسة.", icon: Lightbulb },
+  { href: "/parents", title: "دليل الأهل", text: "خطة 10 دقائق يومياً وتوجيه تربوي بلا ضغط.", icon: ShieldCheck },
+  { href: "/challenges", title: "تحديات وشارات", text: "سلاسل قصيرة تبني العادة وتشجع الطفل.", icon: Trophy },
 ];
 
 export default function HomePage() {
@@ -93,6 +102,26 @@ export default function HomePage() {
           </FadeUp>
         </div>
       </section>
+
+      <Section eyebrow="كل يوم" title="أسباب واضحة للعودة إلى منصتي" description="المنصة لا تكتفي بالمحتوى؛ تبني روتيناً يومياً للأسرة بين تعلم وقرآن ونشاط وتحدي.">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {returnFeatures.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <Link key={feature.href} href={feature.href} className="group rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:border-blue-200">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-700">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <h2 className="mt-5 text-2xl font-black text-slate-950">{feature.title}</h2>
+                <p className="mt-3 leading-8 text-slate-600">{feature.text}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-blue-700">
+                  افتح <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </Section>
 
       <Section eyebrow="مسارات مميزة" title="تعلم منظم يناسب عمر الطفل وإيقاع الأسرة" description="كل مسار مبني من دروس قصيرة، أسئلة، أنشطة عملية، وروابط داخلية تساعد الطفل على الفهم والتكرار.">
         <div className="grid gap-5 lg:grid-cols-3">
