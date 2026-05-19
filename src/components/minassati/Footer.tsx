@@ -9,6 +9,9 @@ const columns = [
       { href: "/quran", label: "القرآن الكريم" },
       { href: "/audio", label: "التلاوات" },
       { href: "/qa", label: "الأسئلة والأجوبة" },
+      { href: "/articles", label: "المقالات" },
+      { href: "/methodology", label: "المنهجية" },
+      { href: "/content-review", label: "مراجعة المحتوى" },
     ],
   },
   {

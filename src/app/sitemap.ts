@@ -4,6 +4,7 @@ import { lessons } from "@/data/lessons";
 import { questions } from "@/data/questions";
 import { quizzes } from "@/data/quizzes";
 import { stories } from "@/data/stories";
+import { articles } from "@/data/articles";
 import { fallbackReciters } from "@/lib/mp3quran-api";
 import { site } from "@/lib/site";
 
@@ -29,6 +30,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/adhkar",
     "/challenges",
     "/badges",
+    "/articles",
+    "/methodology",
+    "/content-review",
   ];
   return [
     ...staticRoutes.map((route) => ({ url: `${site.url}${route}`, lastModified: new Date(), priority: route === "" ? 1 : 0.8 })),
@@ -39,5 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...stories.map((story) => ({ url: `${site.url}/stories/${story.slug}`, lastModified: new Date(), priority: 0.6 })),
     ...Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}/quran/${index + 1}`, lastModified: new Date(), priority: 0.6 })),
     ...fallbackReciters.map((reciter) => ({ url: `${site.url}/audio/${reciter.id}`, lastModified: new Date(), priority: 0.5 })),
+    ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.8 })),
   ];
 }

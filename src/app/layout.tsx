@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import { Amiri, Cairo, IBM_Plex_Sans_Arabic, Tajawal } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/minassati/Header";
@@ -107,6 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

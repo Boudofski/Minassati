@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { HeartHandshake } from "lucide-react";
 import { ButtonLink } from "@/components/minassati/ButtonLink";
+import { ShareCard } from "@/components/minassati/ShareCard";
 import { getQuestion, getRelatedQuestions, questions } from "@/data/questions";
 import { absoluteUrl } from "@/lib/site";
 
@@ -77,7 +78,15 @@ export default function QuestionPage({ params }: Props) {
         </section>
       ) : null}
 
-      <div className="mt-10">
+      <div className="mt-8">
+        <ShareCard
+          title={question.question}
+          excerpt={question.shortAnswer}
+          url={absoluteUrl(`/qa/${question.slug}`)}
+        />
+      </div>
+
+      <div className="mt-8">
         <ButtonLink href="/qa">العودة إلى كل الأسئلة</ButtonLink>
       </div>
     </article>

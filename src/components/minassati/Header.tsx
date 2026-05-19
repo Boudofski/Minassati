@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Award,
   BookOpenCheck,
+  BookText,
   Brain,
   CalendarDays,
   Gamepad2,
@@ -42,6 +43,7 @@ const megaSections = [
       { href: "/stories", label: "قصص الأنبياء والصحابة", icon: Stars },
       { href: "/adhkar", label: "الأذكار اليومية", icon: MoonStar },
       { href: "/challenges", label: "التحديات والسلاسل", icon: Award },
+      { href: "/articles", label: "المقالات والموارد", icon: BookText },
     ],
   },
   {

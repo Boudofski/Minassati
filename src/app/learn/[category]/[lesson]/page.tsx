@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { CheckCircle2, HeartHandshake, Lightbulb, Sparkles } from "lucide-react";
 import { ButtonLink } from "@/components/minassati/ButtonLink";
+import { ShareCard } from "@/components/minassati/ShareCard";
 import { getCategory } from "@/data/categories";
 import { getLesson, getRelatedLessons, lessons } from "@/data/lessons";
 import { getRelatedQuestions } from "@/data/questions";
@@ -107,7 +108,15 @@ export default function LessonPage({ params }: Props) {
         </section>
       ) : null}
 
-      <div className="mt-10 flex flex-wrap gap-3">
+      <div className="mt-8">
+        <ShareCard
+          title={lesson.title}
+          excerpt={lesson.summary}
+          url={absoluteUrl(`/learn/${lesson.category}/${lesson.slug}`)}
+        />
+      </div>
+
+      <div className="mt-8 flex flex-wrap gap-3">
         <ButtonLink href={`/learn/${category.slug}`}>العودة إلى المسار</ButtonLink>
         <ButtonLink href="/qa" variant="secondary">أسئلة مرتبطة</ButtonLink>
       </div>

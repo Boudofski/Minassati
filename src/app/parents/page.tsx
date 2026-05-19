@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CalendarCheck, CheckCircle2, HeartHandshake, ShieldCheck } from "lucide-react";
 import { Section } from "@/components/minassati/Section";
+import { NewsletterCTA } from "@/components/minassati/NewsletterCTA";
 import { parentGuidanceCards } from "@/data/platform";
 
 export const metadata: Metadata = {
@@ -71,6 +72,9 @@ export default function ParentsPage() {
           ))}
         </div>
       </Section>
+      <section className="page-shell pb-6">
+        <NewsletterCTA />
+      </section>
       <Section title="تذكيرات تربوية سريعة">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {parentGuidanceCards.slice(0, 10).map((card) => (
