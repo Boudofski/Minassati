@@ -7,9 +7,12 @@ function safe(fn: () => void) {
   try { fn(); } catch { /* no-op */ }
 }
 
+type GtagFn = (cmd: string, ...args: unknown[]) => void;
+
 function gtag(eventName: string, params?: Record<string, unknown>) {
-  if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (cmd: string, ...args: unknown[]) => void }).gtag === "function") {
-    (window as unknown as { gtag: (cmd: string, ...args: unknown[]) => void }).gtag("event", eventName, params);
+  const w = window as unknown as { gtag?: GtagFn };
+  if (typeof w.gtag === "function") {
+    w.gtag("event", eventName, params);
   }
 }
 

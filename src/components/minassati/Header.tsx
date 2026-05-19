@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Award,
@@ -10,14 +10,16 @@ import {
   BookText,
   Brain,
   CalendarDays,
+  ChevronDown,
   Gamepad2,
-  Headphones,
   Home,
   Lightbulb,
   LayoutDashboard,
+  Mail,
   Menu,
   MessageCircleQuestion,
   MoonStar,
+  ShieldCheck,
   Sparkles,
   Stars,
   X,
@@ -34,33 +36,16 @@ const primaryNav = [
   { href: "/parents", label: "للأهل", icon: LayoutDashboard },
 ];
 
-const megaSections = [
-  {
-    title: "التعلم اليومي",
-    items: [
-      { href: "/daily", label: "ورد اليوم", icon: CalendarDays },
-      { href: "/quizzes", label: "اختبارات قصيرة", icon: Brain },
-      { href: "/stories", label: "قصص الأنبياء والصحابة", icon: Stars },
-      { href: "/adhkar", label: "الأذكار اليومية", icon: MoonStar },
-      { href: "/challenges", label: "التحديات والسلاسل", icon: Award },
-      { href: "/articles", label: "المقالات والموارد", icon: BookText },
-    ],
-  },
-  {
-    title: "التجربة التفاعلية",
-    items: [
-      { href: "/kids-zone", label: "منطقة الطفل", icon: Sparkles },
-      { href: "/games", label: "ألعاب إسلامية", icon: Gamepad2 },
-      { href: "/audio", label: "الاستماع للقرآن", icon: Headphones },
-      { href: "/family-dashboard", label: "منطقة الوالدين", icon: LayoutDashboard },
-    ],
-  },
-];
-
-const allMobile = [
-  ...primaryNav,
-  ...megaSections.flatMap((section) => section.items),
-  { href: "/about", label: "عن منصتي", icon: BookOpenCheck },
+const moreItems = [
+  { href: "/articles", label: "المقالات والموارد", icon: BookText },
+  { href: "/stories", label: "القصص", icon: Stars },
+  { href: "/adhkar", label: "الأذكار", icon: MoonStar },
+  { href: "/challenges", label: "التحديات", icon: CalendarDays },
+  { href: "/badges", label: "الشارات", icon: Award },
+  { href: "/games", label: "الألعاب", icon: Gamepad2 },
+  { href: "/methodology", label: "منهجية منصتي", icon: Brain },
+  { href: "/content-review", label: "مراجعة المحتوى", icon: ShieldCheck },
+  { href: "/contact", label: "تواصل معنا", icon: Mail },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -69,12 +54,38 @@ function isActive(pathname: string, href: string) {
 
 export function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", onClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [dropdownOpen]);
+
+  useEffect(() => {
+    setDropdownOpen(false);
+    setMobileOpen(false);
+  }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/70 bg-white/78 shadow-sm shadow-slate-200/40 backdrop-blur-2xl">
+    <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/95 shadow-sm shadow-slate-200/40 backdrop-blur-xl">
       <div className="page-shell flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="منصتي - الصفحة الرئيسية" onClick={() => setOpen(false)}>
+
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-3"
+          aria-label="منصتي - الصفحة الرئيسية"
+          onClick={() => setMobileOpen(false)}
+        >
           <span className="relative grid h-12 w-12 place-items-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/18">
             <BookOpenCheck className="h-6 w-6" aria-hidden="true" />
             <span className="absolute -left-1 -top-1 h-3 w-3 rounded-full bg-amber-400 ring-4 ring-white" />
@@ -85,7 +96,11 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-white/72 p-1 shadow-sm backdrop-blur-xl lg:flex" aria-label="التنقل الرئيسي">
+        {/* Desktop primary nav */}
+        <nav
+          className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm lg:flex"
+          aria-label="التنقل الرئيسي"
+        >
           {primaryNav.map((item) => {
             const Icon = item.icon;
             const active = isActive(pathname, item.href);
@@ -95,7 +110,9 @@ export function Header() {
                 href={item.href}
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-extrabold transition-all",
-                  active ? "bg-slate-950 text-white shadow-md shadow-slate-950/15" : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
+                  active
+                    ? "bg-slate-950 text-white shadow-md shadow-slate-950/15"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
                 )}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
@@ -105,78 +122,161 @@ export function Header() {
           })}
         </nav>
 
+        {/* Desktop: "المزيد" dropdown + CTA */}
         <div className="hidden items-center gap-2 lg:flex">
-          <div className="group relative">
-            <button className="rounded-full px-4 py-2.5 text-sm font-extrabold text-slate-600 transition hover:bg-slate-100 hover:text-slate-950" aria-haspopup="true">
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setDropdownOpen((v) => !v)}
+              aria-haspopup="true"
+              aria-expanded={dropdownOpen}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-extrabold transition-all",
+                dropdownOpen
+                  ? "bg-slate-950 text-white"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
+              )}
+            >
               المزيد
+              <ChevronDown
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-200",
+                  dropdownOpen && "rotate-180",
+                )}
+                aria-hidden="true"
+              />
             </button>
-            <div className="invisible absolute left-0 top-full w-[36rem] translate-y-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-2 group-hover:opacity-100">
-              <div className="grid gap-4 rounded-[2rem] border border-white/80 bg-white/92 p-5 shadow-2xl shadow-slate-900/12 backdrop-blur-2xl md:grid-cols-2">
-                {megaSections.map((section) => (
-                  <div key={section.title}>
-                    <p className="px-3 pb-2 text-xs font-black uppercase tracking-wider text-slate-400">{section.title}</p>
-                    <div className="space-y-1">
-                      {section.items.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-2xl p-3 text-sm font-bold text-slate-700 transition hover:bg-blue-50 hover:text-blue-700">
-                            <span className="grid h-9 w-9 place-items-center rounded-xl bg-slate-100 text-slate-700">
-                              <Icon className="h-4 w-4" />
-                            </span>
-                            {item.label}
-                          </Link>
-                        );
-                      })}
-                    </div>
+
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  className="absolute left-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/12"
+                >
+                  <div className="p-1.5">
+                    {moreItems.map((item) => {
+                      const Icon = item.icon;
+                      const active = isActive(pathname, item.href);
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setDropdownOpen(false)}
+                          className={cn(
+                            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors",
+                            active
+                              ? "bg-slate-950 text-white"
+                              : "text-slate-700 hover:bg-slate-50 hover:text-slate-950",
+                          )}
+                        >
+                          <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                          {item.label}
+                        </Link>
+                      );
+                    })}
                   </div>
-                ))}
-              </div>
-            </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <Link href="/family-dashboard" className="rounded-full bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-2.5 text-sm font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5">
+
+          <Link
+            href="/family-dashboard"
+            className="rounded-full bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-2.5 text-sm font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5"
+          >
             لوحة الأسرة
           </Link>
         </div>
 
+        {/* Mobile hamburger */}
         <button
-          onClick={() => setOpen((value) => !value)}
+          onClick={() => setMobileOpen((v) => !v)}
           className="grid h-11 w-11 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:bg-slate-50 lg:hidden"
-          aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
-          aria-expanded={open}
+          aria-label={mobileOpen ? "إغلاق القائمة" : "فتح القائمة"}
+          aria-expanded={mobileOpen}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
-        {open && (
+        {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className="border-t border-slate-100 bg-white/96 shadow-xl shadow-slate-900/8 backdrop-blur-xl lg:hidden"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="border-t border-slate-100 bg-white shadow-xl shadow-slate-900/8 lg:hidden"
           >
-            <nav className="page-shell grid gap-2 py-4" aria-label="القائمة المحمولة">
-              {allMobile.map((item) => {
-                const Icon = item.icon;
-                const active = isActive(pathname, item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-extrabold transition",
-                      active ? "bg-slate-950 text-white" : "bg-slate-50 text-slate-700 hover:bg-blue-50 hover:text-blue-700",
-                    )}
-                  >
-                    <Icon className="h-5 w-5" />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
+            <div className="page-shell space-y-4 py-4">
+              {/* Primary links */}
+              <div className="space-y-1">
+                {primaryNav.map((item) => {
+                  const Icon = item.icon;
+                  const active = isActive(pathname, item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 rounded-xl px-4 py-3 text-base font-extrabold transition-colors",
+                        active
+                          ? "bg-slate-950 text-white"
+                          : "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
+                      )}
+                    >
+                      <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* More section */}
+              <div className="border-t border-slate-100 pt-3">
+                <p className="px-4 pb-2 text-xs font-black uppercase tracking-wider text-slate-400">
+                  استكشف أكثر
+                </p>
+                <div className="grid grid-cols-2 gap-1">
+                  {moreItems.map((item) => {
+                    const Icon = item.icon;
+                    const active = isActive(pathname, item.href);
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(
+                          "flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors",
+                          active
+                            ? "bg-slate-950 text-white"
+                            : "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
+                        )}
+                      >
+                        <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="border-t border-slate-100 pb-1 pt-3">
+                <Link
+                  href="/family-dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-3.5 text-base font-black text-white shadow-lg shadow-blue-500/20 transition hover:opacity-90"
+                >
+                  <LayoutDashboard className="h-5 w-5" aria-hidden="true" />
+                  لوحة الأسرة
+                </Link>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
