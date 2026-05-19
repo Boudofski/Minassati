@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const surahs = await getSurahList();
   const surah = surahs.find((item) => item.number === surahNumber);
   return {
-    title: surah ? `سورة ${surah.name}` : `سورة رقم ${surahNumber}`,
-    description: surah ? `قراءة سورة ${surah.name} مع آيات عربية وترجمة اختيارية وأدوات قراءة في منصتي.` : "قارئ سورة من القرآن الكريم في منصتي.",
+    title: surah ? `سورة ${surah.name} قراءة عربية وترجمة` : `سورة رقم ${surahNumber}`,
+    description: surah ? `اقرأ سورة ${surah.name} في منصتي مع آيات عربية واضحة، تحكم بحجم الخط، ترجمة اختيارية، ونسخ أو مشاركة الآيات.` : "قارئ سورة من القرآن الكريم في منصتي.",
     alternates: { canonical: `/quran/${surahNumber}` },
   };
 }
@@ -65,6 +65,15 @@ export default async function SurahPage({ params }: Props) {
           <h2 className="mt-4 text-xl font-black text-slate-950">العودة إلى الفهرس</h2>
           <p className="mt-2 text-sm leading-7 text-slate-600">افتح سورة أخرى أو ابحث باسمها ورقمها.</p>
         </Link>
+      </section>
+
+      <section className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft">
+        <h2 className="text-2xl font-black text-slate-950">اقتراح عائلي بعد القراءة</h2>
+        <p className="mt-3 leading-8 text-slate-600">اختاروا آية واحدة، اقرؤوها بصوت هادئ، ثم اسألوا الطفل: ما الكلمة التي أحببتها؟ هذا يحافظ على علاقة دافئة مع القرآن.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link href="/daily" className="rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white">ورد اليوم</Link>
+          <Link href="/parents" className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-800">دليل الأهل</Link>
+        </div>
       </section>
 
       <section className="mt-10">

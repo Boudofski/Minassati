@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 const ages = ["6-8 سنوات", "9-10 سنوات", "11-12 سنة"];
 const goals = [
-  { key: "aqeedah", title: "تعلم العقيدة", icon: Sparkles, pathSlug: "aqeedah-basics" },
-  { key: "fiqh", title: "الصلاة والوضوء", icon: HeartHandshake, pathSlug: "prayer-purity" },
-  { key: "quran", title: "القرآن", icon: BookOpen, pathSlug: "quran-at-home" },
-  { key: "akhlaq", title: "الأخلاق", icon: Baby, pathSlug: "young-muslim-akhlaq" },
+  { key: "aqeedah", title: "تعلم العقيدة", text: "معرفة الله وأركان الإيمان", icon: Sparkles, pathSlug: "aqeedah-basics" },
+  { key: "fiqh", title: "الصلاة والوضوء", text: "عبادة عملية وروتين هادئ", icon: HeartHandshake, pathSlug: "prayer-purity" },
+  { key: "quran", title: "القرآن", text: "استماع وحفظ ومراجعة في البيت", icon: BookOpen, pathSlug: "quran-at-home" },
+  { key: "akhlaq", title: "الأخلاق", text: "صدق ورحمة وشكر في الحياة اليومية", icon: Baby, pathSlug: "young-muslim-akhlaq" },
 ];
 
 export function StartJourney() {
@@ -33,8 +33,9 @@ export function StartJourney() {
   return (
     <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
       <div className="space-y-5">
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-soft">
+        <div className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-soft sm:rounded-[2rem]">
           <h2 className="text-2xl font-black text-slate-950">اختر عمر الطفل</h2>
+          <p className="mt-2 text-sm leading-7 text-slate-600">الاختيار يساعد الأسرة على ضبط طول الجلسة وطريقة الحوار.</p>
           <div className="mt-5 grid gap-3">
             {ages.map((item) => (
               <button
@@ -51,8 +52,9 @@ export function StartJourney() {
             ))}
           </div>
         </div>
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-soft">
+        <div className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-soft sm:rounded-[2rem]">
           <h2 className="text-2xl font-black text-slate-950">اختر الهدف</h2>
+          <p className="mt-2 text-sm leading-7 text-slate-600">ابدأ بهدف واحد فقط، ثم أضف أهدافاً أخرى بعد أسبوعين.</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {goals.map((item) => {
               const Icon = item.icon;
@@ -68,6 +70,7 @@ export function StartJourney() {
                 >
                   <Icon className="h-5 w-5" />
                   <span className="mt-3 block font-black">{item.title}</span>
+                  <span className="mt-1 block text-xs font-bold leading-6 text-slate-500">{item.text}</span>
                 </button>
               );
             })}
@@ -75,12 +78,26 @@ export function StartJourney() {
         </div>
       </div>
 
-      <article className="relative overflow-hidden rounded-[2.5rem] bg-slate-950 p-7 text-white shadow-navy-glow">
+      <article className="relative overflow-hidden rounded-[2rem] bg-slate-950 p-6 text-white shadow-navy-glow sm:rounded-[2.5rem] sm:p-7">
         <div className="absolute inset-0 islamic-bg-white opacity-20" />
         <div className="relative">
           <p className="text-sm font-black text-teal-300">المسار المقترح لعمر {age}</p>
           <h2 className="mt-3 text-4xl font-black">{path.title}</h2>
           <p className="mt-4 leading-8 text-slate-300">{path.description}</p>
+          <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+            <div className="rounded-2xl bg-white/8 p-3">
+              <strong className="block text-xl font-black">{path.duration}</strong>
+              <span className="text-xs font-bold text-slate-400">مدة مقترحة</span>
+            </div>
+            <div className="rounded-2xl bg-white/8 p-3">
+              <strong className="block text-xl font-black">{path.totalLessons}</strong>
+              <span className="text-xs font-bold text-slate-400">درس</span>
+            </div>
+            <div className="rounded-2xl bg-white/8 p-3">
+              <strong className="block text-xl font-black">10 د</strong>
+              <span className="text-xs font-bold text-slate-400">يومياً</span>
+            </div>
+          </div>
           <div className="mt-6 grid gap-3">
             {pathLessons.slice(0, 4).map((lesson, index) => (
               <Link

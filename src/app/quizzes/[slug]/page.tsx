@@ -16,8 +16,8 @@ export function generateMetadata({ params }: Props): Metadata {
   const quiz = getQuiz(params.slug);
   if (!quiz) return {};
   return {
-    title: quiz.title,
-    description: quiz.summary,
+    title: `${quiz.title} - اختبار إسلامي للأطفال`,
+    description: `${quiz.summary} اختبار قصير مناسب لعمر ${quiz.ageRange} مع تغذية راجعة لطيفة للطفل.`,
     alternates: { canonical: `/quizzes/${quiz.slug}` },
   };
 }

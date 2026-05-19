@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, CalendarDays, Heart, HelpCircle, Sparkles, Stars } from "lucide-react";
+import { ArrowLeft, BookOpen, CalendarDays, CheckCircle2, Heart, HelpCircle, Sparkles, Stars } from "lucide-react";
 import { Section } from "@/components/minassati/Section";
 import { getDailyLearning } from "@/lib/daily";
 
 export const metadata: Metadata = {
-  title: "التعلم اليومي",
-  description: "درس اليوم وسؤال اليوم وذكر اليوم وآية اليوم ونشاط عائلي قصير من منصتي.",
+  title: "التعلم اليومي للأطفال",
+  description: "ورد يومي للأسرة: درس إسلامي قصير، سؤال، ذكر، آية، ونشاط عملي للأطفال من منصتي.",
   alternates: { canonical: "/daily" },
 };
 
@@ -23,10 +23,18 @@ export default function DailyPage() {
               <CalendarDays className="h-4 w-4" />
               التعلم اليومي
             </p>
-            <h1 className="mt-4 text-balance text-4xl font-black sm:text-6xl">خمس دقائق إيمانية تعيد الأسرة كل يوم</h1>
+            <h1 className="mt-4 text-balance text-4xl font-black sm:text-6xl">ورد يومي واضح لا يربك الأسرة</h1>
             <p className="mt-5 text-lg leading-9 text-slate-300">
-              اختيارات اليوم ثابتة حسب التاريخ: درس قصير، سؤال، ذكر، آية، ونشاط عملي بلا عشوائية عند التحديث.
+              ابدأوا بالترتيب المقترح: درس، سؤال، آية، ذكر، ثم نشاط. كل بطاقة مختارة حسب تاريخ اليوم وتبقى ثابتة عند التحديث.
             </p>
+            <div className="mt-6 grid gap-3 text-sm font-bold text-slate-200 sm:grid-cols-3">
+              {["يكفي اختيار بطاقة واحدة في الأيام المزدحمة", "مناسب لجلسة 5 إلى 10 دقائق", "يربط التعلم بتطبيق عائلي"].map((item) => (
+                <span key={item} className="inline-flex items-start gap-2 rounded-2xl bg-white/8 p-3">
+                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-teal-300" />
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -69,6 +77,15 @@ export default function DailyPage() {
             <h2 className="mt-2 text-xl font-black text-slate-950">{daily.activity.title}</h2>
             <p className="mt-3 leading-7 text-slate-600">{daily.activity.parentNote}</p>
             <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-violet-700">شاهد الخطوات <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" /></span>
+          </Link>
+        </div>
+        <div className="mt-8 rounded-[2rem] bg-slate-950 p-6 text-white sm:flex sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-black">تريد بداية أهدأ؟</h2>
+            <p className="mt-2 leading-8 text-slate-300">استخدم صفحة البداية لاختيار عمر الطفل والهدف قبل متابعة ورد اليوم.</p>
+          </div>
+          <Link href="/start" className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 sm:mt-0">
+            ابدأ من هنا <ArrowLeft className="h-4 w-4" />
           </Link>
         </div>
       </Section>

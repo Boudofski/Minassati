@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CheckCircle2, RotateCcw, Sparkles, XCircle } from "lucide-react";
+import { CheckCircle2, ChevronLeft, RotateCcw, Sparkles, XCircle } from "lucide-react";
 import type { Quiz } from "@/data/quizzes";
 import { cn } from "@/lib/utils";
 
@@ -16,13 +16,27 @@ export function QuizPlayer({ quiz }: { quiz: Quiz }) {
     [answers, quiz.questions],
   );
   const complete = Object.keys(answers).length === quiz.questions.length;
+  const answeredCount = Object.keys(answers).length;
+  const progress = Math.round((answeredCount / quiz.questions.length) * 100);
 
   return (
     <div className="space-y-5">
+      <div className="sticky top-20 z-20 rounded-[1.5rem] border border-slate-200 bg-white/94 p-4 shadow-soft backdrop-blur-xl sm:top-24">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm font-black text-slate-950">تقدم الاختبار</p>
+            <p className="mt-1 text-xs font-bold text-slate-500">{answeredCount} من {quiz.questions.length} أسئلة</p>
+          </div>
+          <div className="h-3 rounded-full bg-slate-100 sm:w-64">
+            <div className="h-3 rounded-full bg-gradient-to-l from-teal-500 to-blue-500 transition-all" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
+      </div>
+
       {quiz.questions.map((question, questionIndex) => {
         const selected = answers[questionIndex];
         return (
-          <article key={question.prompt} className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-soft sm:p-6">
+          <article key={question.prompt} className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-soft sm:rounded-[2rem] sm:p-6">
             <div className="flex items-start gap-3">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-blue-50 text-sm font-black text-blue-700">{questionIndex + 1}</span>
               <h2 className="text-xl font-black leading-8 text-slate-950">{question.prompt}</h2>
@@ -36,8 +50,9 @@ export function QuizPlayer({ quiz }: { quiz: Quiz }) {
                     key={choice.text}
                     type="button"
                     onClick={() => setAnswers((current) => ({ ...current, [questionIndex]: choiceIndex }))}
+                    aria-pressed={active}
                     className={cn(
-                      "rounded-2xl border p-4 text-right text-sm font-extrabold leading-7 transition",
+                      "rounded-2xl border p-4 text-right text-sm font-extrabold leading-7 transition sm:text-base",
                       "focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200",
                       active && choice.correct && "border-teal-300 bg-teal-50 text-teal-900",
                       active && !choice.correct && "border-rose-300 bg-rose-50 text-rose-900",
@@ -48,8 +63,11 @@ export function QuizPlayer({ quiz }: { quiz: Quiz }) {
                   >
                     <span className="flex items-center justify-between gap-3">
                       <span>{choice.text}</span>
-                      {answered && choice.correct && <CheckCircle2 className="h-5 w-5 shrink-0 text-teal-600" />}
-                      {active && !choice.correct && <XCircle className="h-5 w-5 shrink-0 text-rose-600" />}
+                      <span className="flex shrink-0 items-center gap-2">
+                        {answered && choice.correct && <CheckCircle2 className="h-5 w-5 text-teal-600" />}
+                        {active && !choice.correct && <XCircle className="h-5 w-5 text-rose-600" />}
+                        {!answered && <ChevronLeft className="h-4 w-4 text-slate-400" />}
+                      </span>
                     </span>
                   </button>
                 );
@@ -73,7 +91,7 @@ export function QuizPlayer({ quiz }: { quiz: Quiz }) {
             </p>
             <h2 className="mt-2 text-3xl font-black">{score} من {quiz.questions.length}</h2>
             <p className="mt-2 leading-8 text-slate-300">
-              {complete ? "تحدثوا مع الطفل عن إجابة واحدة تعلم منها شيئاً جديداً." : "أجب عن كل الأسئلة لتظهر النتيجة النهائية."}
+              {complete ? (score === quiz.questions.length ? "نتيجة ممتازة. اختاروا سؤالاً واحداً واطلبوا من الطفل شرحه بكلماته." : "تحدثوا مع الطفل عن إجابة واحدة تعلم منها شيئاً جديداً.") : "أجب عن كل الأسئلة لتظهر النتيجة النهائية."}
             </p>
           </div>
           <button

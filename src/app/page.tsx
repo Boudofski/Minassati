@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft, BookOpen, CalendarDays, CheckCircle2, Headphones, Heart, Lightbulb, MessageCircleQuestion, MoonStar, Play, ShieldCheck, Sparkles, Trophy } from "lucide-react";
 import { ButtonLink } from "@/components/minassati/ButtonLink";
 import { CategoryCard, QuestionCard } from "@/components/minassati/Cards";
@@ -8,6 +9,12 @@ import { categories } from "@/data/categories";
 import { lessons } from "@/data/lessons";
 import { questions } from "@/data/questions";
 import { childMissions, dailyAdhkar, featuredPaths, platformStats, productAreas } from "@/data/platform";
+
+export const metadata: Metadata = {
+  title: "منصتي - تعليم إسلامي يومي للأطفال والأسرة",
+  description: "منصتي منصة عربية لتعليم الإسلام للأطفال: قرآن، دروس قصيرة، أسئلة، أذكار، قصص، اختبارات، وأنشطة عائلية يومية.",
+  alternates: { canonical: "/" },
+};
 
 const faqs = [
   { q: "هل منصتي مناسبة للأطفال الصغار؟", a: "نعم، الدروس قصيرة ولغتها مبسطة، مع توجيه للأسرة في طريقة الشرح والحوار." },
@@ -40,11 +47,11 @@ export default function HomePage() {
               تعلّم الإسلام بقلب مطمئن وتجربة يحبها الطفل
             </h1>
             <p className="text-pretty mt-6 max-w-2xl text-lg leading-9 text-slate-600">
-              منصتي تجمع الدروس القصيرة، القرآن، القصص، الأذكار، الألعاب الهادفة، ولوحة الأسرة في تجربة واحدة دافئة وآمنة.
+              ابدأوا من مسار واضح، ثم عودوا يومياً لدرس قصير، آية، ذكر، سؤال، ونشاط عائلي يبني الفهم والمحبة بلا ضغط.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/kids-zone" size="lg">ابدأ رحلة الطفل</ButtonLink>
-              <ButtonLink href="/family-dashboard" variant="secondary" size="lg">ادخل كولي أمر</ButtonLink>
+              <ButtonLink href="/start" size="lg">ابدأ من هنا</ButtonLink>
+              <ButtonLink href="/daily" variant="secondary" size="lg">افتح ورد اليوم</ButtonLink>
             </div>
             <div className="mt-8 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
               {platformStats.map((stat) => (
@@ -62,7 +69,7 @@ export default function HomePage() {
               <div className="relative rounded-[1.75rem] bg-slate-950 p-6 text-white">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-sm font-black text-teal-300">مسار اليوم</p>
+                    <p className="text-sm font-black text-teal-300">ورد اليوم</p>
                     <h2 className="mt-2 text-3xl font-black">نور صغير كل يوم</h2>
                     <p className="mt-3 max-w-md leading-8 text-slate-300">درس قصير، آيات للاستماع، ومهمة عائلية تبني عادة إيمانية بلا ضغط.</p>
                   </div>
@@ -174,7 +181,7 @@ export default function HomePage() {
 
       <Section eyebrow="ثقة الأسرة" title="مصمم ليطمئن الوالدين قبل أن يدهش الأطفال">
         <div className="grid gap-5 md:grid-cols-3">
-          {["لغة تربوية هادئة بلا تخويف", "محتوى قصير قابل للتطبيق", "تجربة آمنة بلا ازدحام بصري"].map((item) => (
+          {["لغة تربوية هادئة بلا تخويف", "محتوى منظم ومترابط قابل للمراجعة", "تجربة آمنة بلا ازدحام بصري"].map((item) => (
             <div key={item} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft">
               <CheckCircle2 className="h-7 w-7 text-teal-600" />
               <h3 className="mt-4 text-xl font-black text-slate-950">{item}</h3>
@@ -235,10 +242,10 @@ export default function HomePage() {
         </div>
         <div className="mt-10 rounded-[2rem] bg-white p-7 text-slate-950 md:flex md:items-center md:justify-between">
           <div>
-            <h3 className="text-2xl font-black">ابدأ رحلة تعليمية دافئة اليوم</h3>
-            <p className="mt-2 text-slate-600">اختر مساراً قصيراً واجعل التعلم عادة أسرية لطيفة.</p>
+            <h3 className="text-2xl font-black">ابدأوا بخطة واضحة لا بقائمة طويلة</h3>
+            <p className="mt-2 text-slate-600">اختاروا عمر الطفل والهدف، ثم ابدأوا بأول درس مناسب.</p>
           </div>
-          <ButtonLink href="/learn" className="mt-5 md:mt-0">استكشف الدروس</ButtonLink>
+          <ButtonLink href="/start" className="mt-5 md:mt-0">ابدأ من هنا</ButtonLink>
         </div>
       </Section>
     </>

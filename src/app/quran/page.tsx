@@ -6,8 +6,8 @@ import { Section } from "@/components/minassati/Section";
 import { getSurahList } from "@/lib/quran-api";
 
 export const metadata: Metadata = {
-  title: "القرآن الكريم",
-  description: "قارئ قرآن تفاعلي في منصتي: سور القرآن، قراءة عربية، ترجمة، أدوات نسخ ومشاركة، وتجربة حفظ للأطفال.",
+  title: "قارئ القرآن الكريم للأطفال والأسرة",
+  description: "قارئ قرآن عربي في منصتي مع فهرس السور، آيات عربية، ترجمة اختيارية، أدوات نسخ ومشاركة، وروابط تعلم للأطفال.",
   alternates: { canonical: "/quran" },
 };
 
@@ -29,7 +29,7 @@ export default async function QuranPage() {
             <p className="text-sm font-black text-blue-700">قارئ القرآن</p>
             <h1 className="text-balance mt-4 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">اختر سورة وابدأ قراءة هادئة</h1>
             <p className="mt-5 text-pretty text-lg leading-9 text-slate-600">
-              نص القرآن يُحمّل من fawazahmed0/quran-api مع fallback إلى AlQuran.cloud، دون تخزين ملفات ثقيلة داخل المشروع.
+              فهرس السور وقراءة عربية واضحة مع ترجمة اختيارية وأدوات نسخ ومشاركة، مع fallback واضح إذا تعذر الاتصال بالمصدر.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/audio">استمع للتلاوات</ButtonLink>

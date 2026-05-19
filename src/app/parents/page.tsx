@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { CalendarCheck, CheckCircle2, HeartHandshake, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, CalendarCheck, CheckCircle2, HeartHandshake, ShieldCheck } from "lucide-react";
 import { Section } from "@/components/minassati/Section";
 import { parentGuidanceCards } from "@/data/platform";
 
 export const metadata: Metadata = {
-  title: "دليل الأهل",
-  description: "إرشاد عملي للأهل لاستخدام منصتي يومياً مع الأطفال وتعليم القرآن والصلاة بلا ضغط.",
+  title: "دليل الأهل لتعليم الإسلام للأطفال",
+  description: "دليل عملي للأهل لاستخدام منصتي يومياً: خطة 10 دقائق، تعليم القرآن بمحبة، وتعليم الصلاة بلا ضغط.",
   alternates: { canonical: "/parents" },
 };
 
@@ -25,8 +26,26 @@ export default function ParentsPage() {
           <p className="inline-flex items-center gap-2 text-sm font-black text-teal-300"><ShieldCheck className="h-4 w-4" /> للأهل</p>
           <h1 className="mt-4 text-balance text-4xl font-black sm:text-6xl">دينٌ يُعلَّم بالرحمة والقدوة والروتين الصغير</h1>
           <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-300">دليل عملي يساعد الوالدين على تحويل منصتي إلى عادة تربوية يومية، بلا ضغط ولا ارتباك.</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link href="/start" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950">
+              اختر مسار طفلك <ArrowLeft className="h-4 w-4" />
+            </Link>
+            <Link href="/daily" className="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-5 py-3 text-sm font-black text-white">
+              ورد اليوم
+            </Link>
+          </div>
         </div>
       </section>
+      <Section title="ما الذي يطمئن الأسرة؟" description="منصتي لا تصدر فتاوى مخصصة ولا تستبدل دور العلماء والأهل، بل تقدم محتوى تعليمي مبسط ومنظم للأطفال.">
+        <div className="grid gap-5 md:grid-cols-3">
+          {["لغة مناسبة لعمر 6-12 سنة", "روابط داخلية بين الدروس والأسئلة والأنشطة", "توجيه للأهل داخل كل درس ونشاط"].map((item) => (
+            <article key={item} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft">
+              <ShieldCheck className="h-7 w-7 text-blue-600" />
+              <h2 className="mt-4 text-xl font-black text-slate-950">{item}</h2>
+            </article>
+          ))}
+        </div>
+      </Section>
       <Section title="دليل الاستخدام اليومي">
         <div className="grid gap-5 lg:grid-cols-2">
           {guideSections.map((item) => (
