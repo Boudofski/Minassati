@@ -116,8 +116,8 @@ export function Header() {
 
         {/* Desktop primary nav */}
         <nav
-          className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm lg:flex"
-          aria-label="التنقل الرئيسي"
+          className="hidden min-w-0 items-center gap-0.5 rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm lg:flex"
+          aria-label={t.nav.primaryNavigation}
         >
           {primaryNav.map((item) => {
             const Icon = item.icon;
@@ -127,13 +127,13 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-extrabold transition-all",
+                  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-2 text-xs font-extrabold transition-all xl:px-3 xl:text-sm",
                   active
-                    ? "bg-slate-950 text-white shadow-md shadow-slate-950/15"
+                    ? "bg-slate-100 text-slate-950 shadow-sm"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
                 )}
               >
-                <Icon className="h-4 w-4" aria-hidden="true" />
+                <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                 {item.label}
               </Link>
             );
@@ -148,7 +148,7 @@ export function Header() {
               aria-haspopup="true"
               aria-expanded={dropdownOpen}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-extrabold transition-all",
+                "inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-extrabold transition-all xl:text-sm",
                 dropdownOpen
                   ? "bg-slate-950 text-white"
                   : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
@@ -171,7 +171,10 @@ export function Header() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 6, scale: 0.98 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="absolute left-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/12"
+                  className={cn(
+                    "absolute top-full z-50 mt-2 w-60 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/12",
+                    locale === "ar" ? "left-0" : "right-0",
+                  )}
                 >
                   <div className="p-1.5">
                     {moreItems.map((item) => {
@@ -202,7 +205,7 @@ export function Header() {
 
           <Link
             href={locale === "ar" ? "/family-dashboard" : prefix("/parents")}
-            className="rounded-full bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-2.5 text-sm font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5"
+            className="rounded-full bg-gradient-to-l from-blue-600 to-teal-500 px-3.5 py-2 text-xs font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 xl:px-4 xl:text-sm"
           >
             {t.nav.dashboard}
           </Link>
@@ -287,15 +290,15 @@ export function Header() {
               {/* CTA */}
               <div className="border-t border-slate-100 pb-1 pt-3">
                 <Link
-                  href="/family-dashboard"
+                  href={locale === "ar" ? "/family-dashboard" : prefix("/parents")}
                   onClick={() => setMobileOpen(false)}
                   className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-3.5 text-base font-black text-white shadow-lg shadow-blue-500/20 transition hover:opacity-90"
                 >
                   <LayoutDashboard className="h-5 w-5" aria-hidden="true" />
                   {t.nav.dashboard}
                 </Link>
-                <div className="mt-3">
-                  <LanguageSwitcher compact />
+                <div className="mt-3 flex justify-center">
+                  <LanguageSwitcher align="start" className="w-full [&>button]:w-full [&>button]:justify-center" />
                 </div>
               </div>
             </div>

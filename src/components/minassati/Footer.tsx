@@ -59,7 +59,7 @@ export function Footer() {
               </span>
               <span>
                 <strong className="block text-2xl font-black">{t.site.name}</strong>
-                <span className="text-sm font-bold text-teal-300">Minassati</span>
+                <span className="text-sm font-bold text-teal-300">{t.site.tagline}</span>
               </span>
             </Link>
 
@@ -67,12 +67,12 @@ export function Footer() {
               {t.footer.description}
             </p>
             <div className="mt-5 max-w-xl">
-              <LanguageSwitcher compact />
+              <LanguageSwitcher align="start" />
             </div>
 
             <blockquote className="mt-7 max-w-xl rounded-[2rem] border border-white/10 bg-white/6 p-5 text-sm leading-8 text-slate-200 backdrop-blur">
-              <span>وَقُل رَّبِّ زِدْنِي عِلْمًا</span>
-              <span className="mt-2 block text-xs font-bold text-slate-400">دعاء يلخص روح منصتي: علم نافع، قلب مطمئن، وخطوة صغيرة كل يوم.</span>
+              <span>{t.footer.quote}</span>
+              <span className="mt-2 block text-xs font-bold text-slate-400">{t.footer.quoteNote}</span>
             </blockquote>
           </div>
 
