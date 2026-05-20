@@ -5,10 +5,11 @@ import { questions } from "@/data/questions";
 import { quizzes } from "@/data/quizzes";
 import { stories } from "@/data/stories";
 import { articles } from "@/data/articles";
-import { fallbackReciters } from "@/lib/mp3quran-api";
+import { getReciters } from "@/lib/mp3quran-api";
 import { site } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { reciters } = await getReciters();
   const staticRoutes = [
     "",
     "/learn",
@@ -42,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...quizzes.map((quiz) => ({ url: `${site.url}/quizzes/${quiz.slug}`, lastModified: new Date(), priority: 0.6 })),
     ...stories.map((story) => ({ url: `${site.url}/stories/${story.slug}`, lastModified: new Date(), priority: 0.6 })),
     ...Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}/quran/${index + 1}`, lastModified: new Date(), priority: 0.6 })),
-    ...fallbackReciters.map((reciter) => ({ url: `${site.url}/audio/${reciter.id}`, lastModified: new Date(), priority: 0.5 })),
+    ...reciters.slice(0, 24).map((reciter) => ({ url: `${site.url}/audio/${reciter.id}`, lastModified: new Date(), priority: 0.5 })),
     ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.8 })),
   ];
 }

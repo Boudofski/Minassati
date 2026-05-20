@@ -22,7 +22,7 @@ export const stories: Story[] = [
       { heading: "رسالة للطفل", body: "إذا أخطأت فقل بصدق: أستغفر الله، ثم حاول إصلاح الخطأ بخطوة عملية." },
     ],
     reflectionQuestion: "ما التصرف الصحيح عندما نخطئ في البيت أو المدرسة؟",
-    relatedLesson: "allah-is-one",
+    relatedLesson: "who-is-allah",
   },
   {
     slug: "nuh-patience",
@@ -36,7 +36,7 @@ export const stories: Story[] = [
       { heading: "تطبيق اليوم", body: "إذا أردت عادة جميلة مثل الصلاة أو القراءة، فابدأ قليلاً واثبت عليها." },
     ],
     reflectionQuestion: "ما عادة صغيرة تحتاج منك صبراً هذا الأسبوع؟",
-    relatedLesson: "patience-in-everyday-life",
+    relatedLesson: "patience-for-kids",
   },
   {
     slug: "ibrahim-truth",
@@ -50,7 +50,7 @@ export const stories: Story[] = [
       { heading: "تفكر عائلي", body: "انظروا إلى السماء أو النبات، وتحدثوا عن نعمة واحدة تدل على رحمة الله." },
     ],
     reflectionQuestion: "ما نعمة حولك تذكرك بعظمة الله؟",
-    relatedLesson: "believing-in-allah",
+    relatedLesson: "what-is-iman",
   },
   {
     slug: "ismail-obedience",
@@ -64,7 +64,7 @@ export const stories: Story[] = [
       { heading: "طاعة صغيرة", body: "اختر أمراً نافعاً في البيت، مثل ترتيب المصلى أو مساعدة الأسرة، وافعل ذلك بنية طيبة." },
     ],
     reflectionQuestion: "ما طاعة صغيرة تستطيع فعلها اليوم بمحبة؟",
-    relatedLesson: "obeying-allah-with-love",
+    relatedLesson: "meaning-of-islam",
   },
   {
     slug: "yusuf-forgiveness",
@@ -78,7 +78,7 @@ export const stories: Story[] = [
       { heading: "في حياتنا", body: "العفو لا يعني أن نرضى بالخطأ، لكنه يعني أن نصلح القلب ونختار التصرف الأكرم." },
     ],
     reflectionQuestion: "متى يكون العفو جميلاً؟ ومتى نحتاج إلى طلب مساعدة الكبار؟",
-    relatedLesson: "forgiveness-and-mercy",
+    relatedLesson: "forgiveness",
   },
   {
     slug: "musa-courage",
@@ -92,7 +92,7 @@ export const stories: Story[] = [
       { heading: "تدريب", body: "درّب الطفل على قول كلمة حق بأدب، مثل الاعتذار أو الدفاع عن زميل مظلوم." },
     ],
     reflectionQuestion: "ما كلمة حق تحتاج أن تقولها بأدب؟",
-    relatedLesson: "trust-in-allah",
+    relatedLesson: "what-is-qadar",
   },
   {
     slug: "maryam-trust",
@@ -106,7 +106,7 @@ export const stories: Story[] = [
       { heading: "درس للطفل", body: "عندما تخاف أو تحتار، تحدث مع والديك وادع الله أن يحفظك ويهديك." },
     ],
     reflectionQuestion: "ما دعاء تقوله عندما تشعر بالخوف؟",
-    relatedLesson: "asking-allah-for-help",
+    relatedLesson: "duaa-when-afraid",
   },
   {
     slug: "people-of-cave",
@@ -120,7 +120,7 @@ export const stories: Story[] = [
       { heading: "اختيار الصديق", body: "اسأل طفلك: من الصديق الذي يذكرك بالخير ويشجعك على الصواب؟" },
     ],
     reflectionQuestion: "ما صفة تحبها في الصديق الصالح؟",
-    relatedLesson: "choosing-good-friends",
+    relatedLesson: "good-friendship",
   },
   {
     slug: "birth-of-prophet",
@@ -134,7 +134,7 @@ export const stories: Story[] = [
       { heading: "محبة عملية", body: "محبة النبي ﷺ تظهر عندما نتعلم سنته ونطبق خلقاً من أخلاقه." },
     ],
     reflectionQuestion: "أي خلق من أخلاق النبي ﷺ تحب أن تتعلمه؟",
-    relatedLesson: "loving-the-prophet",
+    relatedLesson: "character-of-prophet",
   },
   {
     slug: "truthful-trustworthy",
@@ -162,7 +162,7 @@ export const stories: Story[] = [
       { heading: "عادة قراءة", body: "اختروا فقرة قصيرة من درس أو قصة واقرأوها معاً كل يوم." },
     ],
     reflectionQuestion: "ماذا تحب أن تقرأ لتزداد علماً؟",
-    relatedLesson: "seeking-beneficial-knowledge",
+    relatedLesson: "hadith-seeking-knowledge",
   },
   {
     slug: "hijrah-planning",
@@ -176,7 +176,7 @@ export const stories: Story[] = [
       { heading: "خطة صغيرة", body: "ضع مع طفلك خطة لمهمة دراسية أو عبادة أسبوعية بخطوات واضحة." },
     ],
     reflectionQuestion: "ما الفرق بين التوكل وترك العمل؟",
-    relatedLesson: "planning-and-trust",
+    relatedLesson: "hijra-story",
   },
   {
     slug: "brotherhood-madinah",
@@ -190,7 +190,7 @@ export const stories: Story[] = [
       { heading: "تطبيق", body: "اختر شخصاً في البيت أو المدرسة وساعده مساعدة صغيرة دون انتظار مقابل." },
     ],
     reflectionQuestion: "ما مساعدة بسيطة تستطيع تقديمها هذا الأسبوع؟",
-    relatedLesson: "helping-others",
+    relatedLesson: "cooperation",
   },
   {
     slug: "mercy-with-children",
@@ -204,7 +204,7 @@ export const stories: Story[] = [
       { heading: "رحمة اليوم", body: "اختر كائناً أو إنساناً يحتاج إلى لطف، وافعل له خيراً صغيراً." },
     ],
     reflectionQuestion: "كيف تكون رحيماً بأخيك أو صديقك؟",
-    relatedLesson: "mercy-in-islam",
+    relatedLesson: "mercy-in-seerah",
   },
   {
     slug: "fath-makkah-forgiveness",
@@ -218,7 +218,7 @@ export const stories: Story[] = [
       { heading: "حوار أسري", body: "تحدثوا عن موقف عفا فيه الطفل أو احتاج أن يعتذر فيه." },
     ],
     reflectionQuestion: "لماذا يحتاج العفو إلى قوة؟",
-    relatedLesson: "forgiveness-and-mercy",
+    relatedLesson: "forgiveness",
   },
   {
     slug: "abu-bakr-steadfast",
@@ -232,7 +232,7 @@ export const stories: Story[] = [
       { heading: "صديق خير", body: "علّم الطفل أن يختار صديقاً يعينه على الصدق والصلاة والخلق الحسن." },
     ],
     reflectionQuestion: "كيف يعين الصديق الجيد صاحبه على الخير؟",
-    relatedLesson: "choosing-good-friends",
+    relatedLesson: "good-friendship",
   },
   {
     slug: "umar-justice",
@@ -246,7 +246,7 @@ export const stories: Story[] = [
       { heading: "تدريب", body: "اعرض موقفاً فيه خلاف بين طفلين، واسأل: ما الحل العادل؟" },
     ],
     reflectionQuestion: "ما التصرف العادل إذا اختلفت مع أخيك على لعبة؟",
-    relatedLesson: "justice-and-fairness",
+    relatedLesson: "farewell-sermon",
   },
   {
     slug: "uthman-generosity",
@@ -260,7 +260,7 @@ export const stories: Story[] = [
       { heading: "صدقة صغيرة", body: "ضع خطة صدقة أو مساعدة صغيرة هذا الأسبوع مع الطفل." },
     ],
     reflectionQuestion: "كيف تكون كريماً حتى لو لم تملك مالاً؟",
-    relatedLesson: "generosity",
+    relatedLesson: "generosity-small",
   },
   {
     slug: "kind-word",
@@ -274,7 +274,7 @@ export const stories: Story[] = [
       { heading: "مهمة", body: "قل ثلاث كلمات طيبة اليوم: لوالديك، لصديق، ولنفسك عند الخطأ." },
     ],
     reflectionQuestion: "ما كلمة طيبة تحب أن تسمعها وتقولها؟",
-    relatedLesson: "kind-words",
+    relatedLesson: "hadith-good-word",
   },
   {
     slug: "honoring-parents",
@@ -288,7 +288,7 @@ export const stories: Story[] = [
       { heading: "بطاقة شكر", body: "اكتب بطاقة صغيرة لوالديك فيها دعاء وشكر على شيء فعلوه لك." },
     ],
     reflectionQuestion: "ما مساعدة صغيرة تستطيع تقديمها لوالديك اليوم؟",
-    relatedLesson: "honoring-parents",
+    relatedLesson: "respecting-parents",
   },
   {
     slug: "keeping-prayer",
@@ -302,7 +302,7 @@ export const stories: Story[] = [
       { heading: "ركن صلاة", body: "جهزوا ركناً صغيراً للصلاة في البيت ليشعر الطفل بالسكينة." },
     ],
     reflectionQuestion: "ما الشيء الذي يساعدك على الصلاة بهدوء؟",
-    relatedLesson: "why-we-pray",
+    relatedLesson: "why-do-we-pray",
   },
 
 
@@ -440,7 +440,7 @@ export const stories: Story[] = [
     summary: "قصة بلال رضي الله عنه الذي تحمّل الأذى الشديد بكلمة واحدة أحد أحد، تُعلّم الطفل أن الإيمان القوي يجعل الإنسان ثابتاً في أصعب الظروف.",
     sections: [
       { heading: "كلمة لا تتغير", body: "كان المشركون يُعذّبون بلالاً رضي الله عنه في الصحراء الحارة وهو يقول: أحد أحد. كلمة واحدة تُلخّص إيمانه كله وتُبيّن أنه لن يتخلى عنه مهما حدث." },
-      { heading: "الصبر أقوى من الأذى", body: "الصبر لا يعني السكوت على الظلم بل التمسك بالحق حتى لو كان ذلك صعباً. صبر بلال لم يكن ضعفاً بل قوة روحية فائقة سخرية المشركون منه لكنها انتصرت عليهم." },
+      { heading: "الصبر أقوى من الأذى", body: "الصبر لا يعني السكوت على الظلم بل التمسك بالحق حتى لو كان ذلك صعباً. سخر المشركون من بلال رضي الله عنه، لكن صبره لم يكن ضعفاً بل قوة روحية انتصرت على الأذى." },
       { heading: "نهاية مشرفة", body: "أصبح بلال رضي الله عنه مؤذن النبي ﷺ وصوته يملأ المدينة بالأذان. من المُعذَّب في الصحراء إلى أول مؤذن في الإسلام: الثبات على الحق طريق النصر." },
     ],
     reflectionQuestion: "ما شيء تتمسك به حتى لو سخر منه أصدقاؤك؟",

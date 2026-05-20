@@ -42,11 +42,11 @@ function buildQuestion(lessonSlug: string, index: number): Question {
   const category = categoryNames[lesson.category];
   const slug = `${lesson.slug}-question`;
   const question = `${starter} ${lesson.title}؟`;
-  const shortAnswer = `ابدأ بمعنى واحد بسيط من الدرس، ثم اربطه بموقف يومي يراه الطفل ويستطيع تطبيقه.`;
+  const shortAnswer = `ابدأ في ${lesson.title} بمعنى واحد واضح، ثم اربطه بموقف يومي يراه الطفل ويستطيع تطبيقه.`;
   const detailedAnswer = [
     `لا يحتاج الطفل في عمر 6 إلى 12 سنة إلى تفصيل طويل في موضوع ${lesson.title}. يحتاج إلى جملة واضحة، مثال قريب، وتطبيق صغير يكرره مع الأسرة.`,
     `يمكنك أن تقول له: ${lesson.summary} ثم اسأله سؤالاً مفتوحاً مثل: كيف نطبق هذا اليوم؟ ماذا تشعر عندما نفعل ذلك؟`,
-    `أفضل طريقة هي القدوة الهادئة. عندما يرى الطفل والديه يطبقان المعنى، يصبح الدرس جزءاً من الحياة لا مجرد كلام يسمعه.`,
+    `في موضوع ${lesson.title}، تبقى القدوة الهادئة أقوى من الشرح الطويل. عندما يرى الطفل المعنى مطبقاً في البيت، يصبح الدرس جزءاً من الحياة لا مجرد كلام يسمعه.`,
   ];
   const related = lessons
     .filter((item) => item.category === lesson.category && item.slug !== lesson.slug)
@@ -61,7 +61,7 @@ function buildQuestion(lessonSlug: string, index: number): Question {
     detailedAnswer,
     answer: detailedAnswer,
     tags: lesson.tags,
-    parentNote: lesson.parentNote,
+    parentNote: `عند سؤال الطفل عن ${lesson.title}، ابدأ بإجابة قصيرة ثم اسأله عن مثال من يومه. لا تحوّل السؤال إلى اختبار طويل.`,
     related,
     seoDescription: `${question} إجابة تربوية مبسطة من منصتي للأطفال والأسر بأسلوب دافئ وواضح.`,
   };
@@ -1000,12 +1000,21 @@ export const questions: Question[] = [
   ...baseSlugs.map((slug, index) => buildQuestion(slug, index)),
   ...baseSlugs.map((slug, index) => {
     const base = buildQuestion(slug, index + 37);
+    const lesson = lessons[index];
+    const detailedAnswer = [
+      `حوّل درس ${lesson.title} إلى فعل واحد يمكن للطفل تجربته اليوم، ثم اترك مساحة ليصف ما حدث بكلماته.`,
+      `النشاط المناسب هنا هو: ${lesson.activity} اجعل المطلوب واضحاً وقصيراً حتى يشعر الطفل أنه قادر على النجاح.`,
+      `بعد نشاط ${lesson.title} اسأل سؤال متابعة واحداً: ماذا تعلمنا؟ هذا يثبت المعنى دون إطالة أو ضغط.`,
+    ];
     return {
       ...base,
       slug: `${slug}-practice-question`,
-      question: `ما نشاط بسيط يساعد الطفل على تطبيق ${lessons[index].title}؟`,
-      shortAnswer: lessons[index].activity,
-      seoDescription: `نشاط عملي لتطبيق ${lessons[index].title} مع الطفل في البيت أو المدرسة.`,
+      question: `ما نشاط بسيط يساعد الطفل على تطبيق ${lesson.title}؟`,
+      shortAnswer: lesson.activity,
+      detailedAnswer,
+      answer: detailedAnswer,
+      parentNote: `راقب أثر نشاط ${lesson.title} على الطفل، وامدح المحاولة قبل تصحيح التفاصيل.`,
+      seoDescription: `نشاط عملي لتطبيق ${lesson.title} مع الطفل في البيت أو المدرسة.`,
       related: [`${slug}-question`, ...base.related.slice(0, 2)],
     };
   }).slice(0, 24),
