@@ -51,6 +51,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}/quran/${index + 1}`, lastModified: new Date(), priority: 0.6 })),
     ...locales.flatMap((locale) => Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}${localizedPath(locale, `/quran/${index + 1}`)}`, lastModified: new Date(), priority: 0.55 }))),
     ...reciters.slice(0, 24).map((reciter) => ({ url: `${site.url}/audio/${reciter.id}`, lastModified: new Date(), priority: 0.5 })),
+    ...locales.flatMap((locale) =>
+      reciters.slice(0, 24).map((reciter) => ({
+        url: `${site.url}${localizedPath(locale, `/audio/${reciter.id}`)}`,
+        lastModified: new Date(),
+        priority: 0.45,
+      }))
+    ),
     ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.8 })),
   ];
 }

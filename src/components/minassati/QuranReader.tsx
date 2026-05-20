@@ -1,22 +1,27 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertTriangle, Check, Copy, Languages, Minus, Plus, Share2 } from "lucide-react";
+import { AlertTriangle, Check, Copy, Headphones, Languages, Minus, Plus, Share2 } from "lucide-react";
 import type { AyahData, TranslationAyah } from "@/lib/quran-api";
 import { quranTranslationOptions, type QuranTranslationKey } from "@/lib/quran-translations";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
+import { getAudioUrl, getAvailableSurahs, type Reciter } from "@/lib/mp3quran-api";
 
 export function QuranReader({
   ayahs,
   translations,
   surahName,
   locale = "ar",
+  reciters = [],
+  surahNumber,
 }: {
   ayahs: AyahData[];
   translations: Partial<Record<Exclude<QuranTranslationKey, "none">, TranslationAyah[]>> | TranslationAyah[];
   surahName: string;
   locale?: Locale;
+  reciters?: Reciter[];
+  surahNumber?: number;
 }) {
   const t = getDictionary(locale);
   const [translationLanguage, setTranslationLanguage] = useState<QuranTranslationKey>("none");
@@ -56,8 +61,87 @@ export function QuranReader({
     await copyAyah(ayah);
   }
 
+  // Filter reciters that contain this surah in their available surahs list
+  const playableReciters = useMemo(() => {
+    if (!surahNumber) return [];
+    return reciters.filter((reciter) => {
+      return reciter.moshaf?.some((m) => {
+        const list = getAvailableSurahs(m);
+        return list.includes(surahNumber);
+      });
+    });
+  }, [reciters, surahNumber]);
+
+  const [selectedReciterId, setSelectedReciterId] = useState<number | null>(null);
+  const activeReciter = useMemo(() => {
+    if (selectedReciterId !== null) {
+      return playableReciters.find((r) => r.id === selectedReciterId) ?? playableReciters[0];
+    }
+    return playableReciters[0];
+  }, [playableReciters, selectedReciterId]);
+
+  const activeMoshaf = useMemo(() => {
+    if (!activeReciter) return null;
+    return activeReciter.moshaf.find((m) => {
+      const list = getAvailableSurahs(m);
+      return list.includes(Number(surahNumber));
+    }) ?? activeReciter.moshaf[0];
+  }, [activeReciter, surahNumber]);
+
+  const audioUrl = useMemo(() => {
+    if (!activeMoshaf || !surahNumber) return "";
+    return getAudioUrl(activeMoshaf, surahNumber);
+  }, [activeMoshaf, surahNumber]);
+
   return (
     <div>
+      {/* Dynamic Integrated Reciter Player */}
+      {surahNumber && playableReciters.length > 0 && activeReciter && (
+        <div className="mb-6 rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white to-slate-50/50 p-6 shadow-soft">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="grid h-12 w-12 place-items-center rounded-2xl bg-amber-50 text-amber-600 animate-float shrink-0">
+                <Headphones className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-black text-slate-950">
+                  {t.quran.playAudio ?? "تشغيل التلاوة"}
+                </h3>
+                <p className="mt-1 text-sm leading-6 text-slate-600 max-w-2xl">
+                  {t.quran.listenInstruction ?? "روتين الأسرة: أنصتوا للتلاوة معاً، ثم شجعوا الطفل على تكرار آية قصيرة أو الحديث عن كلمة جميلة سمعها."}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1 shrink-0">
+              <span className="text-xs font-black text-slate-500">{t.quran.selectReciter ?? "اختر القارئ المفضل"}</span>
+              <select
+                value={activeReciter.id}
+                onChange={(e) => setSelectedReciterId(Number(e.target.value))}
+                className="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-black text-slate-800 outline-none hover:border-blue-300 transition-all"
+              >
+                {playableReciters.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-6 border-t border-slate-100 pt-6">
+            <audio
+              key={audioUrl}
+              src={audioUrl}
+              controls
+              className="w-full"
+              preload="none"
+              onError={() => alert(t.quran.audioError ?? "تعذر تشغيل الصوت. تحقق من اتصالك بالإنترنت.")}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="sticky top-20 z-20 mb-6 rounded-[1.5rem] border border-slate-200 bg-white/94 p-3 shadow-soft backdrop-blur-xl sm:top-24 sm:rounded-[2rem]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>

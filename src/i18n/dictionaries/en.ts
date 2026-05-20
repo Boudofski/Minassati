@@ -101,6 +101,10 @@ export const en = {
     copyAyah: "Copy ayah", shareAyah: "Share ayah", ayahLink: "Ayah link",
     surahLabel: "Surah", ayahsLabel: "ayahs",
     ayahsUnavailable: "Ayahs cannot be displayed right now", ayahsUnavailableText: "Try refreshing later. The reader shows a clear fallback instead of a blank page when data sources fail.",
+    listenInstruction: "Family routine: Listen together, then encourage your child to repeat a short ayah or talk about a beautiful word they heard.",
+    selectReciter: "Choose Reciter",
+    playAudio: "Play Recitation",
+    audioError: "Failed to play audio. Check your internet connection.",
   },
   footer: {
     description: "A multilingual Islamic learning platform for Qur’an, character, Seerah, worship, and short safe family-guided learning.",

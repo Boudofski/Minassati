@@ -37,7 +37,7 @@ export default async function ReciterAudioPage({ params }: Props) {
 
   const moshaf = reciter.moshaf[0];
   const availableSurahs = moshaf ? getAvailableSurahs(moshaf) : [];
-  const selectedSurahs = (availableSurahs.length ? availableSurahs : [1, 112, 113, 114]).slice(0, 30);
+  const selectedSurahs = availableSurahs.length ? availableSurahs : Array.from({ length: 114 }, (_, i) => i + 1);
   const surahs = selectedSurahs.map((surahNumber) => fallbackSurahs[surahNumber - 1]).filter(Boolean);
 
   return (

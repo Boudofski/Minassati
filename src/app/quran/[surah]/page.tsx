@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowLeft, BookOpen, Headphones } from "lucide-react";
 import { QuranReader } from "@/components/minassati/QuranReader";
 import { getSurahAyahs, getSurahList } from "@/lib/quran-api";
 import { getSurahTranslations } from "@/lib/quran-translations";
+import { getReciters } from "@/lib/mp3quran-api";
 import { lessons } from "@/data/lessons";
 
 type Props = { params: { surah: string } };
@@ -29,9 +30,10 @@ export default async function SurahPage({ params }: Props) {
   const surahNumber = Number(params.surah);
   if (!Number.isInteger(surahNumber) || surahNumber < 1 || surahNumber > 114) notFound();
 
-  const [surah, translations] = await Promise.all([
+  const [surah, translations, { reciters }] = await Promise.all([
     getSurahAyahs(surahNumber),
     getSurahTranslations(surahNumber),
+    getReciters(),
   ]);
   const relatedLessons = lessons.filter((lesson) => lesson.category === "quran").slice(0, 4);
 
@@ -53,7 +55,7 @@ export default async function SurahPage({ params }: Props) {
         ) : null}
       </div>
 
-      <QuranReader ayahs={surah.ayahs} translations={translations} surahName={surah.name} />
+      <QuranReader ayahs={surah.ayahs} translations={translations} surahName={surah.name} reciters={reciters} surahNumber={surahNumber} />
 
       <section className="mt-10 grid gap-4 md:grid-cols-2">
         <Link href="/audio" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft transition hover:-translate-y-1">

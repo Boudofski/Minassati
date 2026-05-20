@@ -82,6 +82,10 @@ export const fr = {
     ayahsLabel: "versets",
     ayahsUnavailable: "Les versets ne peuvent pas être affichés maintenant",
     ayahsUnavailableText: "Réessayez plus tard. Le lecteur affiche un message clair au lieu d’une page vide quand la source de données échoue.",
+    listenInstruction: "Routine familiale : Écoutez ensemble, puis encouragez votre enfant à répéter un verset court ou à parler d'un beau mot qu'il a entendu.",
+    selectReciter: "Choisir le récitant",
+    playAudio: "Lancer la récitation",
+    audioError: "Échec de lecture de l'audio. Vérifiez votre connexion internet.",
   },
   footer: { ...en.footer, description: "Une plateforme islamique multilingue pour le Coran, les valeurs, la Seerah, les adorations et l’apprentissage familial.", trustTitle: "Une expérience familiale fiable", newsletter: "Newsletter", email: "Email du parent", subscribe: "S’abonner", rights: "© 2026 Minassati. Tous droits réservés.", quote: "Seigneur, augmente-moi en science.", quoteNote: "L’esprit de Minassati : une science utile, un cœur apaisé et un petit pas chaque jour." },
 } as const;

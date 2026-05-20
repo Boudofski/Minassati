@@ -82,6 +82,10 @@ export const es = {
     ayahsLabel: "versículos",
     ayahsUnavailable: "No se pueden mostrar los versículos ahora",
     ayahsUnavailableText: "Inténtalo de nuevo más tarde. El lector muestra un mensaje claro en lugar de una página vacía cuando falla la fuente de datos.",
+    listenInstruction: "Rutina familiar: Escuchen juntos, luego animen a su hijo a repetir una ayah corta o a hablar sobre una palabra hermosa que haya escuchado.",
+    selectReciter: "Elegir recitador",
+    playAudio: "Iniciar la recitación",
+    audioError: "Error al reproducir el audio. Compruebe su conexión a internet.",
   },
   footer: { ...en.footer, description: "Una plataforma islámica multilingüe para Corán, valores, Seerah, adoración y aprendizaje familiar.", trustTitle: "Una experiencia familiar confiable", newsletter: "Boletín", email: "Email del padre/madre", subscribe: "Suscribirse", rights: "© 2026 Minassati. Todos los derechos reservados.", quote: "Señor, aumenta mi conocimiento.", quoteNote: "El espíritu de Minassati: conocimiento útil, un corazón sereno y un pequeño paso cada día." },
 } as const;

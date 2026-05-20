@@ -31,6 +31,7 @@ function getActiveLocale(pathname: string): Locale {
 function getTarget(locale: Locale, pathname: string) {
   const clean = stripLocale(pathname);
   if (/^\/quran\/\d+$/.test(clean)) return localizedPath(locale, clean);
+  if (/^\/audio\/\d+$/.test(clean)) return localizedPath(locale, clean);
   if (implementedRoots.has(clean)) return localizedPath(locale, clean);
   return locale === "ar" ? "/ar" : `/${locale}`;
 }

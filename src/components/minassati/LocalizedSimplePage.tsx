@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpen, FileText, MessageCircleQuestion } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, FileText, MessageCircleQuestion } from "lucide-react";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { localeDirections, rootLocalizedPath, type Locale } from "@/i18n/config";
 import { translatedArticleSamples, translatedLessonSamples, translatedQuestionSamples } from "@/data/translated-samples";
@@ -17,6 +17,10 @@ export function LocalizedSimplePage({ locale, pageKey }: { locale: Locale; pageK
     pageKey === "qa" ? translatedQuestionSamples[nonArabic] :
     pageKey === "articles" ? translatedArticleSamples[nonArabic] :
     [];
+
+  const isRtl = locale === "ar";
+  const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
+  const hoverClass = isRtl ? "group-hover:-translate-x-1" : "group-hover:translate-x-1";
 
   return (
     <div lang={locale} dir={dir}>
@@ -46,7 +50,7 @@ export function LocalizedSimplePage({ locale, pageKey }: { locale: Locale; pageK
                   <h3 className="mt-4 text-xl font-black text-slate-950">{sample.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-slate-600">{sample.excerpt}</p>
                   <span className="mt-4 inline-flex items-center gap-2 text-sm font-black text-blue-700">
-                    {t.common.readMore} <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
+                    {t.common.readMore} <ArrowIcon className={`h-4 w-4 transition-transform ${hoverClass}`} />
                   </span>
                 </Link>
               ))}

@@ -6,6 +6,7 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import { localizedAlternates } from "@/lib/seo-i18n";
 import { getSurahAyahs, getSurahList } from "@/lib/quran-api";
 import { getSurahTranslations } from "@/lib/quran-translations";
+import { getReciters } from "@/lib/mp3quran-api";
 
 export function generateStaticParams() {
   return ["ar", "en", "fr", "es"].flatMap((locale) => Array.from({ length: 114 }, (_, index) => ({ locale, surah: String(index + 1) })));
@@ -32,7 +33,11 @@ export default async function Page({ params }: { params: { locale: string; surah
   const surahNumber = Number(params.surah);
   if (!Number.isInteger(surahNumber) || surahNumber < 1 || surahNumber > 114) notFound();
   const t = getDictionary(locale);
-  const [surah, translations] = await Promise.all([getSurahAyahs(surahNumber), getSurahTranslations(surahNumber)]);
+  const [surah, translations, { reciters }] = await Promise.all([
+    getSurahAyahs(surahNumber),
+    getSurahTranslations(surahNumber),
+    getReciters(),
+  ]);
   return (
     <article className="page-shell py-12 sm:py-16" lang={locale} dir={localeDirections[locale]}>
       <div className="mb-8 rounded-[2.5rem] bg-slate-950 p-7 text-white shadow-navy-glow sm:p-10">
@@ -40,7 +45,7 @@ export default async function Page({ params }: { params: { locale: string; surah
         <h1 className="mt-3 text-4xl font-black sm:text-6xl">{surah.name}</h1>
         <p className="mt-4 text-slate-300">{surah.numberOfAyahs} {t.quran.ayahsLabel}</p>
       </div>
-      <QuranReader ayahs={surah.ayahs} translations={translations} surahName={surah.name} locale={locale} />
+      <QuranReader ayahs={surah.ayahs} translations={translations} surahName={surah.name} locale={locale} reciters={reciters} surahNumber={surahNumber} />
     </article>
   );
 }
