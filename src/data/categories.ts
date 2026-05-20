@@ -26,8 +26,8 @@ export const categories: Category[] = [
     description: "مفاهيم الإيمان والتوحيد مشروحة بلغة قريبة من الطفل، تبني أساساً راسخاً للإيمان.",
     color: "blue",
     icon: ShieldCheck,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 30,
   },
   {
     slug: "fiqh",
@@ -35,8 +35,8 @@ export const categories: Category[] = [
     description: "أساسيات الطهارة والصلاة وسائر العبادات اليومية بأسلوب مبسط وتدريجي.",
     color: "teal",
     icon: Landmark,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 24,
   },
   {
     slug: "seerah",
@@ -44,8 +44,8 @@ export const categories: Category[] = [
     description: "قصص تربوية مضيئة من حياة النبي صلى الله عليه وسلم تلهم الطفل وتقرّبه من القدوة.",
     color: "gold",
     icon: ScrollText,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 20,
   },
   {
     slug: "akhlaq",
@@ -53,8 +53,8 @@ export const categories: Category[] = [
     description: "الصدق، الرحمة، الأمانة، التواضع، وحسن التعامل — قيم نبنيها في حياة الطفل يومًا بيوم.",
     color: "navy",
     icon: HeartHandshake,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 20,
   },
   {
     slug: "hadith",
@@ -62,8 +62,8 @@ export const categories: Category[] = [
     description: "أحاديث نبوية قصيرة مختارة مع شرح مناسب للأطفال يربطهم بسنة النبي ﷺ.",
     color: "blue",
     icon: MessageCircleQuestion,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 15,
   },
   {
     slug: "duaa",
@@ -71,8 +71,8 @@ export const categories: Category[] = [
     description: "أذكار وأدعية يومية سهلة الحفظ والتطبيق تُحيي قلب الطفل بذكر الله.",
     color: "teal",
     icon: MoonStar,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 15,
   },
   {
     slug: "quran",
@@ -80,8 +80,8 @@ export const categories: Category[] = [
     description: "مدخل منظم لتعلم القرآن وحفظه والتدبر فيه بطريقة ممتعة ومناسبة للأعمار.",
     color: "gold",
     icon: BookOpen,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 15,
   },
   {
     slug: "adab",
@@ -89,8 +89,8 @@ export const categories: Category[] = [
     description: "آداب البيت، المسجد، الطعام، الحديث، والتعامل — سلوكيات نمارسها كل يوم.",
     color: "navy",
     icon: Sparkles,
-    lessonCount: 10,
-    questionCount: 13,
+    lessonCount: 15,
+    questionCount: 15,
   },
 ];
 

@@ -71,6 +71,17 @@ export function Header() {
   }, [dropdownOpen]);
 
   useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setDropdownOpen(false);
+        setMobileOpen(false);
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
     setDropdownOpen(false);
     setMobileOpen(false);
   }, [pathname]);

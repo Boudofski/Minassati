@@ -6,7 +6,7 @@ import { stories } from "@/data/stories";
 
 export const metadata: Metadata = {
   title: "القصص الإسلامية",
-  description: "20 قصة إسلامية للأطفال من الأنبياء والسيرة والصحابة والأخلاق مع سؤال تأمل وروابط تعليمية.",
+  description: "قصص إسلامية للأطفال من الأنبياء والسيرة والصحابة والأخلاق مع سؤال تأمل وروابط تعليمية.",
   alternates: { canonical: "/stories" },
 };
 

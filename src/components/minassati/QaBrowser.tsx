@@ -15,7 +15,7 @@ export function QaBrowser() {
     const normalized = query.trim().toLowerCase();
     return questions.filter((item) => {
       const matchesCategory = category === "الكل" || item.category === category;
-      const matchesQuery = !normalized || `${item.question} ${item.shortAnswer} ${item.category}`.toLowerCase().includes(normalized);
+      const matchesQuery = !normalized || `${item.question} ${item.shortAnswer} ${item.category} ${item.tags.join(" ")}`.toLowerCase().includes(normalized);
       return matchesCategory && matchesQuery;
     });
   }, [query, category]);
@@ -46,6 +46,9 @@ export function QaBrowser() {
             </button>
           ))}
         </div>
+        <p className="mt-4 text-sm font-bold text-slate-500">
+          يعرض {filtered.length} من {questions.length} سؤال.
+        </p>
       </div>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
