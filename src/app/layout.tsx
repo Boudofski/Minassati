@@ -5,6 +5,7 @@ import { Amiri, Cairo, IBM_Plex_Sans_Arabic, Tajawal } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/minassati/Header";
 import { Footer } from "@/components/minassati/Footer";
+import { HtmlLangSync } from "@/components/minassati/HtmlLangSync";
 import { absoluteUrl, site } from "@/lib/site";
 
 const cairo = Cairo({
@@ -106,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Header />
+        <HtmlLangSync />
         <main>{children}</main>
         <Footer />
         <Analytics />

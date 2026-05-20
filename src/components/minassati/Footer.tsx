@@ -1,40 +1,50 @@
-import Link from "next/link";
-import { BookOpenCheck, Facebook, Instagram, Mail, ShieldCheck, Sparkles, Youtube } from "lucide-react";
+"use client";
 
-const columns = [
-  {
-    title: "المنصة",
-    links: [
-      { href: "/learn", label: "مركز التعلم" },
-      { href: "/quran", label: "القرآن الكريم" },
-      { href: "/audio", label: "التلاوات" },
-      { href: "/qa", label: "الأسئلة والأجوبة" },
-      { href: "/articles", label: "المقالات" },
-      { href: "/methodology", label: "المنهجية" },
-      { href: "/content-review", label: "مراجعة المحتوى" },
-    ],
-  },
-  {
-    title: "للأطفال",
-    links: [
-      { href: "/kids-zone", label: "منطقة الطفل" },
-      { href: "/games", label: "الألعاب" },
-      { href: "/stories", label: "القصص" },
-      { href: "/badges", label: "الشارات" },
-    ],
-  },
-  {
-    title: "للأسرة",
-    links: [
-      { href: "/family-dashboard", label: "لوحة الأسرة" },
-      { href: "/challenges", label: "التحديات" },
-      { href: "/adhkar", label: "الأذكار اليومية" },
-      { href: "/privacy", label: "الخصوصية" },
-    ],
-  },
-];
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { BookOpenCheck, Facebook, Instagram, Mail, ShieldCheck, Sparkles, Youtube } from "lucide-react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { isLocale, rootLocalizedPath, type Locale } from "@/i18n/config";
 
 export function Footer() {
+  const pathname = usePathname() || "/";
+  const firstSegment = pathname.split("/").filter(Boolean)[0];
+  const locale: Locale = firstSegment && isLocale(firstSegment) ? firstSegment : "ar";
+  const t = getDictionary(locale);
+  const prefix = (href: string) => rootLocalizedPath(locale, href);
+  const columns = [
+    {
+      title: t.nav.learn,
+      links: [
+        { href: prefix("/learn"), label: t.nav.learn },
+        { href: prefix("/quran"), label: t.nav.quran },
+        { href: prefix("/audio"), label: t.pages.audio.title },
+        { href: prefix("/qa"), label: t.nav.qa },
+        { href: prefix("/articles"), label: t.nav.articles },
+        { href: prefix("/methodology"), label: t.nav.methodology },
+        { href: prefix("/content-review"), label: t.nav.contentReview },
+      ],
+    },
+    {
+      title: t.nav.activities,
+      links: [
+        { href: "/kids-zone", label: t.nav.games },
+        { href: "/stories", label: t.nav.stories },
+        { href: "/badges", label: t.nav.badges },
+        { href: "/activities", label: t.nav.activities },
+      ],
+    },
+    {
+      title: t.nav.parents,
+      links: [
+        { href: "/family-dashboard", label: t.nav.dashboard },
+        { href: "/challenges", label: t.nav.challenges },
+        { href: "/adhkar", label: t.nav.adhkar },
+        { href: prefix("/privacy"), label: t.pages.privacy.title },
+      ],
+    },
+  ];
   return (
     <footer className="relative overflow-hidden bg-slate-950 text-white">
       <div className="absolute inset-0 islamic-bg-white opacity-30" />
@@ -43,19 +53,22 @@ export function Footer() {
       <div className="page-shell relative py-14 sm:py-18">
         <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3" aria-label="منصتي">
+            <Link href={prefix("/")} className="inline-flex items-center gap-3" aria-label={t.site.name}>
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-slate-950">
                 <BookOpenCheck className="h-6 w-6" aria-hidden="true" />
               </span>
               <span>
-                <strong className="block text-2xl font-black">منصتي</strong>
+                <strong className="block text-2xl font-black">{t.site.name}</strong>
                 <span className="text-sm font-bold text-teal-300">Minassati</span>
               </span>
             </Link>
 
             <p className="mt-5 max-w-xl text-pretty text-sm leading-8 text-slate-300">
-              منصة تعليمية إسلامية عربية تبني علاقة الطفل بالقرآن، الأخلاق، السيرة، والعبادات عبر محتوى قصير، آمن، ودافئ للأسرة.
+              {t.footer.description}
             </p>
+            <div className="mt-5 max-w-xl">
+              <LanguageSwitcher compact />
+            </div>
 
             <blockquote className="mt-7 max-w-xl rounded-[2rem] border border-white/10 bg-white/6 p-5 text-sm leading-8 text-slate-200 backdrop-blur">
               <span>وَقُل رَّبِّ زِدْنِي عِلْمًا</span>
@@ -85,29 +98,29 @@ export function Footer() {
               <ShieldCheck className="h-5 w-5" />
             </span>
             <div>
-              <h2 className="font-black">تجربة موثوقة للأسرة</h2>
-              <p className="mt-1 text-sm leading-7 text-slate-400">محتوى عربي واضح، بلا إعلانات مزعجة داخل مسار الطفل، وبنية جاهزة للتوسع بمراجعة علمية وتربوية.</p>
+              <h2 className="font-black">{t.footer.trustTitle}</h2>
+              <p className="mt-1 text-sm leading-7 text-slate-400">{t.footer.trustText}</p>
             </div>
           </div>
-          <form className="flex flex-col gap-2 sm:flex-row" aria-label="النشرة البريدية">
-            <label className="sr-only" htmlFor="newsletter-email">البريد الإلكتروني</label>
-            <input id="newsletter-email" type="email" placeholder="بريد ولي الأمر" className="h-12 rounded-full border border-white/10 bg-white/10 px-4 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-teal-300" />
+          <form className="flex flex-col gap-2 sm:flex-row" aria-label={t.footer.newsletter}>
+            <label className="sr-only" htmlFor="newsletter-email">{t.footer.email}</label>
+            <input id="newsletter-email" type="email" placeholder={t.footer.email} className="h-12 rounded-full border border-white/10 bg-white/10 px-4 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-teal-300" />
             <button className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-black text-slate-950 transition hover:bg-teal-100" type="submit">
               <Mail className="h-4 w-4" />
-              اشترك
+              {t.footer.subscribe}
             </button>
           </form>
         </div>
 
         <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>© 2026 منصتي. جميع الحقوق محفوظة.</span>
+          <span>{t.footer.rights}</span>
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-amber-300" />
-            <span>تعلم هادئ، يومًا بعد يوم</span>
+            <span>{t.home.eyebrow}</span>
           </div>
-          <div className="flex items-center gap-2" aria-label="روابط اجتماعية">
+          <div className="flex items-center gap-2" aria-label={t.footer.socialLinks}>
             {[Instagram, Youtube, Facebook].map((Icon, index) => (
-              <Link key={index} href="/contact" className="grid h-9 w-9 place-items-center rounded-full bg-white/8 text-slate-300 transition hover:bg-white hover:text-slate-950" aria-label="تواصل مع منصتي">
+              <Link key={index} href={prefix("/contact")} className="grid h-9 w-9 place-items-center rounded-full bg-white/8 text-slate-300 transition hover:bg-white hover:text-slate-950" aria-label={t.footer.contactAria}>
                 <Icon className="h-4 w-4" />
               </Link>
             ))}

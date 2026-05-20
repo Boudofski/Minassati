@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { SurahCard } from "./Cards";
 import type { SurahMeta } from "@/lib/quran-api";
 
-export function QuranSurahSearch({ surahs }: { surahs: SurahMeta[] }) {
+export function QuranSurahSearch({ surahs, basePath = "/quran" }: { surahs: SurahMeta[]; basePath?: string }) {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
@@ -39,7 +39,7 @@ export function QuranSurahSearch({ surahs }: { surahs: SurahMeta[] }) {
               ayahs: surah.numberOfAyahs,
               type: surah.revelationType === "Medinan" || surah.revelationType === "madani" ? "مدنية" : "مكية",
             }}
-            href={`/quran/${surah.number}`}
+              href={`${basePath}/${surah.number}`}
           />
         ))}
       </div>

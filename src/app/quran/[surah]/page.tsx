@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AlertTriangle, ArrowLeft, BookOpen, Headphones } from "lucide-react";
 import { QuranReader } from "@/components/minassati/QuranReader";
-import { getAyahTranslation, getSurahAyahs, getSurahList } from "@/lib/quran-api";
+import { getSurahAyahs, getSurahList } from "@/lib/quran-api";
+import { getSurahTranslations } from "@/lib/quran-translations";
 import { lessons } from "@/data/lessons";
 
 type Props = { params: { surah: string } };
@@ -30,7 +31,7 @@ export default async function SurahPage({ params }: Props) {
 
   const [surah, translations] = await Promise.all([
     getSurahAyahs(surahNumber),
-    getAyahTranslation(surahNumber),
+    getSurahTranslations(surahNumber),
   ]);
   const relatedLessons = lessons.filter((lesson) => lesson.category === "quran").slice(0, 4);
 

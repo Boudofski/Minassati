@@ -7,6 +7,7 @@ import { stories } from "@/data/stories";
 import { articles } from "@/data/articles";
 import { getReciters } from "@/lib/mp3quran-api";
 import { site } from "@/lib/site";
+import { locales, localizedPath } from "@/i18n/config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { reciters } = await getReciters();
@@ -37,12 +38,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   return [
     ...staticRoutes.map((route) => ({ url: `${site.url}${route}`, lastModified: new Date(), priority: route === "" ? 1 : 0.8 })),
+    ...locales.flatMap((locale) =>
+      staticRoutes
+        .filter((route) => ["", "/start", "/daily", "/learn", "/qa", "/quran", "/audio", "/articles", "/parents", "/methodology", "/content-review", "/privacy", "/contact"].includes(route))
+        .map((route) => ({ url: `${site.url}${localizedPath(locale, route || "/")}`, lastModified: new Date(), priority: locale === "ar" ? 0.9 : 0.75 })),
+    ),
     ...categories.map((category) => ({ url: `${site.url}/learn/${category.slug}`, lastModified: new Date(), priority: 0.7 })),
     ...lessons.map((lesson) => ({ url: `${site.url}/learn/${lesson.category}/${lesson.slug}`, lastModified: new Date(), priority: 0.7 })),
     ...questions.map((question) => ({ url: `${site.url}/qa/${question.slug}`, lastModified: new Date(), priority: 0.7 })),
     ...quizzes.map((quiz) => ({ url: `${site.url}/quizzes/${quiz.slug}`, lastModified: new Date(), priority: 0.6 })),
     ...stories.map((story) => ({ url: `${site.url}/stories/${story.slug}`, lastModified: new Date(), priority: 0.6 })),
     ...Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}/quran/${index + 1}`, lastModified: new Date(), priority: 0.6 })),
+    ...locales.flatMap((locale) => Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}${localizedPath(locale, `/quran/${index + 1}`)}`, lastModified: new Date(), priority: 0.55 }))),
     ...reciters.slice(0, 24).map((reciter) => ({ url: `${site.url}/audio/${reciter.id}`, lastModified: new Date(), priority: 0.5 })),
     ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.8 })),
   ];

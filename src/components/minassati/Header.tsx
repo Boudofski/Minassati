@@ -25,35 +25,42 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const primaryNav = [
-  { href: "/", label: "الرئيسية", icon: Home },
-  { href: "/start", label: "ابدأ من هنا", icon: Sparkles },
-  { href: "/learn", label: "التعلم", icon: Brain },
-  { href: "/quran", label: "القرآن", icon: BookOpenCheck },
-  { href: "/qa", label: "الأسئلة", icon: MessageCircleQuestion },
-  { href: "/activities", label: "الأنشطة", icon: Lightbulb },
-  { href: "/parents", label: "للأهل", icon: LayoutDashboard },
-];
-
-const moreItems = [
-  { href: "/articles", label: "المقالات والموارد", icon: BookText },
-  { href: "/stories", label: "القصص", icon: Stars },
-  { href: "/adhkar", label: "الأذكار", icon: MoonStar },
-  { href: "/challenges", label: "التحديات", icon: CalendarDays },
-  { href: "/badges", label: "الشارات", icon: Award },
-  { href: "/games", label: "الألعاب", icon: Gamepad2 },
-  { href: "/methodology", label: "منهجية منصتي", icon: Brain },
-  { href: "/content-review", label: "مراجعة المحتوى", icon: ShieldCheck },
-  { href: "/contact", label: "تواصل معنا", icon: Mail },
-];
+import { getDictionary } from "@/i18n/get-dictionary";
+import { isLocale, rootLocalizedPath, stripLocale, type Locale } from "@/i18n/config";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const cleanPathname = stripLocale(pathname);
+  const cleanHref = stripLocale(href);
+  return cleanHref === "/" ? cleanPathname === "/" : cleanPathname.startsWith(cleanHref);
 }
 
 export function Header() {
   const pathname = usePathname();
+  const firstSegment = pathname.split("/").filter(Boolean)[0];
+  const locale: Locale = firstSegment && isLocale(firstSegment) ? firstSegment : "ar";
+  const t = getDictionary(locale);
+  const prefix = (href: string) => rootLocalizedPath(locale, href);
+  const primaryNav = [
+    { href: prefix("/"), label: t.nav.home, icon: Home },
+    { href: prefix("/start"), label: t.nav.start, icon: Sparkles },
+    { href: prefix("/learn"), label: t.nav.learn, icon: Brain },
+    { href: prefix("/quran"), label: t.nav.quran, icon: BookOpenCheck },
+    { href: prefix("/qa"), label: t.nav.qa, icon: MessageCircleQuestion },
+    { href: "/activities", label: t.nav.activities, icon: Lightbulb },
+    { href: prefix("/parents"), label: t.nav.parents, icon: LayoutDashboard },
+  ];
+  const moreItems = [
+    { href: prefix("/articles"), label: t.nav.articles, icon: BookText },
+    { href: "/stories", label: t.nav.stories, icon: Stars },
+    { href: "/adhkar", label: t.nav.adhkar, icon: MoonStar },
+    { href: "/challenges", label: t.nav.challenges, icon: CalendarDays },
+    { href: "/badges", label: t.nav.badges, icon: Award },
+    { href: "/games", label: t.nav.games, icon: Gamepad2 },
+    { href: prefix("/methodology"), label: t.nav.methodology, icon: Brain },
+    { href: prefix("/content-review"), label: t.nav.contentReview, icon: ShieldCheck },
+    { href: prefix("/contact"), label: t.nav.contact, icon: Mail },
+  ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -92,9 +99,9 @@ export function Header() {
 
         {/* Logo */}
         <Link
-          href="/"
+          href={prefix("/")}
           className="flex shrink-0 items-center gap-3"
-          aria-label="منصتي - الصفحة الرئيسية"
+          aria-label={`${t.site.name} - ${t.nav.home}`}
           onClick={() => setMobileOpen(false)}
         >
           <span className="relative grid h-12 w-12 place-items-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/18">
@@ -102,8 +109,8 @@ export function Header() {
             <span className="absolute -left-1 -top-1 h-3 w-3 rounded-full bg-amber-400 ring-4 ring-white" />
           </span>
           <span className="leading-tight">
-            <strong className="block text-xl font-black text-slate-950">منصتي</strong>
-            <span className="text-xs font-bold text-slate-500">تعليم إسلامي ذكي للأطفال</span>
+            <strong className="block text-xl font-black text-slate-950">{t.site.name}</strong>
+            <span className="text-xs font-bold text-slate-500">{t.site.tagline}</span>
           </span>
         </Link>
 
@@ -147,7 +154,7 @@ export function Header() {
                   : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
               )}
             >
-              المزيد
+              {t.nav.more}
               <ChevronDown
                 className={cn(
                   "h-3.5 w-3.5 transition-transform duration-200",
@@ -194,18 +201,19 @@ export function Header() {
           </div>
 
           <Link
-            href="/family-dashboard"
+            href={locale === "ar" ? "/family-dashboard" : prefix("/parents")}
             className="rounded-full bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-2.5 text-sm font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5"
           >
-            لوحة الأسرة
+            {t.nav.dashboard}
           </Link>
+          <LanguageSwitcher />
         </div>
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen((v) => !v)}
           className="grid h-11 w-11 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:bg-slate-50 lg:hidden"
-          aria-label={mobileOpen ? "إغلاق القائمة" : "فتح القائمة"}
+          aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
           aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -250,7 +258,7 @@ export function Header() {
               {/* More section */}
               <div className="border-t border-slate-100 pt-3">
                 <p className="px-4 pb-2 text-xs font-black uppercase tracking-wider text-slate-400">
-                  استكشف أكثر
+                  {t.nav.explore}
                 </p>
                 <div className="grid grid-cols-2 gap-1">
                   {moreItems.map((item) => {
@@ -284,8 +292,11 @@ export function Header() {
                   className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-l from-blue-600 to-teal-500 px-5 py-3.5 text-base font-black text-white shadow-lg shadow-blue-500/20 transition hover:opacity-90"
                 >
                   <LayoutDashboard className="h-5 w-5" aria-hidden="true" />
-                  لوحة الأسرة
+                  {t.nav.dashboard}
                 </Link>
+                <div className="mt-3">
+                  <LanguageSwitcher compact />
+                </div>
               </div>
             </div>
           </motion.div>
