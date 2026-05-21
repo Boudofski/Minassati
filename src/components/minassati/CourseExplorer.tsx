@@ -17,15 +17,20 @@ export function CourseCard({ course, compact = false }: { course: Course; compac
   return (
     <Link
       href={`/courses/${course.slug}`}
-      className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
     >
-      <div className="flex items-start justify-between gap-3">
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-950 text-xs font-black text-white">{course.icon}</span>
-        <span className={cn("rounded-full px-3 py-1 text-xs font-black", course.priceType === "free" ? "bg-emerald-50 text-emerald-700" : course.priceType === "paid" ? "bg-amber-50 text-amber-700" : "bg-blue-50 text-blue-700")}>
-          {priceLabel(course)}
-        </span>
+      <div className="relative min-h-28 bg-slate-950 p-5 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(45,212,191,0.28),transparent_34%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.26),transparent_30%),linear-gradient(135deg,rgba(15,23,42,1),rgba(15,23,42,0.9))]" />
+        <div className="absolute inset-0 islamic-bg-white opacity-[0.04]" />
+        <div className="relative flex items-start justify-between gap-3">
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-xs font-black text-slate-950 shadow-lg">{course.icon}</span>
+          <span className={cn("rounded-full px-3 py-1 text-xs font-black", course.priceType === "free" ? "bg-emerald-300 text-emerald-950" : course.priceType === "paid" ? "bg-amber-300 text-amber-950" : "bg-blue-300 text-blue-950")}>
+            {priceLabel(course)}
+          </span>
+        </div>
       </div>
-      <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-slate-500">
+      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-wrap gap-2 text-xs font-bold text-slate-500">
         <span>{course.category}</span>
         <span>•</span>
         <span>{course.level}</span>
@@ -41,6 +46,7 @@ export function CourseCard({ course, compact = false }: { course: Course; compac
         {course.studentsCount ? <span className="inline-flex items-center gap-1"><Users className="h-3.5 w-3.5" />{course.studentsCount}</span> : null}
       </div>
       <span className="mt-5 inline-flex text-sm font-black text-blue-700">عرض الدورة</span>
+      </div>
     </Link>
   );
 }

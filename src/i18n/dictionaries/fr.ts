@@ -3,7 +3,7 @@ import { en } from "./en";
 export const fr = {
   ...en,
   locale: "fr",
-  site: { name: "Minassati", tagline: "Apprentissage islamique pour enfants", title: "Minassati - Apprentissage islamique quotidien pour les familles", description: "Minassati aide les familles à enseigner l’islam avec une habitude quotidienne de 10 minutes : leçon, Coran, question, dhikr, activité et guide parental." },
+  site: { name: "Minassati", tagline: "Plateforme marocaine d'apprentissage", title: "Minassati — Cours, parcours et ressources numériques", description: "Plateforme marocaine d'apprentissage avec cours, parcours, ressources, articles et Coran gratuit comme outil fiable." },
   nav: { ...en.nav, home: "Accueil", start: "Commencer", learn: "Apprendre", quran: "Coran", qa: "Questions", activities: "Activités", parents: "Parents", more: "Plus", explore: "Explorer", articles: "Articles", stories: "Histoires", adhkar: "Adhkar", challenges: "Défis", badges: "Badges", games: "Jeux", methodology: "Méthodologie", contentReview: "Révision du contenu", contact: "Contact", dashboard: "Tableau famille", openMenu: "Ouvrir le menu", closeMenu: "Fermer le menu" },
   common: { ...en.common, primaryCta: "Commencer", dailyCta: "Leçon du jour", learnMore: "En savoir plus", open: "Ouvrir", readMore: "Lire plus", search: "Rechercher...", empty: "Aucun résultat pour le moment.", language: "Langue", contentLanguageNote: "Une partie du contenu détaillé reste en arabe dans une feuille de route progressive.", translatedSamples: "Exemples traduits", arabicContent: "Contenu arabe" },
   home: {
@@ -51,14 +51,14 @@ export const fr = {
     daily: { title: "Une routine quotidienne claire", desc: "Leçon, question, ayah, dhikr, activité et défi hebdomadaire." },
     learn: { title: "Centre d’apprentissage", desc: "Catégories et leçons organisées. La bibliothèque arabe complète reste disponible." },
     qa: { title: "Questions des enfants sur l’islam", desc: "Des réponses courtes et chaleureuses pour parler avec confiance." },
-    quran: { title: "Lecteur du Coran", desc: "Lecture arabe avec traductions anglaise, française et espagnole." },
-    audio: { title: "Écouter le Coran", desc: "Choisissez un récitateur et une sourate." },
-    articles: { title: "Articles et ressources", desc: "Guides parentaux et articles éducatifs. Traduction progressive." },
+    quran: { title: "Lecteur du Coran", desc: "Lecture arabe claire avec traductions optionnelles et liens d'écoute gratuits." },
+    audio: { title: "Écouter le Coran", desc: "Choisissez un récitateur et une sourate depuis des sources externes fiables." },
+    articles: { title: "Articles", desc: "Articles pratiques sur l'apprentissage, l'IA, le marketing, le freelance, le business et les ressources islamiques." },
     parents: { title: "Guide des parents", desc: "Une méthode quotidienne calme pour enseigner l’islam." },
     methodology: { title: "Comment Minassati enseigne", desc: "Simplicité, répétition, compréhension avant mémorisation." },
     contentReview: { title: "Révision du contenu", desc: "Un contenu éducatif qui soutient les parents et les savants." },
-    privacy: { title: "Confidentialité", desc: "Une expérience simple qui respecte les familles." },
-    contact: { title: "Contact", desc: "Envoyez vos remarques et suggestions." },
+    privacy: { title: "Confidentialité", desc: "Une expérience d'apprentissage simple avec des attentes claires sur les données." },
+    contact: { title: "Contact", desc: "Envoyez des idées de cours, demandes de ressources, partenariats ou candidatures formateur." },
   },
   quran: {
     ...en.quran,

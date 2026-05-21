@@ -24,7 +24,7 @@ export function Section({ eyebrow, title, description, children, className, cent
               </span>
             )}
             {title && (
-              <h2 className={cn("text-balance text-3xl font-black leading-tight text-slate-950 sm:text-4xl lg:text-5xl", eyebrow && "mt-3")}>
+              <h2 className={cn("text-balance text-3xl font-black leading-tight text-current sm:text-4xl lg:text-5xl", eyebrow && "mt-3")}>
                 {title}
               </h2>
             )}

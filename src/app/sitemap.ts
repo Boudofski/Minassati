@@ -31,8 +31,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/student-dashboard-preview",
     "/creator-preview",
     "/islamic-kids",
-    "/learn",
-    "/qa",
   ];
 
   const localizedCore = ["", "/articles", "/quran", "/audio", "/privacy", "/contact"];
