@@ -7,18 +7,56 @@ import { learningPaths } from "@/data/learning-paths";
 import { resources } from "@/data/resources";
 import { localeDirections, type Locale } from "@/i18n/config";
 
-const categories = [
-  ["الذكاء الاصطناعي", "أدوات عملية للأعمال والمحتوى والأتمتة."],
-  ["التسويق الرقمي", "خطط محتوى وإعلانات وSEO للمشاريع."],
-  ["العمل الحر", "بورتفوليو، عروض، تواصل، وتسعير."],
-  ["التجارة الإلكترونية", "إطلاق متجر، بيع، تصوير، وخدمة عملاء."],
-  ["ريادة الأعمال", "نماذج وأفكار لتطوير مشروع صغير."],
-  ["التصميم وصناعة المحتوى", "Canva، منشورات، فيديوهات، وهوية بسيطة."],
-  ["اللغات", "فرنسية وإنجليزية عملية للعمل والعمل الحر."],
-  ["الدعم المدرسي", "تنظيم الدراسة والبحث والتحضير للامتحانات."],
-  ["القرآن والعلوم الإسلامية", "قراءة واستماع وأذكار ومواد موثوقة."],
-  ["تطوير الذات", "إنتاجية، أهداف، وعادات تعلم مستقرة."],
-];
+const categories: Record<Locale, [string, string, string][]> = {
+  ar: [
+    ["الذكاء الاصطناعي", "أدوات عملية للأعمال والمحتوى والأتمتة.", "دورات وموارد"],
+    ["التسويق الرقمي", "خطط محتوى وإعلانات وSEO للمشاريع.", "دورات وموارد"],
+    ["العمل الحر", "بورتفوليو، عروض، تواصل، وتسعير.", "دورات وموارد"],
+    ["التجارة الإلكترونية", "إطلاق متجر، بيع، تصوير، وخدمة عملاء.", "دورات وموارد"],
+    ["ريادة الأعمال", "نماذج وأفكار لتطوير مشروع صغير.", "دورات وموارد"],
+    ["التصميم وصناعة المحتوى", "Canva، منشورات، فيديوهات، وهوية بسيطة.", "دورات وموارد"],
+    ["اللغات", "فرنسية وإنجليزية عملية للعمل والعمل الحر.", "دورات وموارد"],
+    ["الدعم المدرسي", "تنظيم الدراسة والبحث والتحضير للامتحانات.", "دورات وموارد"],
+    ["القرآن والعلوم الإسلامية", "قراءة واستماع وأذكار ومواد موثوقة.", "دورات وموارد"],
+    ["تطوير الذات", "إنتاجية، أهداف، وعادات تعلم مستقرة.", "دورات وموارد"],
+  ],
+  en: [
+    ["AI and automation", "Practical tools for business, content, and workflows.", "Courses and resources"],
+    ["Digital marketing", "Content, ads, and SEO foundations for projects.", "Courses and resources"],
+    ["Freelancing", "Portfolio, proposals, client work, and pricing.", "Courses and resources"],
+    ["E-commerce", "Launch, selling, product photos, and support.", "Courses and resources"],
+    ["Entrepreneurship", "Templates and ideas for small digital projects.", "Courses and resources"],
+    ["Design and content", "Canva, posts, short video, and simple branding.", "Courses and resources"],
+    ["Languages", "Practical French and English for work.", "Courses and resources"],
+    ["School support", "Study planning, research, and exam preparation.", "Courses and resources"],
+    ["Quran and Islamic knowledge", "Reading, listening, and trusted Islamic resources.", "Courses and resources"],
+    ["Personal development", "Productivity, goals, and learning habits.", "Courses and resources"],
+  ],
+  fr: [
+    ["IA et automatisation", "Outils pratiques pour business, contenu et workflows.", "Cours et ressources"],
+    ["Marketing digital", "Contenu, publicité et SEO pour projets.", "Cours et ressources"],
+    ["Freelance", "Portfolio, propositions, clients et tarification.", "Cours et ressources"],
+    ["E-commerce", "Lancement, vente, photos produit et support.", "Cours et ressources"],
+    ["Entrepreneuriat", "Modèles et idées pour projets digitaux.", "Cours et ressources"],
+    ["Design et contenu", "Canva, posts, vidéo courte et branding simple.", "Cours et ressources"],
+    ["Langues", "Français et anglais pratiques pour le travail.", "Cours et ressources"],
+    ["Soutien scolaire", "Organisation, recherche et préparation examens.", "Cours et ressources"],
+    ["Coran et savoir islamique", "Lecture, écoute et ressources islamiques fiables.", "Cours et ressources"],
+    ["Développement personnel", "Productivité, objectifs et habitudes d'apprentissage.", "Cours et ressources"],
+  ],
+  es: [
+    ["IA y automatización", "Herramientas prácticas para negocio, contenido y flujos.", "Cursos y recursos"],
+    ["Marketing digital", "Contenido, anuncios y SEO para proyectos.", "Cursos y recursos"],
+    ["Freelance", "Portafolio, propuestas, clientes y precios.", "Cursos y recursos"],
+    ["E-commerce", "Lanzamiento, venta, fotos de producto y soporte.", "Cursos y recursos"],
+    ["Emprendimiento", "Plantillas e ideas para proyectos digitales.", "Cursos y recursos"],
+    ["Diseño y contenido", "Canva, posts, video corto y marca simple.", "Cursos y recursos"],
+    ["Idiomas", "Francés e inglés prácticos para trabajo.", "Cursos y recursos"],
+    ["Apoyo escolar", "Organización, investigación y preparación de exámenes.", "Cursos y recursos"],
+    ["Corán y conocimiento islámico", "Lectura, audio y recursos islámicos fiables.", "Cursos y recursos"],
+    ["Desarrollo personal", "Productividad, objetivos y hábitos de aprendizaje.", "Cursos y recursos"],
+  ],
+};
 
 const trustPoints: Record<Locale, string[]> = {
   ar: ["محتوى عملي", "واجهة عربية وفرنسية وإنجليزية وإسبانية", "موارد قابلة للتطبيق", "قرآن مجاني", "تطوير مستمر", "مناسبة للمتعلمين والمدربين"],
@@ -62,6 +100,13 @@ const homeCopy: Record<Locale, {
   trustTitle: string;
   finalTitle: string;
   resourcesCta: string;
+  stats: string[];
+  mockupLabel: string;
+  mockupPath: string;
+  mockupCards: [string, string, string][];
+  growthTitle: string;
+  growthText: string;
+  planCards: string[];
 }> = {
   ar: {
     eyebrow: "منصة مغربية للتعلم، الدورات، والموارد الرقمية",
@@ -92,6 +137,13 @@ const homeCopy: Record<Locale, {
     trustTitle: "منصة مغربية بمعايير احترافية",
     finalTitle: "ابدأ من دورة واحدة اليوم",
     resourcesCta: "تصفح الموارد",
+    stats: ["دورات ومسارات عملية", "محتوى مجاني ومدفوع", "موارد قابلة للتحميل", "قرآن واستماع مجاني"],
+    mockupLabel: "لوحة تعلم",
+    mockupPath: "مسار التسويق الرقمي",
+    mockupCards: [["AI", "الذكاء الاصطناعي للأعمال", "مجاني"], ["MKT", "التسويق الرقمي من الصفر", "مجاني"], ["QUR", "قارئ القرآن", "114 سورة"], ["INS", "صفحة مدرب", "قريبًا"]],
+    growthTitle: "منصة قابلة للنمو",
+    growthText: "دورات وموارد واشتراكات قيد التحضير، مع القرآن كأداة مجانية موثوقة لا كهوية وحيدة للمنصة.",
+    planCards: ["مجاني: مقالات، موارد، بعض الدورات، القرآن", "Pro: دورات متقدمة وموارد قابلة للتحميل - قريبًا", "Instructor: نشر وبيع الدورات والموارد - قريبًا"],
   },
   en: {
     eyebrow: "Moroccan learning marketplace",
@@ -122,6 +174,13 @@ const homeCopy: Record<Locale, {
     trustTitle: "A Moroccan platform with professional standards",
     finalTitle: "Start with one course today",
     resourcesCta: "Browse resources",
+    stats: ["Practical courses and paths", "Free and paid-soon content", "Downloadable resources planned", "Free Quran reading and audio"],
+    mockupLabel: "Learning dashboard",
+    mockupPath: "Digital marketing path",
+    mockupCards: [["AI", "AI for business", "Free"], ["MKT", "Digital marketing from zero", "Free"], ["QUR", "Quran reader", "114 surahs"], ["INS", "Instructor page", "Soon"]],
+    growthTitle: "Built to grow",
+    growthText: "Courses, resources, and subscriptions are being prepared, while Quran remains a free trusted utility rather than the whole brand.",
+    planCards: ["Free: articles, resources, selected courses, Quran", "Pro: advanced courses and downloadable resources - soon", "Instructor: publish courses and resources - soon"],
   },
   fr: {
     eyebrow: "Plateforme marocaine d'apprentissage",
@@ -152,6 +211,13 @@ const homeCopy: Record<Locale, {
     trustTitle: "Une plateforme marocaine avec des standards professionnels",
     finalTitle: "Commencez par un cours aujourd'hui",
     resourcesCta: "Voir les ressources",
+    stats: ["Cours et parcours pratiques", "Contenu gratuit et payant bientôt", "Ressources téléchargeables prévues", "Coran et audio gratuits"],
+    mockupLabel: "Tableau d'apprentissage",
+    mockupPath: "Parcours marketing digital",
+    mockupCards: [["AI", "IA pour le business", "Gratuit"], ["MKT", "Marketing digital de zéro", "Gratuit"], ["QUR", "Lecteur du Coran", "114 sourates"], ["INS", "Page formateur", "Bientôt"]],
+    growthTitle: "Conçu pour grandir",
+    growthText: "Cours, ressources et abonnements sont en préparation, avec le Coran comme outil gratuit fiable et non comme toute l'identité.",
+    planCards: ["Gratuit : articles, ressources, cours sélectionnés, Coran", "Pro : cours avancés et ressources téléchargeables - bientôt", "Instructor : publier cours et ressources - bientôt"],
   },
   es: {
     eyebrow: "Marketplace marroquí de aprendizaje",
@@ -182,6 +248,13 @@ const homeCopy: Record<Locale, {
     trustTitle: "Una plataforma marroquí con estándares profesionales",
     finalTitle: "Empieza con un curso hoy",
     resourcesCta: "Ver recursos",
+    stats: ["Cursos y rutas prácticas", "Contenido gratis y de pago pronto", "Recursos descargables previstos", "Corán y audio gratis"],
+    mockupLabel: "Panel de aprendizaje",
+    mockupPath: "Ruta de marketing digital",
+    mockupCards: [["AI", "IA para negocios", "Gratis"], ["MKT", "Marketing digital desde cero", "Gratis"], ["QUR", "Lector del Corán", "114 suras"], ["INS", "Página de instructor", "Pronto"]],
+    growthTitle: "Preparado para crecer",
+    growthText: "Cursos, recursos y suscripciones están en preparación, con el Corán como utilidad gratuita fiable y no como toda la identidad.",
+    planCards: ["Gratis: artículos, recursos, cursos seleccionados, Corán", "Pro: cursos avanzados y recursos descargables - pronto", "Instructor: publicar cursos y recursos - pronto"],
   },
 };
 
@@ -196,12 +269,12 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
     <div lang={locale} dir={dir} className="overflow-hidden bg-[#F7FAFC]">
       <section className="relative bg-slate-950 text-white">
         <div className="absolute inset-0 islamic-bg-white opacity-[0.05]" />
-        <div className="page-shell relative grid min-h-[calc(100vh-5rem)] gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_0.92fr] lg:items-center">
-          <div>
+        <div className="page-shell relative grid min-h-[calc(100vh-5rem)] min-w-0 gap-10 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-center">
+          <div className="min-w-0">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm font-black text-teal-200">
               <Sparkles className="h-4 w-4 text-amber-300" /> {t.eyebrow}
             </p>
-            <h1 className="mt-6 max-w-5xl text-4xl font-black leading-tight sm:text-6xl lg:text-7xl">{t.headline}</h1>
+            <h1 className="mt-6 max-w-5xl break-words text-3xl font-black leading-tight sm:text-6xl lg:text-7xl">{t.headline}</h1>
             <p className="mt-6 max-w-3xl text-lg leading-9 text-slate-300 sm:text-xl">
               {t.subhead}
             </p>
@@ -212,29 +285,24 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               <Link href="mailto:contact@minassati.ma?subject=قائمة انتظار منصتي" className="cta-home-waitlist rounded-full px-7 py-4 text-center text-base font-black text-teal-200 hover:bg-white/10" data-cta-id="home-hero-waitlist">{t.waitlist}</Link>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {["دورات ومسارات عملية", "محتوى مجاني ومدفوع", "موارد قابلة للتحميل", "قرآن واستماع مجاني"].map((item) => (
+              {t.stats.map((item) => (
                 <div key={item} className="rounded-2xl border border-white/10 bg-white/6 p-4 text-sm font-black text-slate-200">{item}</div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/8 p-4 shadow-2xl shadow-blue-950/30 backdrop-blur">
-            <div className="rounded-2xl bg-white p-5 text-slate-950">
+          <div className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/8 p-3 shadow-2xl shadow-blue-950/30 backdrop-blur sm:p-4">
+            <div className="min-w-0 rounded-2xl bg-white p-4 text-slate-950 sm:p-5">
               <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-xs font-black text-blue-700">لوحة تعلم</p>
-                  <h2 className="mt-1 text-2xl font-black">مسار التسويق الرقمي</h2>
+                <div className="min-w-0">
+                  <p className="text-xs font-black text-blue-700">{t.mockupLabel}</p>
+                  <h2 className="mt-1 break-words text-xl font-black sm:text-2xl">{t.mockupPath}</h2>
                 </div>
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">62%</span>
               </div>
               <div className="mt-5 h-3 rounded-full bg-slate-100"><div className="h-3 w-[62%] rounded-full bg-blue-600" /></div>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {[
-                  ["AI", "الذكاء الاصطناعي للأعمال", "مجاني"],
-                  ["MKT", "التسويق الرقمي من الصفر", "مجاني"],
-                  ["QUR", "قارئ القرآن", "114 سورة"],
-                  ["INS", "صفحة مدرب", "قريبًا"],
-                ].map(([icon, title, meta]) => (
+                {t.mockupCards.map(([icon, title, meta]) => (
                   <div key={title} className="rounded-2xl border border-slate-200 p-4">
                     <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-950 text-xs font-black text-white">{icon}</span>
                     <strong className="mt-3 block text-sm leading-6">{title}</strong>
@@ -243,8 +311,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                 ))}
               </div>
               <div className="mt-5 rounded-2xl bg-slate-950 p-5 text-white">
-                <p className="text-sm font-black text-amber-300">منصة قابلة للنمو</p>
-                <p className="mt-2 text-sm leading-7 text-slate-300">دورات وموارد واشتراكات قيد التحضير، مع القرآن كأداة مجانية موثوقة لا كهوية وحيدة للمنصة.</p>
+                <p className="text-sm font-black text-amber-300">{t.growthTitle}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-300">{t.growthText}</p>
               </div>
             </div>
           </div>
@@ -265,11 +333,11 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
 
       <Section eyebrow={locale === "ar" ? "التصنيفات" : "Categories"} title={t.categoriesTitle} centered={false}>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {categories.map(([title, description]) => (
+          {categories[locale].map(([title, description, cta]) => (
             <Link key={title} href={`/courses?category=${encodeURIComponent(title)}`} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200">
               <h3 className="text-lg font-black text-slate-950">{title}</h3>
               <p className="mt-2 text-sm leading-7 text-slate-600">{description}</p>
-              <span className="mt-4 inline-flex text-xs font-black text-blue-700">دورات وموارد</span>
+              <span className="mt-4 inline-flex text-xs font-black text-blue-700">{cta}</span>
             </Link>
           ))}
         </div>
@@ -341,7 +409,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
 
       <Section className="bg-slate-50" eyebrow={locale === "ar" ? "الاشتراك" : "Pricing"} title={t.pricingTitle} centered={false}>
         <div className="grid gap-5 md:grid-cols-3">
-          {["مجاني: مقالات، موارد، بعض الدورات، القرآن", "Pro: دورات متقدمة وموارد قابلة للتحميل - قريبًا", "Instructor: نشر وبيع الدورات والموارد - قريبًا"].map((plan) => (
+          {t.planCards.map((plan) => (
             <div key={plan} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
               <GraduationCap className="h-7 w-7 text-blue-600" />
               <p className="mt-4 text-lg font-black leading-8 text-slate-950">{plan}</p>

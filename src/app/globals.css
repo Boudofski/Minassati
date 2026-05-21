@@ -43,10 +43,13 @@
 html {
   scroll-behavior: smooth;
   text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
   background:
     radial-gradient(ellipse 80% 60% at 10% -10%, rgba(59,130,246,0.10) 0%, transparent 55%),
     radial-gradient(ellipse 60% 50% at 90% 5%,  rgba(20,184,166,0.09) 0%, transparent 50%),
@@ -234,7 +237,8 @@ textarea {
 }
 
 .page-shell {
-  width: min(100% - 2rem, 80rem);
+  width: min(calc(100% - 2rem), 80rem);
+  max-width: calc(100vw - 2rem);
   margin-inline: auto;
 }
 
