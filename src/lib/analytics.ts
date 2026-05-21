@@ -64,3 +64,38 @@ export function trackArticleRead(articleSlug: string) {
     gtag("article_read", { article_slug: articleSlug });
   });
 }
+
+export function trackCtaClick(ctaId: string, params: Record<string, string> = {}) {
+  safe(() => {
+    track("cta_click", { cta: ctaId, ...params });
+    gtag("cta_click", { cta_id: ctaId, ...params });
+  });
+}
+
+export function trackLeadFormSubmit(status: "success" | "failure" | "fallback", params: Record<string, string> = {}) {
+  safe(() => {
+    track("lead_form_submit", { status, ...params });
+    gtag("lead_form_submit", { status, ...params });
+  });
+}
+
+export function trackCourseInterest(courseSlug: string, status = "submitted") {
+  safe(() => {
+    track("course_interest", { course: courseSlug, status });
+    gtag("course_interest", { course_slug: courseSlug, status });
+  });
+}
+
+export function trackInstructorInterest(status = "submitted") {
+  safe(() => {
+    track("instructor_interest", { status });
+    gtag("instructor_interest", { status });
+  });
+}
+
+export function trackResourceRequest(resourceSlug: string, status = "submitted") {
+  safe(() => {
+    track("resource_request", { resource: resourceSlug, status });
+    gtag("resource_request", { resource_slug: resourceSlug, status });
+  });
+}

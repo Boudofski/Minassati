@@ -24,7 +24,7 @@ export default function ResourcesPage() {
           <h1 className="mt-5 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">موارد تساعدك اليوم قبل أي اشتراك</h1>
           <p className="mt-5 text-lg leading-9 text-slate-600">قوالب، قوائم فحص، أدلة، prompt packs، ومخططات تعلم وتجهيز أعمال. بعض التنزيلات الكاملة قيد التحضير، لكن المعاينات والبنية جاهزة.</p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link href="mailto:contact@minassati.ma?subject=طلب مورد من منصتي" className="cta-resource-request inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="resources-hero-request"><Mail className="h-4 w-4" /> اطلب مورداً</Link>
+            <Link href="#resources-waitlist" className="cta-resource-request inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="resources-hero-request"><Mail className="h-4 w-4" /> اطلب مورداً</Link>
             <Link href="/pricing" className="cta-resources-pricing inline-flex justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-800" data-cta-id="resources-hero-pricing">موارد Pro قريبًا</Link>
           </div>
         </div>
@@ -56,6 +56,7 @@ export default function ResourcesPage() {
         <LeadCapture
           id="resources-waitlist"
           source="resources"
+          interestType="resource_request"
           title="اطلب المورد التالي"
           description="إذا كنت تحتاج قالباً أو checklist أو prompt pack، أرسل الطلب وسنرتب الأولويات حسب الحاجة الفعلية."
           subject="طلب مورد جديد من منصتي"

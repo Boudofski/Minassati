@@ -23,7 +23,7 @@ export default function PricingPage() {
         <h1 className="mt-5 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">تعلم مجاني، واشتراك للمحتوى المتقدم لاحقًا</h1>
         <p className="mt-5 text-lg leading-9 text-slate-600">لا يوجد checkout وهمي حالياً ولا نطلب بيانات بطاقة. منصتي تجمع اهتمام المتعلمين والمدربين أولاً، ثم تطلق الدفع عندما تكون التجربة والأسعار واضحة.</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Link href="mailto:contact@minassati.ma?subject=قائمة انتظار Pro في منصتي" className="cta-pricing-pro inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="pricing-hero-pro-waitlist"><Mail className="h-4 w-4" /> انضم لقائمة انتظار Pro</Link>
+          <Link href="#pricing-waitlist" className="cta-pricing-pro inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="pricing-hero-pro-waitlist"><Mail className="h-4 w-4" /> انضم لقائمة انتظار Pro</Link>
           <Link href="/courses" className="cta-pricing-courses inline-flex justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-800" data-cta-id="pricing-hero-courses">شاهد الدورات المتاحة</Link>
         </div>
       </div>
@@ -43,7 +43,7 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <Link href={plan.name === "مجاني" ? "/courses" : "mailto:contact@minassati.ma?subject=اهتمام بخطة منصتي"} className="cta-pricing-plan mt-6 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`pricing-plan-${plan.name}`}>{plan.name === "مجاني" ? "ابدأ مجانًا" : "انضم لقائمة الانتظار"}</Link>
+            <Link href={plan.name === "مجاني" ? "/courses" : "#pricing-waitlist"} className="cta-pricing-plan mt-6 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`pricing-plan-${plan.name}`}>{plan.name === "مجاني" ? "ابدأ مجانًا" : "انضم لقائمة الانتظار"}</Link>
           </article>
         ))}
       </div>
@@ -53,6 +53,7 @@ export default function PricingPage() {
       <LeadCapture
         id="pricing-waitlist"
         source="pricing"
+        interestType="pro_interest"
         title="سجل اهتمامك بالاشتراك"
         description="أخبرنا بالخطة التي تهمك حتى نرتب الإطلاق حسب الطلب الحقيقي. لا يوجد دفع ولا checkout حالياً."
         subject="اهتمام بالاشتراك في منصتي"

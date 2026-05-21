@@ -282,7 +282,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/courses" className="cta-home-courses rounded-full bg-white px-7 py-4 text-center text-base font-black text-slate-950" data-cta-id="home-hero-courses">{t.courses}</Link>
               <Link href="/paths" className="cta-home-paths rounded-full border border-white/20 px-7 py-4 text-center text-base font-black text-white hover:bg-white/10" data-cta-id="home-hero-paths">{t.paths}</Link>
-              <Link href="mailto:contact@minassati.ma?subject=قائمة انتظار منصتي" className="cta-home-waitlist rounded-full px-7 py-4 text-center text-base font-black text-teal-200 hover:bg-white/10" data-cta-id="home-hero-waitlist">{t.waitlist}</Link>
+              <Link href="/pricing#pricing-waitlist" className="cta-home-waitlist rounded-full px-7 py-4 text-center text-base font-black text-teal-200 hover:bg-white/10" data-cta-id="home-hero-waitlist">{t.waitlist}</Link>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {t.stats.map((item) => (
@@ -325,7 +325,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
             <h2 className="text-xl font-black text-slate-950">{t.noticeTitle}</h2>
             <p className="mt-1 text-sm font-bold leading-7 text-slate-600">{t.noticeText}</p>
           </div>
-          <Link href="mailto:contact@minassati.ma?subject=اهتمام بمنصتي&body=السلام عليكم،%0A%0Aأريد الانضمام لقائمة الاهتمام بمنصتي.%0Aالمجال الذي يهمني:%0A" className="cta-home-interest inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="home-interest-strip">
+          <Link href="/pricing#pricing-waitlist" className="cta-home-interest inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="home-interest-strip">
             <Mail className="h-4 w-4" /> {t.noticeCta}
           </Link>
         </div>

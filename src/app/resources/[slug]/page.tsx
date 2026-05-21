@@ -25,6 +25,7 @@ export function generateMetadata({ params }: Props): Metadata {
 export default function ResourcePage({ params }: Props) {
   const resource = getResource(params.slug);
   if (!resource) notFound();
+  const leadId = `resource-waitlist-${resource.slug}`;
 
   return (
     <article className="page-shell py-12 sm:py-16">
@@ -71,13 +72,15 @@ export default function ResourcePage({ params }: Props) {
           <section className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 sm:p-8">
             <h2 className="text-2xl font-black text-slate-950">هل تريد النسخة القابلة للتحميل؟</h2>
             <p className="mt-3 text-sm font-bold leading-8 text-slate-700">أرسل طلب اهتمام وسنرتب أولويات الموارد حسب الطلب الفعلي. لا يوجد دفع مطلوب حالياً.</p>
-            <Link href={`mailto:contact@minassati.ma?subject=${encodeURIComponent(`طلب مورد: ${resource.title}`)}`} className="cta-resource-detail mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`resource-detail-${resource.slug}`}>
+            <Link href={`#${leadId}`} className="cta-resource-detail mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`resource-detail-${resource.slug}`} data-resource-slug={resource.slug}>
               <Mail className="h-4 w-4" /> أعلمني عند توفره
             </Link>
           </section>
           <LeadCapture
-            id={`resource-waitlist-${resource.slug}`}
+            id={leadId}
             source={`resource:${resource.slug}`}
+            interestType="resource_request"
+            entitySlug={resource.slug}
             title="اطلب هذا المورد"
             description="سنرسل تحديثاً عند توفر نسخة PDF أو قالب قابل للنسخ. لا يوجد دفع مطلوب الآن."
             subject={`طلب مورد: ${resource.title}`}
@@ -92,7 +95,7 @@ export default function ResourcePage({ params }: Props) {
             <p className="text-sm font-black text-slate-500">الإجراء</p>
             <p className="mt-2 text-2xl font-black text-slate-950">{resource.cta}</p>
             <p className="mt-3 text-sm leading-7 text-slate-600">لا توجد تنزيلات فعلية لبعض الموارد بعد. البنية جاهزة لإضافة ملفات PDF أو نماذج قابلة للنسخ لاحقاً.</p>
-            <Link href="/contact" className="cta-resource-sidebar mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`resource-sidebar-${resource.slug}`}>
+            <Link href={`#${leadId}`} className="cta-resource-sidebar mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`resource-sidebar-${resource.slug}`} data-resource-slug={resource.slug}>
               <Copy className="h-4 w-4" /> اطلب هذا المورد
             </Link>
           </div>

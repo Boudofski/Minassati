@@ -26,7 +26,7 @@ export default function InstructorsPage() {
             منصتي ستدعم المدربين، المعلمين، الخبراء، وصناع المحتوى الذين يريدون نشر دورات وموارد ومسارات للجمهور المغربي والعربي. برنامج المدربين قيد التحضير، والطلبات الحالية تُستخدم لبناء قائمة انتظار جدية.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="mailto:contact@minassati.ma?subject=طلب الانضمام كمدرب في منصتي&body=السلام عليكم،%0A%0Aالاسم:%0Aالمجال:%0Aنوع المحتوى الذي أريد تقديمه:%0Aرابط أعمال أو نبذة:%0A" className="cta-instructor-apply rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white" data-cta-id="instructor-hero-apply">أرسل طلب الانضمام</Link>
+            <Link href="#instructor-application" className="cta-instructor-apply rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white" data-cta-id="instructor-hero-apply">أرسل طلب الانضمام</Link>
             <Link href="/creator-preview" className="cta-instructor-preview rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800" data-cta-id="instructor-hero-preview">معاينة لوحة المدرب</Link>
           </div>
         </div>
@@ -60,12 +60,13 @@ export default function InstructorsPage() {
         <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-soft">
           <h2 className="text-2xl font-black text-slate-950">ملاحظة تجارية صريحة</h2>
           <p className="mt-3 text-sm font-bold leading-8 text-slate-700">لا توجد لوحة نشر أو نظام أرباح مباشر مفعّل اليوم. الهدف الحالي هو استقبال المدربين المناسبين وبناء العرض قبل فتح السوق بشكل رسمي.</p>
-          <Link href="mailto:contact@minassati.ma?subject=طلب الانضمام كمدرب في منصتي" className="cta-instructor-contact mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id="instructor-quality-contact"><Mail className="h-4 w-4" /> تواصل كمدرب</Link>
+          <Link href="#instructor-application" className="cta-instructor-contact mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id="instructor-quality-contact"><Mail className="h-4 w-4" /> تواصل كمدرب</Link>
         </section>
       </div>
       <LeadCapture
         id="instructor-application"
         source="instructors"
+        interestType="instructor_application"
         title="قدّم طلبك كمدرب أو صانع مورد"
         description="أرسل المجال ونوع المحتوى وروابط أعمالك إن وجدت. سنراجع الطلب قبل أي نشر أو وعد تجاري."
         subject="طلب الانضمام كمدرب في منصتي"

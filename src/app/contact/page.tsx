@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Mail, MessageCircle, Send, UserRound } from "lucide-react";
+import { Mail, UserRound } from "lucide-react";
+import { LeadCapture } from "@/components/minassati/LeadCapture";
 
 export const metadata: Metadata = {
   title: "اتصل بنا",
@@ -26,30 +27,18 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-        <form className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8" aria-label="نموذج التواصل" action="mailto:hello@minassati.ma" method="post" encType="text/plain">
-          <div className="grid gap-4">
-            <label className="grid gap-2">
-              <span className="text-sm font-black text-slate-700">الاسم</span>
-              <input className="h-12 rounded-2xl border border-slate-200 bg-slate-50 px-4 outline-none transition focus:border-blue-400" name="name" />
-            </label>
-            <label className="grid gap-2">
-              <span className="text-sm font-black text-slate-700">البريد الإلكتروني</span>
-              <input className="h-12 rounded-2xl border border-slate-200 bg-slate-50 px-4 outline-none transition focus:border-blue-400" name="email" type="email" />
-            </label>
-            <label className="grid gap-2">
-              <span className="text-sm font-black text-slate-700">الرسالة</span>
-              <textarea className="min-h-36 rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-blue-400" name="message" />
-            </label>
-            <button className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-slate-950 px-6 font-black text-white transition hover:bg-slate-800" type="submit">
-              <Send className="h-4 w-4" />
-              إرسال الرسالة
-            </button>
-          </div>
-          <p className="mt-5 flex items-start gap-2 text-sm leading-7 text-slate-500">
-            <MessageCircle className="mt-1 h-4 w-4 shrink-0 text-teal-600" />
-            يفتح زر الإرسال تطبيق البريد لديك مع بيانات الرسالة المكتوبة.
-          </p>
-        </form>
+        <LeadCapture
+          id="contact-lead"
+          source="contact"
+          interestType="contact"
+          title="أرسل رسالة إلى فريق منصتي"
+          description="استخدم هذا النموذج لاقتراح دورة، طلب مورد، شراكة، أو سؤال عام. إذا لم يكن البريد مفعلاً في البيئة الحالية، يظهر خيار فتح البريد كبديل."
+          subject="رسالة من صفحة التواصل في منصتي"
+          body="السلام عليكم،\n\nأريد التواصل بخصوص:\n"
+          buttonLabel="إرسال الرسالة"
+          messagePlaceholder="اكتب رسالتك أو نوع الطلب الذي تريده."
+          className="bg-white"
+        />
       </div>
     </section>
   );

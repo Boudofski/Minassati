@@ -6,6 +6,7 @@ import "./globals.css";
 import { Header } from "@/components/minassati/Header";
 import { Footer } from "@/components/minassati/Footer";
 import { HtmlLangSync } from "@/components/minassati/HtmlLangSync";
+import { AnalyticsTracker } from "@/components/minassati/AnalyticsTracker";
 import { absoluteUrl, site } from "@/lib/site";
 
 const cairo = Cairo({
@@ -108,6 +109,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <Header />
         <HtmlLangSync />
+        <AnalyticsTracker />
         <main>{children}</main>
         <Footer />
         <Analytics />

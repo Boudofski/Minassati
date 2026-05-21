@@ -31,8 +31,9 @@ export default function CoursePage({ params }: Props) {
   if (!course) notFound();
   const related = getRelatedCourses(course);
   const cta = course.priceType === "free" ? "ابدأ مجانًا" : course.status === "comingSoon" ? "أعلمني عند الإطلاق" : "انضم لقائمة الاهتمام";
-  const waitlistSubject = encodeURIComponent(`اهتمام بدورة: ${course.title}`);
-  const waitlistBody = encodeURIComponent(`السلام عليكم،\n\nأريد الانضمام لقائمة الاهتمام بدورة: ${course.title}\n\nالاسم:\nالمدينة:\nالمستوى الحالي:\n`);
+  const waitlistId = `course-waitlist-${course.slug}`;
+  const waitlistSubject = `اهتمام بدورة: ${course.title}`;
+  const waitlistBody = `السلام عليكم،\n\nأريد الانضمام لقائمة الاهتمام بدورة: ${course.title}\n\nالمدينة:\nالمستوى الحالي:\n`;
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -76,7 +77,7 @@ export default function CoursePage({ params }: Props) {
               {course.studentsCount ? <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Users className="h-4 w-4" />{course.studentsCount}</span> : null}
             </div>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href={course.priceType === "free" ? "#curriculum" : `mailto:contact@minassati.ma?subject=${waitlistSubject}&body=${waitlistBody}`} className="cta-course-hero inline-flex justify-center rounded-full bg-white px-6 py-3 text-sm font-black text-slate-950" data-cta-id={`course-hero-${course.slug}`} data-course-slug={course.slug}>
+              <Link href={course.priceType === "free" ? "#curriculum" : `#${waitlistId}`} className="cta-course-hero inline-flex justify-center rounded-full bg-white px-6 py-3 text-sm font-black text-slate-950" data-cta-id={`course-hero-${course.slug}`} data-course-slug={course.slug}>
                 {cta}
               </Link>
               <Link href="/pricing" className="cta-course-pricing inline-flex justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-black text-white hover:bg-white/10" data-cta-id={`course-pricing-${course.slug}`} data-course-slug={course.slug}>
@@ -135,12 +136,14 @@ export default function CoursePage({ params }: Props) {
 
           {course.priceType !== "free" || course.status === "comingSoon" ? (
             <LeadCapture
-              id={`course-waitlist-${course.slug}`}
+              id={waitlistId}
               source={`course:${course.slug}`}
+              interestType="course_waitlist"
+              entitySlug={course.slug}
               title="انضم لقائمة الاهتمام بهذه الدورة"
               description="سنستخدم عدد المهتمين لتحديد أولوية الإنتاج والإطلاق. لا يوجد دفع حالياً، وستصلك التفاصيل عندما تصبح النسخة التجريبية أو الاشتراك جاهزاً."
-              subject={`اهتمام بدورة: ${course.title}`}
-              body={`السلام عليكم،\n\nأريد الانضمام لقائمة الاهتمام بدورة: ${course.title}\n\nالاسم:\nالمدينة:\nالمستوى الحالي:\n`}
+              subject={waitlistSubject}
+              body={waitlistBody}
               buttonLabel="أعلمني عند الإطلاق"
               className="mt-8"
             />
@@ -152,7 +155,7 @@ export default function CoursePage({ params }: Props) {
             <p className="text-sm font-black text-slate-500">الحالة</p>
             <p className="mt-2 text-3xl font-black text-slate-950">{priceLabel(course)}</p>
             <p className="mt-3 text-sm leading-7 text-slate-600">{course.status === "comingSoon" ? "هذه الدورة ضمن خطة الإطلاق. لا يوجد دفع حالياً." : course.priceType === "free" ? "يمكن البدء بالمحتوى المجاني الآن. الميزات المدفوعة قيد التحضير." : "الدفع الكامل والاشتراكات قيد التحضير."}</p>
-            <Link href={course.priceType === "free" ? "#curriculum" : `mailto:contact@minassati.ma?subject=${waitlistSubject}&body=${waitlistBody}`} className="cta-course-sidebar mt-5 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`course-sidebar-${course.slug}`} data-course-slug={course.slug}>{cta}</Link>
+            <Link href={course.priceType === "free" ? "#curriculum" : `#${waitlistId}`} className="cta-course-sidebar mt-5 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`course-sidebar-${course.slug}`} data-course-slug={course.slug}>{cta}</Link>
             <Link href="/contact" className="cta-course-question mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 px-5 py-3 text-sm font-black text-slate-800" data-cta-id={`course-question-${course.slug}`} data-course-slug={course.slug}>
               <Mail className="h-4 w-4" /> اسأل عن الدورة
             </Link>
