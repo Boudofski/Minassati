@@ -4,6 +4,7 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import { ArrowLeft, BookOpen, CalendarDays, Clock, HelpCircle } from "lucide-react";
 import { ButtonLink } from "@/components/minassati/ButtonLink";
+import { AdSlot } from "@/components/minassati/AdSlot";
 import { ShareCard } from "@/components/minassati/ShareCard";
 import { NewsletterCTA } from "@/components/minassati/NewsletterCTA";
 import { TrustStrip } from "@/components/minassati/TrustStrip";
@@ -99,13 +100,24 @@ export default function ArticlePage({ params }: Props) {
         </div>
       </div>
 
-      <div className="mt-8 rounded-[2rem] bg-white p-6 shadow-soft sm:p-8">
-        {article.sections.map((section) => (
-          <section key={section.heading} className="mb-8 last:mb-0">
-            <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
-            <p className="mt-3 text-lg leading-9 text-slate-700">{section.body}</p>
-          </section>
-        ))}
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="rounded-[2rem] bg-white p-6 shadow-soft sm:p-8">
+          {article.sections.map((section, index) => (
+            <section key={section.heading} className="mb-8 last:mb-0">
+              <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
+              <p className="mt-3 text-lg leading-9 text-slate-700">{section.body}</p>
+              {index === 0 ? <AdSlot className="mt-8" label="مساحة إعلانية بعد مقدمة المقال" /> : null}
+            </section>
+          ))}
+        </div>
+        <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+          <AdSlot label="مساحة إعلانية جانبية للمقال" />
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <h2 className="font-black text-slate-950">تابع التعلم</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-600">حوّل قراءة المقال إلى تطبيق عملي عبر دورة أو مورد مرتبط.</p>
+            <Link href="/courses" className="mt-4 inline-flex w-full justify-center rounded-full bg-slate-950 px-4 py-3 text-sm font-black text-white">استكشف الدورات</Link>
+          </div>
+        </aside>
       </div>
 
       {article.faqs && article.faqs.length > 0 && (
@@ -181,7 +193,7 @@ export default function ArticlePage({ params }: Props) {
 
       <div className="mt-10 flex flex-wrap gap-3">
         <ButtonLink href="/articles">كل المقالات</ButtonLink>
-        <ButtonLink href="/start" variant="secondary">ابدأ من هنا</ButtonLink>
+        <ButtonLink href="/resources" variant="secondary">تصفح الموارد</ButtonLink>
       </div>
     </article>
   );

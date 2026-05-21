@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, GraduationCap } from "lucide-react";
+import { CheckCircle2, GraduationCap, Mail, ShieldCheck } from "lucide-react";
+import { LeadCapture } from "@/components/minassati/LeadCapture";
 
 export const metadata: Metadata = {
   title: "للمدربين وصناع المعرفة - منصتي",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 const points = ["دورات عملية قصيرة أو متقدمة", "موارد رقمية وقوالب قابلة للبيع", "مسارات تعليمية منظمة", "صفحة مدرب وملف مهني مستقبلًا", "جمهور مغربي وعربي يبحث عن مهارات نافعة"];
 const rules = ["محتوى أصلي وواضح", "وعود واقعية بلا تضليل", "أمثلة قابلة للتطبيق", "احترام اللغة والجمهور", "جودة صوت وصورة مقبولة"];
+const steps = ["أرسل موضوعك وخبرتك", "نراجع ملاءمة المحتوى للجمهور", "نحدد صيغة الدورة أو المورد", "نطلق نسخة أولى عند جاهزية نظام النشر"];
 
 export default function InstructorsPage() {
   return (
@@ -21,11 +23,11 @@ export default function InstructorsPage() {
           </p>
           <h1 className="mt-5 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">هل لديك معرفة تريد بيعها؟</h1>
           <p className="mt-5 text-lg leading-9 text-slate-600">
-            منصتي ستدعم المدربين، المعلمين، الخبراء، وصناع المحتوى الذين يريدون نشر دورات وموارد ومسارات للجمهور المغربي والعربي.
+            منصتي ستدعم المدربين، المعلمين، الخبراء، وصناع المحتوى الذين يريدون نشر دورات وموارد ومسارات للجمهور المغربي والعربي. برنامج المدربين قيد التحضير، والطلبات الحالية تُستخدم لبناء قائمة انتظار جدية.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/contact" className="rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white">أرسل طلب الانضمام</Link>
-            <Link href="mailto:contact@minassati.ma" className="rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800">contact@minassati.ma</Link>
+            <Link href="mailto:contact@minassati.ma?subject=طلب الانضمام كمدرب في منصتي&body=السلام عليكم،%0A%0Aالاسم:%0Aالمجال:%0Aنوع المحتوى الذي أريد تقديمه:%0Aرابط أعمال أو نبذة:%0A" className="cta-instructor-apply rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white" data-cta-id="instructor-hero-apply">أرسل طلب الانضمام</Link>
+            <Link href="/creator-preview" className="cta-instructor-preview rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800" data-cta-id="instructor-hero-preview">معاينة لوحة المدرب</Link>
           </div>
         </div>
         <div className="rounded-2xl bg-slate-950 p-6 text-white shadow-navy-glow">
@@ -48,6 +50,29 @@ export default function InstructorsPage() {
           </ul>
         </section>
       </div>
+      <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 shadow-soft">
+          <h2 className="flex items-center gap-2 text-2xl font-black text-slate-950"><ShieldCheck className="h-6 w-6 text-blue-700" /> كيف تتم المراجعة؟</h2>
+          <ol className="mt-5 space-y-3 text-sm font-bold leading-8 text-slate-700">
+            {steps.map((step, index) => <li key={step}>{index + 1}. {step}</li>)}
+          </ol>
+        </section>
+        <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-soft">
+          <h2 className="text-2xl font-black text-slate-950">ملاحظة تجارية صريحة</h2>
+          <p className="mt-3 text-sm font-bold leading-8 text-slate-700">لا توجد لوحة نشر أو نظام أرباح مباشر مفعّل اليوم. الهدف الحالي هو استقبال المدربين المناسبين وبناء العرض قبل فتح السوق بشكل رسمي.</p>
+          <Link href="mailto:contact@minassati.ma?subject=طلب الانضمام كمدرب في منصتي" className="cta-instructor-contact mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id="instructor-quality-contact"><Mail className="h-4 w-4" /> تواصل كمدرب</Link>
+        </section>
+      </div>
+      <LeadCapture
+        id="instructor-application"
+        source="instructors"
+        title="قدّم طلبك كمدرب أو صانع مورد"
+        description="أرسل المجال ونوع المحتوى وروابط أعمالك إن وجدت. سنراجع الطلب قبل أي نشر أو وعد تجاري."
+        subject="طلب الانضمام كمدرب في منصتي"
+        body="السلام عليكم،\n\nأريد التقديم كمدرب في منصتي.\nالاسم:\nالمجال:\nنوع المحتوى:\nرابط أعمال أو نبذة:\n"
+        buttonLabel="إرسال طلب مدرب"
+        className="mt-8"
+      />
     </section>
   );
 }

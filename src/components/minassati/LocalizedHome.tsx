@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpenCheck, CheckCircle2, Download, GraduationCap, Layers, Sparkles, Users } from "lucide-react";
+import { ArrowLeft, BookOpenCheck, CheckCircle2, Download, GraduationCap, Layers, Mail, Sparkles, Users } from "lucide-react";
 import { CourseCard } from "@/components/minassati/CourseExplorer";
 import { Section } from "@/components/minassati/Section";
 import { courses } from "@/data/courses";
@@ -42,9 +42,9 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               اكتشف دورات ومسارات تعليمية في التسويق الرقمي، الذكاء الاصطناعي، العمل الحر، اللغات، ريادة الأعمال، والتعلم الإسلامي — مع محتوى مجاني وموارد عملية تساعدك على التطور خطوة بخطوة.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/courses" className="rounded-full bg-white px-7 py-4 text-center text-base font-black text-slate-950">استكشف الدورات</Link>
-              <Link href="/paths" className="rounded-full border border-white/20 px-7 py-4 text-center text-base font-black text-white hover:bg-white/10">تصفح المسارات</Link>
-              <Link href="/quran" className="rounded-full px-7 py-4 text-center text-base font-black text-teal-200 hover:bg-white/10">افتح القرآن الكريم</Link>
+              <Link href="/courses" className="cta-home-courses rounded-full bg-white px-7 py-4 text-center text-base font-black text-slate-950" data-cta-id="home-hero-courses">استكشف الدورات</Link>
+              <Link href="/paths" className="cta-home-paths rounded-full border border-white/20 px-7 py-4 text-center text-base font-black text-white hover:bg-white/10" data-cta-id="home-hero-paths">تصفح المسارات</Link>
+              <Link href="mailto:contact@minassati.ma?subject=قائمة انتظار منصتي" className="cta-home-waitlist rounded-full px-7 py-4 text-center text-base font-black text-teal-200 hover:bg-white/10" data-cta-id="home-hero-waitlist">انضم لقائمة الانتظار</Link>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {["دورات ومسارات عملية", "محتوى مجاني ومدفوع", "موارد قابلة للتحميل", "قرآن واستماع مجاني"].map((item) => (
@@ -79,10 +79,22 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               </div>
               <div className="mt-5 rounded-2xl bg-slate-950 p-5 text-white">
                 <p className="text-sm font-black text-amber-300">منصة قابلة للنمو</p>
-                <p className="mt-2 text-sm leading-7 text-slate-300">دورات، موارد، اشتراكات، ومدربون لاحقاً بدون التخلي عن القرآن كأداة مجانية موثوقة.</p>
+                <p className="mt-2 text-sm leading-7 text-slate-300">دورات وموارد واشتراكات قيد التحضير، مع القرآن كأداة مجانية موثوقة لا كهوية وحيدة للمنصة.</p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 bg-white">
+        <div className="page-shell grid gap-4 py-5 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div>
+            <h2 className="text-xl font-black text-slate-950">الدفع غير مفعّل بعد. ساعدنا نحدد أول الدورات المدفوعة.</h2>
+            <p className="mt-1 text-sm font-bold leading-7 text-slate-600">انضم لقائمة الاهتمام وسنرسل لك عند توفر النسخة التجريبية أو الاشتراك. لا نطلب أي بطاقة أو دفع حالياً.</p>
+          </div>
+          <Link href="mailto:contact@minassati.ma?subject=اهتمام بمنصتي&body=السلام عليكم،%0A%0Aأريد الانضمام لقائمة الاهتمام بمنصتي.%0Aالمجال الذي يهمني:%0A" className="cta-home-interest inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="home-interest-strip">
+            <Mail className="h-4 w-4" /> أرسل اهتمامك
+          </Link>
         </div>
       </section>
 
@@ -101,6 +113,10 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       <Section className="bg-slate-50" eyebrow="الدورات" title="دورات مختارة للبدء" centered={false}>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {featuredCourses.map((course) => <CourseCard key={course.slug} course={course} compact />)}
+        </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Link href="/courses" className="cta-home-all-courses rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white" data-cta-id="home-featured-all-courses">شاهد كل الدورات</Link>
+          <Link href="/pricing" className="cta-home-pricing rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800" data-cta-id="home-featured-pricing">كيف ستعمل الاشتراكات؟</Link>
         </div>
       </Section>
 

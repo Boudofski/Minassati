@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Copy } from "lucide-react";
+import { CheckCircle2, Copy, Mail } from "lucide-react";
 import { AdSlot } from "@/components/minassati/AdSlot";
+import { LeadCapture } from "@/components/minassati/LeadCapture";
 import { getResource, resources, resourceTypeLabel } from "@/data/resources";
 
 type Props = { params: { slug: string } };
@@ -30,12 +31,13 @@ export default function ResourcePage({ params }: Props) {
       <nav className="mb-6 text-sm font-bold text-slate-500">
         <Link href="/">الرئيسية</Link> / <Link href="/resources">الموارد</Link> / <span className="text-slate-800">{resource.title}</span>
       </nav>
-      <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div>
           <section className="rounded-2xl bg-slate-950 p-7 text-white shadow-navy-glow sm:p-10">
             <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-black text-teal-200">{resource.category}</span>
             <h1 className="mt-5 text-4xl font-black leading-tight sm:text-6xl">{resource.title}</h1>
             <p className="mt-5 max-w-3xl text-xl leading-9 text-slate-300">{resource.description}</p>
+            <p className="mt-4 max-w-3xl text-sm font-bold leading-7 text-slate-400">المورد الكامل أو ملف التحميل قد لا يكون منشوراً بعد. هذه الصفحة تعرض المعاينة والهيكل حتى تتم إضافة النسخ القابلة للتحميل.</p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-300">
               <span className="rounded-full bg-white/10 px-4 py-2">{resourceTypeLabel(resource.type)}</span>
               <span className="rounded-full bg-white/10 px-4 py-2">{resource.language}</span>
@@ -43,7 +45,7 @@ export default function ResourcePage({ params }: Props) {
             </div>
           </section>
 
-          <AdSlot className="mt-8" />
+          <AdSlot className="mt-8" label="مساحة إعلانية مناسبة قبل معاينة المورد" />
 
           <section className="mt-8 rounded-2xl bg-white p-6 shadow-soft sm:p-8">
             <h2 className="text-2xl font-black text-slate-950">ماذا يحتوي؟</h2>
@@ -66,17 +68,35 @@ export default function ResourcePage({ params }: Props) {
               <p>1. حدد السياق. 2. املأ الحقول الأساسية. 3. راجع النتيجة وطبقها.</p>
             </div>
           </section>
+          <section className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 sm:p-8">
+            <h2 className="text-2xl font-black text-slate-950">هل تريد النسخة القابلة للتحميل؟</h2>
+            <p className="mt-3 text-sm font-bold leading-8 text-slate-700">أرسل طلب اهتمام وسنرتب أولويات الموارد حسب الطلب الفعلي. لا يوجد دفع مطلوب حالياً.</p>
+            <Link href={`mailto:contact@minassati.ma?subject=${encodeURIComponent(`طلب مورد: ${resource.title}`)}`} className="cta-resource-detail mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`resource-detail-${resource.slug}`}>
+              <Mail className="h-4 w-4" /> أعلمني عند توفره
+            </Link>
+          </section>
+          <LeadCapture
+            id={`resource-waitlist-${resource.slug}`}
+            source={`resource:${resource.slug}`}
+            title="اطلب هذا المورد"
+            description="سنرسل تحديثاً عند توفر نسخة PDF أو قالب قابل للنسخ. لا يوجد دفع مطلوب الآن."
+            subject={`طلب مورد: ${resource.title}`}
+            body={`السلام عليكم،\n\nأريد هذا المورد عند توفره: ${resource.title}\nالاسم:\nالمجال:\n`}
+            buttonLabel="أعلمني عند توفره"
+            className="mt-8"
+          />
         </div>
 
         <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
             <p className="text-sm font-black text-slate-500">الإجراء</p>
             <p className="mt-2 text-2xl font-black text-slate-950">{resource.cta}</p>
-            <p className="mt-3 text-sm leading-7 text-slate-600">لا توجد تنزيلات فعلية بعد. البنية جاهزة لإضافة ملفات PDF أو نماذج قابلة للنسخ لاحقاً.</p>
-            <Link href="/contact" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white">
+            <p className="mt-3 text-sm leading-7 text-slate-600">لا توجد تنزيلات فعلية لبعض الموارد بعد. البنية جاهزة لإضافة ملفات PDF أو نماذج قابلة للنسخ لاحقاً.</p>
+            <Link href="/contact" className="cta-resource-sidebar mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`resource-sidebar-${resource.slug}`}>
               <Copy className="h-4 w-4" /> اطلب هذا المورد
             </Link>
           </div>
+          <AdSlot label="مساحة إعلانية جانبية" />
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
             <h2 className="font-black text-slate-950">وسوم</h2>
             <div className="mt-3 flex flex-wrap gap-2">

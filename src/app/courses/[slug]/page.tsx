@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Clock, GraduationCap, Star, Users } from "lucide-react";
+import { CheckCircle2, Clock, GraduationCap, Mail, ShieldCheck, Star, Users } from "lucide-react";
 import { AdSlot } from "@/components/minassati/AdSlot";
 import { CourseCard } from "@/components/minassati/CourseExplorer";
+import { LeadCapture } from "@/components/minassati/LeadCapture";
 import { courses, getCourse, getRelatedCourses, priceLabel } from "@/data/courses";
 import { absoluteUrl, site } from "@/lib/site";
 
@@ -29,7 +30,9 @@ export default function CoursePage({ params }: Props) {
   const course = getCourse(params.slug);
   if (!course) notFound();
   const related = getRelatedCourses(course);
-  const cta = course.priceType === "free" ? "ابدأ مجانًا" : course.status === "comingSoon" ? "أعلمني عند الإطلاق" : "اشترك عند التوفر";
+  const cta = course.priceType === "free" ? "ابدأ مجانًا" : course.status === "comingSoon" ? "أعلمني عند الإطلاق" : "انضم لقائمة الاهتمام";
+  const waitlistSubject = encodeURIComponent(`اهتمام بدورة: ${course.title}`);
+  const waitlistBody = encodeURIComponent(`السلام عليكم،\n\nأريد الانضمام لقائمة الاهتمام بدورة: ${course.title}\n\nالاسم:\nالمدينة:\nالمستوى الحالي:\n`);
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -58,12 +61,13 @@ export default function CoursePage({ params }: Props) {
         <Link href="/">الرئيسية</Link> / <Link href="/courses">الدورات</Link> / <span className="text-slate-800">{course.title}</span>
       </nav>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div>
           <section className="rounded-2xl bg-slate-950 p-7 text-white shadow-navy-glow sm:p-10">
             <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-black text-teal-200">{course.category}</span>
             <h1 className="mt-5 text-4xl font-black leading-tight sm:text-6xl">{course.title}</h1>
             <p className="mt-4 text-xl leading-9 text-slate-300">{course.subtitle}</p>
+            <p className="mt-4 max-w-3xl text-base leading-8 text-slate-400">{course.description}</p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-300">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><GraduationCap className="h-4 w-4" />{course.level}</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Clock className="h-4 w-4" />{course.duration}</span>
@@ -71,9 +75,31 @@ export default function CoursePage({ params }: Props) {
               {course.rating ? <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Star className="h-4 w-4 text-amber-300" />{course.rating}</span> : null}
               {course.studentsCount ? <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Users className="h-4 w-4" />{course.studentsCount}</span> : null}
             </div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href={course.priceType === "free" ? "#curriculum" : `mailto:contact@minassati.ma?subject=${waitlistSubject}&body=${waitlistBody}`} className="cta-course-hero inline-flex justify-center rounded-full bg-white px-6 py-3 text-sm font-black text-slate-950" data-cta-id={`course-hero-${course.slug}`} data-course-slug={course.slug}>
+                {cta}
+              </Link>
+              <Link href="/pricing" className="cta-course-pricing inline-flex justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-black text-white hover:bg-white/10" data-cta-id={`course-pricing-${course.slug}`} data-course-slug={course.slug}>
+                خطط الاشتراك
+              </Link>
+            </div>
           </section>
 
-          <AdSlot className="mt-8" />
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {[
+              ["محتوى عملي", "دروس قصيرة قابلة للتطبيق وليس وعوداً عامة."],
+              ["إطلاق تدريجي", "الدفع والشهادات قيد التحضير بوضوح."],
+              ["مناسب للمغرب", "أمثلة وسياق موجه للمتعلمين والمشاريع المغربية."],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+                <ShieldCheck className="h-5 w-5 text-emerald-600" />
+                <h2 className="mt-3 font-black text-slate-950">{title}</h2>
+                <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <AdSlot className="mt-8" label="مساحة إعلانية مناسبة بين مقدمة الدورة والمحتوى" />
 
           <section className="mt-8 rounded-2xl bg-white p-6 shadow-soft sm:p-8">
             <h2 className="text-2xl font-black text-slate-950">ماذا ستتعلم؟</h2>
@@ -86,7 +112,7 @@ export default function CoursePage({ params }: Props) {
             </div>
           </section>
 
-          <section className="mt-8 rounded-2xl bg-white p-6 shadow-soft sm:p-8">
+          <section id="curriculum" className="mt-8 rounded-2xl bg-white p-6 shadow-soft sm:p-8">
             <h2 className="text-2xl font-black text-slate-950">المحتوى</h2>
             <div className="mt-5 space-y-4">
               {course.curriculum.map((module, index) => (
@@ -99,14 +125,45 @@ export default function CoursePage({ params }: Props) {
               ))}
             </div>
           </section>
+
+          <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
+            <h2 className="text-2xl font-black text-slate-950">ملاحظة مهمة قبل التسجيل</h2>
+            <p className="mt-3 text-sm font-bold leading-8 text-slate-700">
+              منصتي في مرحلة تجهيز السوق التعليمي. لا يوجد دفع مباشر أو شهادة مدفوعة مفعلة حالياً. إذا كانت الدورة مدفوعة أو قادمة، فزر الاهتمام يفتح رسالة بريد حتى نجمع الطلب الحقيقي قبل الإطلاق.
+            </p>
+          </section>
+
+          {course.priceType !== "free" || course.status === "comingSoon" ? (
+            <LeadCapture
+              id={`course-waitlist-${course.slug}`}
+              source={`course:${course.slug}`}
+              title="انضم لقائمة الاهتمام بهذه الدورة"
+              description="سنستخدم عدد المهتمين لتحديد أولوية الإنتاج والإطلاق. لا يوجد دفع حالياً، وستصلك التفاصيل عندما تصبح النسخة التجريبية أو الاشتراك جاهزاً."
+              subject={`اهتمام بدورة: ${course.title}`}
+              body={`السلام عليكم،\n\nأريد الانضمام لقائمة الاهتمام بدورة: ${course.title}\n\nالاسم:\nالمدينة:\nالمستوى الحالي:\n`}
+              buttonLabel="أعلمني عند الإطلاق"
+              className="mt-8"
+            />
+          ) : null}
         </div>
 
         <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
             <p className="text-sm font-black text-slate-500">الحالة</p>
             <p className="mt-2 text-3xl font-black text-slate-950">{priceLabel(course)}</p>
-            <p className="mt-3 text-sm leading-7 text-slate-600">{course.status === "comingSoon" ? "هذه الدورة ضمن خطة الإطلاق. لا يوجد دفع حالياً." : "الدفع الكامل والاشتراكات قيد التحضير."}</p>
-            <Link href={course.status === "comingSoon" ? "/contact" : "/pricing"} className="mt-5 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white">{cta}</Link>
+            <p className="mt-3 text-sm leading-7 text-slate-600">{course.status === "comingSoon" ? "هذه الدورة ضمن خطة الإطلاق. لا يوجد دفع حالياً." : course.priceType === "free" ? "يمكن البدء بالمحتوى المجاني الآن. الميزات المدفوعة قيد التحضير." : "الدفع الكامل والاشتراكات قيد التحضير."}</p>
+            <Link href={course.priceType === "free" ? "#curriculum" : `mailto:contact@minassati.ma?subject=${waitlistSubject}&body=${waitlistBody}`} className="cta-course-sidebar mt-5 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white" data-cta-id={`course-sidebar-${course.slug}`} data-course-slug={course.slug}>{cta}</Link>
+            <Link href="/contact" className="cta-course-question mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 px-5 py-3 text-sm font-black text-slate-800" data-cta-id={`course-question-${course.slug}`} data-course-slug={course.slug}>
+              <Mail className="h-4 w-4" /> اسأل عن الدورة
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 shadow-soft">
+            <h2 className="font-black text-slate-950">ماذا يحدث بعد الاهتمام؟</h2>
+            <ol className="mt-3 space-y-2 text-sm font-semibold leading-7 text-slate-700">
+              <li>1. نراجع الطلب وعدد المهتمين.</li>
+              <li>2. نرسل تفاصيل الإطلاق أو النسخة التجريبية.</li>
+              <li>3. لا يتم طلب أي دفع قبل تفعيل نظام واضح.</li>
+            </ol>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
             <h2 className="font-black text-slate-950">المدرب</h2>
