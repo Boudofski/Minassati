@@ -6,17 +6,17 @@ import { Section } from "@/components/minassati/Section";
 import { getSurahList } from "@/lib/quran-api";
 
 export const metadata: Metadata = {
-  title: "قارئ القرآن الكريم للأطفال والأسرة",
-  description: "قارئ قرآن عربي في منصتي مع فهرس السور، آيات عربية، ترجمة اختيارية، أدوات نسخ ومشاركة، وروابط تعلم للأطفال.",
+  title: "قارئ القرآن الكريم - منصتي",
+  description: "قارئ قرآن عربي مجاني في منصتي مع فهرس 114 سورة، آيات عربية، ترجمة اختيارية، أدوات نسخ ومشاركة، وروابط الاستماع.",
   alternates: { canonical: "/quran" },
   openGraph: {
     title: "قارئ القرآن الكريم | منصتي",
-    description: "قراءة عربية واضحة وروابط تلاوة وتعلم تساعد الأسرة على جعل القرآن جزءاً هادئاً من اليوم.",
+    description: "قراءة عربية واضحة وروابط تلاوة وترجمات اختيارية ضمن موارد منصتي الإسلامية المجانية.",
   },
 };
 
 const quranModes = [
-  { title: "وضع الطفل", text: "واجهة أكبر، ألوان أهدأ، وأهداف قراءة قصيرة.", icon: Sparkles },
+  { title: "قراءة يومية", text: "واجهة واضحة تساعد على بناء ورد قصير ومستمر.", icon: Sparkles },
   { title: "وضع القراءة", text: "تحكم بحجم الخط وترجمة اختيارية بلا تشتيت.", icon: BookOpen },
   { title: "تكرار الحفظ", text: "مسار جاهز للتوسع بتكرار الآيات والمقاطع.", icon: Repeat },
   { title: "الاستماع", text: "انتقل إلى القراء والتلاوات من MP3Quran.net.", icon: Headphones },
@@ -33,7 +33,7 @@ export default async function QuranPage() {
             <p className="text-sm font-black text-blue-700">قارئ القرآن</p>
             <h1 className="text-balance mt-4 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">اختر سورة وابدأ قراءة هادئة</h1>
             <p className="mt-5 text-pretty text-lg leading-9 text-slate-600">
-              فهرس السور وقراءة عربية واضحة مع ترجمة اختيارية وأدوات نسخ ومشاركة، مع fallback واضح إذا تعذر الاتصال بالمصدر.
+              فهرس السور وقراءة عربية واضحة مع ترجمة اختيارية وأدوات نسخ ومشاركة. القرآن يبقى مورداً مجانياً موثوقاً داخل منصتي.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/audio">استمع للتلاوات</ButtonLink>
@@ -43,7 +43,7 @@ export default async function QuranPage() {
 
           <div className="rounded-[2.5rem] bg-slate-950 p-7 text-white shadow-navy-glow">
             <Moon className="h-8 w-8 text-amber-300" />
-            <h2 className="mt-5 text-3xl font-black">تجربة قراءة مناسبة للأسرة</h2>
+            <h2 className="mt-5 text-3xl font-black">أداة إسلامية مجانية ومحترمة</h2>
             <p className="mt-4 leading-8 text-slate-300">ابحث باسم السورة، افتح النص العربي، فعّل الترجمة، كبّر الخط، وانسخ أو شارك آية واحدة بسهولة.</p>
             <div className="mt-6 grid grid-cols-2 gap-3">
               {[

@@ -3,7 +3,7 @@ import { Mail, MessageCircle, Send, UserRound } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "اتصل بنا",
-  description: "تواصل مع منصتي بخصوص المحتوى التعليمي أو الاقتراحات أو التعاون.",
+  description: "تواصل مع منصتي بخصوص الدورات، الموارد، المدربين، الشراكات، أو الاقتراحات.",
   alternates: { canonical: "/contact" },
 };
 
@@ -13,8 +13,8 @@ export default function ContactPage() {
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="aurora-panel rounded-[2.5rem] border border-white p-7 shadow-xl shadow-teal-100/60 sm:p-10">
           <p className="text-sm font-black text-teal-700">اتصل بنا</p>
-          <h1 className="mt-4 text-balance text-4xl font-black text-slate-950 sm:text-6xl">نستقبل اقتراحات الأسرة والمعلمين</h1>
-          <p className="mt-5 text-lg leading-9 text-slate-600">شاركنا ملاحظة على المحتوى، فكرة درس، أو اقتراحاً يجعل تجربة الأطفال أهدأ وأكثر نفعاً.</p>
+          <h1 className="mt-4 text-balance text-4xl font-black text-slate-950 sm:text-6xl">تواصل معنا حول التعلم والشراكات</h1>
+          <p className="mt-5 text-lg leading-9 text-slate-600">شاركنا فكرة دورة، طلب مورد، اقتراح شراكة، أو اهتمامك بالانضمام كمدرب في منصتي.</p>
           <div className="mt-8 grid gap-3">
             <a href="mailto:hello@minassati.ma" className="flex items-center gap-3 rounded-2xl bg-white/80 p-4 font-black text-slate-800 shadow-sm">
               <Mail className="h-5 w-5 text-blue-600" />
@@ -47,7 +47,7 @@ export default function ContactPage() {
           </div>
           <p className="mt-5 flex items-start gap-2 text-sm leading-7 text-slate-500">
             <MessageCircle className="mt-1 h-4 w-4 shrink-0 text-teal-600" />
-            يفتح زر الإرسال تطبيق البريد لدى ولي الأمر مع بيانات الرسالة المكتوبة.
+            يفتح زر الإرسال تطبيق البريد لديك مع بيانات الرسالة المكتوبة.
           </p>
         </form>
       </div>

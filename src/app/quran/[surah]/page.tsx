@@ -71,8 +71,8 @@ export default async function SurahPage({ params }: Props) {
       </section>
 
       <section className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft">
-        <h2 className="text-2xl font-black text-slate-950">اقتراح عائلي بعد القراءة</h2>
-        <p className="mt-3 leading-8 text-slate-600">اختاروا آية واحدة، اقرؤوها بصوت هادئ، ثم اسألوا الطفل: ما الكلمة التي أحببتها؟ هذا يحافظ على علاقة دافئة مع القرآن.</p>
+        <h2 className="text-2xl font-black text-slate-950">اقتراح بعد القراءة</h2>
+        <p className="mt-3 leading-8 text-slate-600">اختر آية واحدة، اقرأها بتركيز، ثم دوّن معنى أو عملاً بسيطاً تريد تطبيقه اليوم. هذا يحوّل القراءة إلى عادة نافعة.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link href="/daily" className="rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white">ورد اليوم</Link>
           <Link href="/parents" className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-800">دليل الأهل</Link>

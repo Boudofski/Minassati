@@ -1,63 +1,58 @@
 import type { MetadataRoute } from "next";
-import { categories } from "@/data/categories";
-import { lessons } from "@/data/lessons";
-import { questions } from "@/data/questions";
-import { quizzes } from "@/data/quizzes";
-import { stories } from "@/data/stories";
 import { articles } from "@/data/articles";
+import { courses } from "@/data/courses";
+import { learningPaths } from "@/data/learning-paths";
+import { resources } from "@/data/resources";
 import { getReciters } from "@/lib/mp3quran-api";
 import { site } from "@/lib/site";
 import { locales, localizedPath } from "@/i18n/config";
+
+function entry(route: string, priority = 0.7) {
+  return { url: `${site.url}${route}`, lastModified: new Date(), priority };
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { reciters } = await getReciters();
   const staticRoutes = [
     "",
-    "/learn",
-    "/start",
-    "/daily",
-    "/qa",
+    "/courses",
+    "/paths",
+    "/articles",
     "/quran",
     "/audio",
-    "/quizzes",
-    "/activities",
-    "/parents",
+    "/resources",
+    "/pricing",
+    "/instructors",
     "/about",
     "/contact",
     "/privacy",
-    "/family-dashboard",
-    "/kids-zone",
-    "/games",
-    "/stories",
-    "/adhkar",
-    "/challenges",
-    "/badges",
-    "/articles",
-    "/methodology",
-    "/content-review",
+    "/terms",
+    "/help",
+    "/student-dashboard-preview",
+    "/creator-preview",
+    "/islamic-kids",
+    "/learn",
+    "/qa",
   ];
-  return [
-    ...staticRoutes.map((route) => ({ url: `${site.url}${route}`, lastModified: new Date(), priority: route === "" ? 1 : 0.8 })),
-    ...locales.flatMap((locale) =>
-      staticRoutes
-        .filter((route) => ["", "/start", "/daily", "/learn", "/qa", "/quran", "/audio", "/articles", "/parents", "/methodology", "/content-review", "/privacy", "/contact"].includes(route))
-        .map((route) => ({ url: `${site.url}${localizedPath(locale, route || "/")}`, lastModified: new Date(), priority: locale === "ar" ? 0.9 : 0.75 })),
-    ),
-    ...categories.map((category) => ({ url: `${site.url}/learn/${category.slug}`, lastModified: new Date(), priority: 0.7 })),
-    ...lessons.map((lesson) => ({ url: `${site.url}/learn/${lesson.category}/${lesson.slug}`, lastModified: new Date(), priority: 0.7 })),
-    ...questions.map((question) => ({ url: `${site.url}/qa/${question.slug}`, lastModified: new Date(), priority: 0.7 })),
-    ...quizzes.map((quiz) => ({ url: `${site.url}/quizzes/${quiz.slug}`, lastModified: new Date(), priority: 0.6 })),
-    ...stories.map((story) => ({ url: `${site.url}/stories/${story.slug}`, lastModified: new Date(), priority: 0.6 })),
-    ...Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}/quran/${index + 1}`, lastModified: new Date(), priority: 0.6 })),
-    ...locales.flatMap((locale) => Array.from({ length: 114 }, (_, index) => ({ url: `${site.url}${localizedPath(locale, `/quran/${index + 1}`)}`, lastModified: new Date(), priority: 0.55 }))),
-    ...reciters.slice(0, 24).map((reciter) => ({ url: `${site.url}/audio/${reciter.id}`, lastModified: new Date(), priority: 0.5 })),
-    ...locales.flatMap((locale) =>
-      reciters.slice(0, 24).map((reciter) => ({
-        url: `${site.url}${localizedPath(locale, `/audio/${reciter.id}`)}`,
-        lastModified: new Date(),
-        priority: 0.45,
-      }))
-    ),
-    ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.8 })),
+
+  const localizedCore = ["", "/articles", "/quran", "/audio", "/privacy", "/contact"];
+  const routes = [
+    ...staticRoutes.map((route) => entry(route, route === "" ? 1 : 0.8)),
+    ...locales.flatMap((locale) => localizedCore.map((route) => entry(localizedPath(locale, route || "/"), locale === "ar" ? 0.85 : 0.65))),
+    ...courses.map((course) => entry(`/courses/${course.slug}`, course.featured ? 0.85 : 0.75)),
+    ...learningPaths.map((path) => entry(`/paths/${path.slug}`, path.featured ? 0.85 : 0.75)),
+    ...resources.map((resource) => entry(`/resources/${resource.slug}`, resource.free ? 0.75 : 0.65)),
+    ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.75 })),
+    ...Array.from({ length: 114 }, (_, index) => entry(`/quran/${index + 1}`, 0.65)),
+    ...locales.flatMap((locale) => Array.from({ length: 114 }, (_, index) => entry(localizedPath(locale, `/quran/${index + 1}`), 0.55))),
+    ...reciters.slice(0, 24).map((reciter) => entry(`/audio/${reciter.id}`, 0.55)),
+    ...locales.flatMap((locale) => reciters.slice(0, 24).map((reciter) => entry(localizedPath(locale, `/audio/${reciter.id}`), 0.45))),
   ];
+
+  const seen = new Set<string>();
+  return routes.filter((route) => {
+    if (seen.has(route.url)) return false;
+    seen.add(route.url);
+    return true;
+  });
 }

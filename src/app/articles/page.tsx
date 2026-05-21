@@ -8,12 +8,12 @@ import { articles, articleCategories } from "@/data/articles";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "مقالات ودليل الوالدين - منصتي",
-  description: "مقالات تربوية إسلامية موجهة للوالدين: كيف تعلّم طفلك الصلاة والقرآن والأخلاق بطريقة هادئة ومحببة.",
+  title: "المقالات - منصتي",
+  description: "مقالات عملية حول الذكاء الاصطناعي، التسويق، العمل الحر، الأعمال، التجارة الإلكترونية، التعلم، والقرآن.",
   alternates: { canonical: "/articles" },
   openGraph: {
-    title: "مقالات ودليل الوالدين - منصتي",
-    description: "مقالات تربوية إسلامية موجهة للوالدين لتعليم الأطفال الإسلام بأسلوب هادئ.",
+    title: "مقالات منصتي",
+    description: "مقالات عملية للتعلم والعمل والموارد الإسلامية.",
   },
 };
 
@@ -21,7 +21,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
   name: "مقالات منصتي",
-  description: "مقالات تربوية إسلامية للوالدين",
+  description: "مقالات عملية للتعلم والعمل والموارد الإسلامية",
   url: `${site.url}/articles`,
   inLanguage: "ar",
 };
@@ -40,13 +40,13 @@ export default function ArticlesPage() {
           <FadeUp>
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/82 px-4 py-2 text-sm font-black text-blue-700 shadow-sm">
               <BookOpen className="h-4 w-4 text-amber-500" />
-              دليل الوالدين
+              المقالات
             </div>
             <h1 className="mt-5 max-w-3xl text-4xl font-black leading-tight text-slate-950 sm:text-6xl">
-              مقالات تربوية لكل والد يريد الأفضل لطفله
+              مقالات تساعدك على التعلم والعمل وبناء مهارات نافعة
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-9 text-slate-600">
-              إجابات عملية لأسئلة التعليم الإسلامي اليومي: كيف أعلّم الصلاة؟ كيف أحبب الطفل في الدين؟ كيف أستخدم 10 دقائق يومياً؟
+              اقرأ أدلة عملية حول الذكاء الاصطناعي، التسويق، العمل الحر، التجارة الإلكترونية، اللغات، التعلم، والقرآن.
             </p>
           </FadeUp>
         </div>
@@ -107,10 +107,10 @@ export default function ArticlesPage() {
         </div>
       </Section>
 
-      <Section className="bg-slate-950 text-white" eyebrow="ابدأ اليوم" title="10 دقائق يومياً تكفي لبناء عادة إيمانية">
+      <Section className="bg-slate-950 text-white" eyebrow="ابدأ اليوم" title="اختر مقالة ثم طبّق مورداً واحداً">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link href="/start" className="rounded-full bg-white px-8 py-4 text-lg font-black text-slate-950 transition hover:-translate-y-0.5">ابدأ من هنا</Link>
-          <Link href="/daily" className="rounded-full border border-white/30 px-8 py-4 text-lg font-black text-white transition hover:bg-white/10">درس اليوم</Link>
+          <Link href="/courses" className="rounded-full bg-white px-8 py-4 text-lg font-black text-slate-950 transition hover:-translate-y-0.5">استكشف الدورات</Link>
+          <Link href="/resources" className="rounded-full border border-white/30 px-8 py-4 text-lg font-black text-white transition hover:bg-white/10">تصفح الموارد</Link>
         </div>
       </Section>
     </>

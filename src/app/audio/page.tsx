@@ -4,12 +4,12 @@ import { AlertTriangle, Headphones, Radio } from "lucide-react";
 import { getReciters } from "@/lib/mp3quran-api";
 
 export const metadata: Metadata = {
-  title: "الاستماع للقرآن للأطفال والأسرة",
-  description: "مشغل تلاوة قرآن هادئ يعتمد على MP3Quran.net، مع اختيار القارئ والسورة وروابط مناسبة لروتين البيت والنوم.",
+  title: "الاستماع للقرآن الكريم - منصتي",
+  description: "مشغل تلاوة قرآن مجاني يعتمد على MP3Quran.net، مع اختيار القارئ والسورة وروابط قراءة القرآن.",
   alternates: { canonical: "/audio" },
   openGraph: {
     title: "الاستماع للقرآن | منصتي",
-    description: "اختاروا قارئاً وسورة، واجعلوا التلاوة جزءاً هادئاً من روتين الأسرة.",
+    description: "اختر قارئاً وسورة واستمع للتلاوة ضمن موارد منصتي الإسلامية المجانية.",
   },
 };
 
@@ -20,9 +20,9 @@ export default async function AudioPage() {
     <section className="page-shell py-12 sm:py-16">
       <div className="mb-8 aurora-panel rounded-[2rem] border border-white p-6 shadow-xl shadow-amber-100/60 sm:rounded-[2.5rem] sm:p-10">
         <p className="text-sm font-black text-amber-600">الصوتيات</p>
-        <h1 className="text-balance mt-4 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">تلاوة هادئة ترافق البيت والطفل</h1>
+        <h1 className="text-balance mt-4 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">استمع للقرآن الكريم بسهولة</h1>
         <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-600">
-          اختاروا قارئاً وسورة قصيرة، واستعملوا التلاوة قبل النوم أو بعد درس القرآن. الملفات لا تُخزن محلياً، وتظهر حالة احتياطية عند تعذر الاتصال.
+          اختر قارئاً وسورة واستمع للتلاوة من مصادر خارجية موثوقة. الملفات لا تُخزن محلياً، وتظهر حالة احتياطية عند تعذر الاتصال.
         </p>
       </div>
 

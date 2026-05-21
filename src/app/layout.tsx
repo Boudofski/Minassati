@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   authors: [{ name: site.author }],
-  keywords: ["تعليم إسلامي", "أطفال", "قرآن", "عقيدة", "فقه", "سيرة", "منصتي", "تعليم ديني"],
+  keywords: ["دورات", "تعلم رقمي", "المغرب", "ذكاء اصطناعي", "تسويق رقمي", "عمل حر", "قرآن", "منصتي", "موارد رقمية"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -75,7 +75,7 @@ const jsonLd = {
       inLanguage: "ar",
       potentialAction: {
         "@type": "SearchAction",
-        target: { "@type": "EntryPoint", urlTemplate: absoluteUrl("/qa?search={search_term_string}") },
+        target: { "@type": "EntryPoint", urlTemplate: absoluteUrl("/courses?search={search_term_string}") },
         "query-input": "required name=search_term_string",
       },
     },

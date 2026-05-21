@@ -4,14 +4,14 @@ import { Section } from "@/components/minassati/Section";
 
 export const metadata: Metadata = {
   title: "سياسة الخصوصية",
-  description: "سياسة خصوصية منصتي وتجربة التعلم الآمنة للأطفال والآباء والمعلمين.",
+  description: "سياسة خصوصية منصتي للتعلم الرقمي والموارد والدورات والقرآن.",
   alternates: { canonical: "/privacy" },
 };
 
 const principles = [
-  { title: "تقليل البيانات", text: "صفحات التعلم الأساسية لا تطلب من الطفل اسماً أو بريداً أو معلومات شخصية.", icon: EyeOff },
-  { title: "وضوح للأسرة", text: "أي تواصل يتم عبر ولي الأمر وبمعلومات واضحة عن الغرض من الرسالة.", icon: ShieldCheck },
-  { title: "تجربة آمنة", text: "التصميم يقلل التشتيت ويحافظ على مسارات تعلم هادئة ومناسبة للعمر.", icon: LockKeyhole },
+  { title: "تقليل البيانات", text: "صفحات التعلم والقرآن والموارد لا تطلب حساباً شخصياً في المرحلة الحالية.", icon: EyeOff },
+  { title: "وضوح للمستخدم", text: "أي تواصل يتم بإرادة المستخدم وبمعلومات واضحة عن الغرض من الرسالة.", icon: ShieldCheck },
+  { title: "تجربة آمنة", text: "التصميم يقلل التشتيت ويبتعد عن الوعود أو أزرار الدفع غير الفعلية.", icon: LockKeyhole },
 ];
 
 export default function PrivacyPage() {
@@ -20,8 +20,8 @@ export default function PrivacyPage() {
       <section className="page-shell py-12 sm:py-16">
         <div className="aurora-panel rounded-[2.5rem] border border-white p-7 shadow-xl shadow-blue-100/60 sm:p-10">
           <p className="text-sm font-black text-blue-700">سياسة الخصوصية</p>
-          <h1 className="mt-4 text-balance text-4xl font-black text-slate-950 sm:text-6xl">خصوصية واضحة لتجربة أطفال آمنة</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-600">منصتي مصممة حول مبدأ بسيط: يتعلم الطفل دون أن يُطلب منه تقديم بيانات شخصية داخل مسارات التعلم.</p>
+          <h1 className="mt-4 text-balance text-4xl font-black text-slate-950 sm:text-6xl">خصوصية واضحة لتجربة تعلم آمنة</h1>
+          <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-600">منصتي مصممة حول مبدأ بسيط: يمكن للزائر التعلم وقراءة القرآن وتصفح الموارد بدون إنشاء حساب في المرحلة الحالية.</p>
         </div>
       </section>
       <Section title="مبادئ الخصوصية">
@@ -40,8 +40,8 @@ export default function PrivacyPage() {
       </Section>
       <Section className="bg-white/70" title="ملفات الارتباط والخدمات الخارجية">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-7 leading-9 text-slate-700 shadow-soft">
-          <p>قد تستخدم بعض الخدمات العامة مثل الإعلانات أو أدوات القياس ملفات ارتباط وفق سياساتها الخاصة. عند تشغيل أي خدمة خارجية، يجب أن تكون مرئية للأسرة وأن تراعي تجربة الطفل.</p>
-          <p className="mt-5">تواصل ولي الأمر عبر البريد يتم بإرادته، ولا تُستخدم بيانات الرسالة إلا للرد على الاستفسار أو الاقتراح.</p>
+          <p>قد تستخدم بعض الخدمات العامة مثل الإعلانات أو أدوات القياس ملفات ارتباط وفق سياساتها الخاصة. عند تشغيل أي خدمة خارجية، يجب أن تكون واضحة ولا تستخدم لتضليل المستخدم.</p>
+          <p className="mt-5">التواصل عبر البريد يتم بإرادة المستخدم، ولا تُستخدم بيانات الرسالة إلا للرد على الاستفسار أو الاقتراح.</p>
         </div>
       </Section>
     </>

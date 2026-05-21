@@ -1011,6 +1011,55 @@ export const articles: Article[] = [
       { label: "مراجعة المحتوى", href: "/content-review" },
     ],
   },
+  ...[
+    ["كيف تبدأ العمل الحر من المغرب؟", "freelancing-from-morocco-guide", "العمل الحر", "خطة عملية لاختيار خدمة وبناء بورتفوليو والبحث عن أول عميل من المغرب.", "/courses/freelancing-from-morocco"],
+    ["أفضل مهارات رقمية مطلوبة في المغرب", "digital-skills-needed-morocco", "التعلم", "مهارات قابلة للتعلم والبيع: التسويق، التصميم، AI، اللغات، والتجارة الإلكترونية.", "/courses"],
+    ["كيف تستخدم ChatGPT في التسويق؟", "chatgpt-for-marketing", "AI", "استخدام ChatGPT لتوليد أفكار محتوى ورسائل إعلانية وخطط تسويق بدون نتائج عامة.", "/courses/chatgpt-marketing-content"],
+    ["كيف تبني مشروعًا رقميًا صغيرًا؟", "build-small-digital-business", "Business", "طريقة مبسطة لاختيار فكرة رقمية واختبارها وبناء عرض أولي.", "/resources/product-page-template"],
+    ["دليل التسويق الرقمي للمبتدئين", "digital-marketing-beginners-guide", "Marketing", "مدخل سريع لفهم الجمهور والمحتوى والإعلانات والقياس.", "/courses/digital-marketing-from-zero"],
+    ["كيف تبيع دورة أو معرفة على الإنترنت؟", "sell-knowledge-online", "Business", "ما يحتاجه المدرب قبل نشر دورة: وعد واضح، محتوى منظم، وجودة قابلة للثقة.", "/instructors"],
+    ["أدوات مجانية لصناعة المحتوى", "free-content-creation-tools", "Content", "أدوات وقوالب تساعدك على الكتابة والتصميم والنشر بتكلفة منخفضة.", "/resources/content-calendar"],
+    ["خطة تعلم الذكاء الاصطناعي في 30 يومًا", "learn-ai-in-30-days", "AI", "خطة شهرية لفهم AI وتطبيقه في العمل والمحتوى وخدمة العملاء.", "/paths/ai-for-business"],
+    ["كيف تنشئ بورتفوليو يجلب العملاء؟", "portfolio-that-gets-clients", "Freelancing", "اعرض أعمالك بنتيجة وسياق وقيمة بدلاً من صور متفرقة.", "/courses/professional-portfolio"],
+    ["SEO للمواقع العربية: البداية الصحيحة", "arabic-seo-start", "Marketing", "خطوات أولى لتحسين المقالات العربية لمحركات البحث والقراء.", "/courses/arabic-seo-basics"],
+    ["كيف تتعلم الفرنسية للعمل؟", "learn-french-for-work", "Languages", "ركز على المواقف المهنية اليومية: البريد، الاجتماعات، والمقابلات.", "/courses/business-french"],
+    ["كيف تنظم تعلمك بدون تشتت؟", "organize-learning-without-distraction", "Learning", "نظام أسبوعي بسيط يجمع هدفاً واضحاً وموارد قليلة ومراجعة مستمرة.", "/paths/productivity-self-development"],
+  ].map(([title, slug, category, excerpt, link], index) => ({
+    title,
+    slug,
+    excerpt,
+    category,
+    readingTime: "6 دقائق",
+    publishedAt: "2026-05-21",
+    updatedAt: "2026-05-21",
+    seoTitle: `${title} - منصتي`,
+    seoDescription: excerpt,
+    featured: index === 0,
+    sections: [
+      {
+        heading: "الفكرة الأساسية",
+        body: "التعلم العملي يبدأ من مشكلة واضحة لا من جمع الدروس عشوائياً. اختر هدفاً واحداً، اربطه بسوق أو حاجة حقيقية، ثم تعلم الحد الأدنى الذي يسمح لك بالتطبيق والتقييم.",
+      },
+      {
+        heading: "خطة تطبيق سريعة",
+        body: "ابدأ بخطوة صغيرة خلال أسبوع: شاهد درساً، املأ مورداً واحداً، واصنع نموذجاً بسيطاً. بعد ذلك راجع النتيجة: ما الذي فهمته؟ ما الذي يحتاج تدريباً؟ وما الخطوة التالية؟",
+      },
+      {
+        heading: "كيف تساعدك منصتي؟",
+        body: "تجمع منصتي بين الدورات، المسارات، الموارد، والمقالات حتى لا يبقى المتعلم بين روابط كثيرة بلا ترتيب. اختر مساراً، ثم استخدم الموارد المرتبطة به للتطبيق.",
+      },
+    ],
+    faqs: [
+      { q: "هل أحتاج خبرة مسبقة؟", a: "لا في أغلب المواضيع. ابدأ بالمستوى المبتدئ ثم انتقل للتطبيق قبل التوسع." },
+      { q: "هل المحتوى مجاني؟", a: "جزء من المحتوى مجاني، والدورات والاشتراكات المتقدمة قيد التحضير." },
+    ],
+    internalLinks: [
+      { label: "الدورات", href: "/courses" },
+      { label: "المسارات", href: "/paths" },
+      { label: "الموارد", href: "/resources" },
+      { label: "ابدأ من هنا", href: link },
+    ],
+  })),
 ];
 
 export function getArticle(slug: string): Article | undefined {
