@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "معاينة لوحة المدرب - منصتي",
   description: "تصور ثابت للوحة المدرب المستقبلية في منصتي.",
   alternates: { canonical: "/creator-preview" },
+  robots: { index: false, follow: false },
 };
 
 export default function CreatorPreviewPage() {

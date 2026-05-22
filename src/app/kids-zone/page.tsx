@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "منطقة الطفل",
   description: "واجهة تفاعلية آمنة للأطفال داخل منصتي: تحدي يومي، اختبارات، قصص، أذكار، قرآن، وشارات.",
   alternates: { canonical: "/kids-zone" },
+  robots: { index: false, follow: false },
 };
 
 const adventures = [

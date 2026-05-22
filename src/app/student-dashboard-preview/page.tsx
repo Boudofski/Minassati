@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "معاينة لوحة المتعلم - منصتي",
   description: "تصور ثابت للوحة المتعلم في منصتي: دورات، تقدم، موارد محفوظة، ورد قرآن، ومسارات مقترحة.",
   alternates: { canonical: "/student-dashboard-preview" },
+  robots: { index: false, follow: false },
 };
 
 export default function StudentDashboardPreviewPage() {

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "الأنشطة العائلية",
   description: "أنشطة إسلامية عملية للأطفال: تلوين، بطاقات، تحديات لطف، جداول صلاة، ومراجعة سور.",
   alternates: { canonical: "/activities" },
+  robots: { index: false, follow: false },
 };
 
 export default function ActivitiesPage() {

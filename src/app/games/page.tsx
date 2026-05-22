@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "الألعاب الإسلامية",
   description: "ألعاب تعليمية قصيرة في منصتي تساعد الطفل على المراجعة والفهم بلا تشتيت.",
   alternates: { canonical: "/games" },
+  robots: { index: false, follow: false },
 };
 
 const games = [

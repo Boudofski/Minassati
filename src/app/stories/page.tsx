@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "القصص الإسلامية",
   description: "قصص إسلامية للأطفال من الأنبياء والسيرة والصحابة والأخلاق مع سؤال تأمل وروابط تعليمية.",
   alternates: { canonical: "/stories" },
+  robots: { index: false, follow: false },
 };
 
 export default function StoriesPage() {

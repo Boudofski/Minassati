@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: "أسئلة الأطفال عن الإسلام | منصتي",
     description: "ابحث عن إجابات قصيرة تساعد الأسرة على الحوار الهادئ مع الطفل.",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function QaPage() {

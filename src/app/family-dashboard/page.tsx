@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "لوحة الأسرة",
   description: "منطقة الوالدين في منصتي لمتابعة تقدم الطفل واقتراح دروس وروتين أسبوعي.",
   alternates: { canonical: "/family-dashboard" },
+  robots: { index: false, follow: false },
 };
 
 export default function FamilyDashboardPage() {

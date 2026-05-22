@@ -28,8 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/privacy",
     "/terms",
     "/help",
-    "/student-dashboard-preview",
-    "/creator-preview",
     "/islamic-kids",
   ];
 

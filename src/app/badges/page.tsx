@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "الشارات والمكافآت",
   description: "شارات تربوية في منصتي تكافئ القراءة والوضوء والأذكار والقرآن والأخلاق والسيرة.",
   alternates: { canonical: "/badges" },
+  robots: { index: false, follow: false },
 };
 
 export default function BadgesPage() {

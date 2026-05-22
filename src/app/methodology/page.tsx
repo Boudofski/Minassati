@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     title: "منهجية منصتي في التعليم الإسلامي للأطفال",
     description: "المبادئ التربوية التي تقوم عليها منصتي لتعليم الإسلام للأطفال.",
   },
+  robots: { index: false, follow: false },
 };
 
 const jsonLd = {

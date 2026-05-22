@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "تحديات التعلم",
   description: "تحديات إسلامية قصيرة للأطفال: الأذكار، الصلاة، جزء عم، الصدق، وبر الوالدين.",
   alternates: { canonical: "/challenges" },
+  robots: { index: false, follow: false },
 };
 
 export default function ChallengesPage() {

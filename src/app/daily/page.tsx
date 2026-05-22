@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     title: "درس اليوم للأطفال | منصتي",
     description: "ورد عائلي قصير: درس، سؤال، آية، ذكر، نشاط، وتحدي أسبوعي.",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function DailyPage() {

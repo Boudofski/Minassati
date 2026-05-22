@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     title: "ابدأ من هنا | منصتي",
     description: "اختاروا عمر الطفل والهدف، ثم ابدأوا بأول مسار إسلامي مناسب للأسرة.",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function StartPage() {

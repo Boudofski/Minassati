@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "الأذكار اليومية",
   description: "أذكار الصباح والمساء والنوم والطعام والخروج ودعاء الوالدين للأطفال مع شرح مبسط.",
   alternates: { canonical: "/adhkar" },
+  robots: { index: false, follow: false },
 };
 
 const groups = [
