@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Clock, Search, Star, Users } from "lucide-react";
-import { courses, courseCategories, courseLanguages, courseLevels, priceLabel, type Course } from "@/data/courses";
-import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
+import { courses, courseCategories, courseLanguages, courseLevels, type Course } from "@/data/courses";
 
 const priceOptions = [
   { value: "all", label: "كل الأسعار" },
@@ -14,38 +13,50 @@ const priceOptions = [
 ];
 
 export function CourseCard({ course, compact = false }: { course: Course; compact?: boolean }) {
+  // status badge
+  const statusBadge =
+    course.priceType === "free" ? <span className="badge-free">مجاني</span>
+    : course.priceType === "comingSoon" ? <span className="badge-soon">قريبًا</span>
+    : <span className="badge-pro">{course.priceMAD ? `${course.priceMAD} د.م` : "Pro"}</span>;
+
+  // level badge color
+  const levelClass =
+    course.level === "مبتدئ" ? "badge-free"
+    : course.level === "متوسط" ? "badge-new"
+    : "badge-pro";
+
   return (
-    <Link
-      href={`/courses/${course.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
-    >
-      <div className="relative min-h-28 bg-slate-950 p-5 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(45,212,191,0.28),transparent_34%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.26),transparent_30%),linear-gradient(135deg,rgba(15,23,42,1),rgba(15,23,42,0.9))]" />
+    <Link href={`/courses/${course.slug}`} className="card-premium group flex flex-col overflow-hidden">
+      {/* Thumbnail */}
+      <div className="relative flex h-36 items-center justify-center overflow-hidden rounded-t-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-6">
         <div className="absolute inset-0 islamic-bg-white opacity-[0.04]" />
-        <div className="relative flex items-start justify-between gap-3">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-xs font-black text-slate-950 shadow-lg">{course.icon}</span>
-          <span className={cn("rounded-full px-3 py-1 text-xs font-black", course.priceType === "free" ? "bg-emerald-300 text-emerald-950" : course.priceType === "paid" ? "bg-amber-300 text-amber-950" : "bg-blue-300 text-blue-950")}>
-            {priceLabel(course)}
-          </span>
+        <span className="relative z-10 grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-2xl font-black text-white/80 backdrop-blur">
+          {course.icon}
+        </span>
+        <div className="absolute end-3 top-3">{statusBadge}</div>
+        {course.featured && (
+          <div className="absolute start-3 top-3"><span className="badge-new">مختار</span></div>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <p className="text-xs font-black uppercase tracking-wider text-blue-600">{course.category}</p>
+        <h3 className="text-lg font-black leading-tight text-slate-950 transition-colors group-hover:text-blue-700">
+          {course.title}
+        </h3>
+        <p className="flex-1 text-sm leading-7 text-slate-500 line-clamp-2">
+          {course.subtitle}
+        </p>
+        <div className="mt-2 flex items-center justify-between gap-2 border-t border-slate-100 pt-3">
+          <div className="flex items-center gap-2">
+            <span className={levelClass}>{course.level}</span>
+            {course.duration && <span className="text-xs font-bold text-slate-400">· {course.duration}</span>}
+          </div>
+          {course.instructor && (
+            <span className="max-w-[100px] truncate text-xs font-bold text-slate-400">{course.instructor}</span>
+          )}
         </div>
-      </div>
-      <div className="flex flex-1 flex-col p-5">
-      <div className="flex flex-wrap gap-2 text-xs font-bold text-slate-500">
-        <span>{course.category}</span>
-        <span>•</span>
-        <span>{course.level}</span>
-        <span>•</span>
-        <span>{course.language}</span>
-      </div>
-      <h3 className="mt-3 text-xl font-black leading-snug text-slate-950 group-hover:text-blue-700">{course.title}</h3>
-      <p className="mt-2 flex-1 text-sm leading-7 text-slate-600">{compact ? course.subtitle : course.description}</p>
-      <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">
-        <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{course.duration}</span>
-        <span>{course.lessonsCount} درس</span>
-        {course.rating ? <span className="inline-flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />{course.rating}</span> : null}
-        {course.studentsCount ? <span className="inline-flex items-center gap-1"><Users className="h-3.5 w-3.5" />{course.studentsCount}</span> : null}
-      </div>
-      <span className="mt-5 inline-flex text-sm font-black text-blue-700">عرض الدورة</span>
       </div>
     </Link>
   );
