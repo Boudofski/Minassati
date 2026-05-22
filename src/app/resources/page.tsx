@@ -1,70 +1,142 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Download, FileText, Mail } from "lucide-react";
-import { AdSlot } from "@/components/minassati/AdSlot";
+import { Download, Sparkles } from "lucide-react";
 import { LeadCapture } from "@/components/minassati/LeadCapture";
-import { Section } from "@/components/minassati/Section";
 import { resources, resourceCategories, resourceTypeLabel } from "@/data/resources";
 
 export const metadata: Metadata = {
-  title: "الموارد المجانية والقوالب - منصتي",
-  description: "موارد وقوالب وقوائم فحص للمغاربة في التسويق، AI، العمل الحر، التجارة الإلكترونية، الدراسة، والقرآن.",
+  title: "الموارد - منصتي | مكتبة قوالب وأدوات عملية",
+  description: "قوالب، قوائم تحقق، حزم برومبت، ومخططات مصممة للسوق المغربي والعربي — مجانية ومدفوعة قادمة.",
   alternates: { canonical: "/resources" },
 };
 
 export default function ResourcesPage() {
+  const free = resources.filter((r) => r.free);
+  const paid = resources.filter((r) => !r.free);
+
   return (
     <>
-      <section className="page-shell py-14 sm:py-20">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
-        <div className="max-w-4xl">
-          <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-black text-emerald-700">
-            <Download className="h-4 w-4" /> موارد مجانية وقوالب
+      {/* Hero */}
+      <section className="section-navy relative">
+        <div className="absolute inset-0 islamic-bg-white opacity-[0.03]" />
+        <div className="page-shell relative py-16 sm:py-24">
+          <p className="eyebrow-pill">
+            <Sparkles className="h-4 w-4 text-amber-300" /> مكتبة الموارد
           </p>
-          <h1 className="mt-5 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">موارد تساعدك اليوم قبل أي اشتراك</h1>
-          <p className="mt-5 text-lg leading-9 text-slate-600">قوالب، قوائم فحص، أدلة، prompt packs، ومخططات تعلم وتجهيز أعمال. بعض التنزيلات الكاملة قيد التحضير، لكن المعاينات والبنية جاهزة.</p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link href="#resources-waitlist" className="cta-resource-request inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="resources-hero-request"><Mail className="h-4 w-4" /> اطلب مورداً</Link>
-            <Link href="/pricing" className="cta-resources-pricing inline-flex justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-800" data-cta-id="resources-hero-pricing">موارد Pro قريبًا</Link>
+          <h1 className="mt-6 max-w-3xl text-4xl font-black leading-tight sm:text-6xl">
+            موارد عملية<br />تستخدمها اليوم
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-[2] text-slate-300">
+            قوالب، قوائم تحقق، حزم برومبت، ومخططات مصممة خصيصاً للسوق المغربي والعربي.
+          </p>
+          <div className="mt-6 flex gap-3">
+            <span className="badge-free">{free.length} مجانية</span>
+            <span className="badge-pro">{paid.length} Pro قريبًا</span>
           </div>
-        </div>
-        <AdSlot label="مساحة إعلانية جانبية مناسبة للموارد المجانية" />
         </div>
       </section>
 
-      <Section className="bg-slate-50" centered={false}>
-        <div className="mb-8 flex flex-wrap gap-2">
-          {resourceCategories.map((category) => (
-            <span key={category} className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700">{category}</span>
-          ))}
-        </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {resources.map((resource) => (
-            <Link key={resource.slug} href={`/resources/${resource.slug}`} className="group flex min-h-[280px] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:border-blue-200">
-              <div className="flex items-center justify-between gap-3">
-                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-950 text-white"><FileText className="h-5 w-5" /></span>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">{resource.free ? "مجاني" : "Pro قريبًا"}</span>
-              </div>
-              <p className="mt-4 text-xs font-black text-blue-700">{resource.category} / {resourceTypeLabel(resource.type)}</p>
-              <h2 className="mt-2 text-xl font-black leading-snug text-slate-950 group-hover:text-blue-700">{resource.title}</h2>
-              <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{resource.description}</p>
-              <span className="cta-resource-card mt-5 inline-flex text-sm font-black text-blue-700" data-cta-id={`resource-card-${resource.slug}`}>{resource.free ? "عرض المعاينة" : "انضم لقائمة Pro"}</span>
+      {/* Sticky category filter */}
+      <section className="sticky top-20 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+        <div className="page-shell no-scrollbar flex gap-2 overflow-x-auto py-3">
+          <Link
+            href="/resources"
+            className="shrink-0 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-black text-blue-700"
+          >
+            الكل ({resources.length})
+          </Link>
+          {resourceCategories.map((cat) => (
+            <Link
+              key={cat}
+              href={`/resources?category=${encodeURIComponent(cat)}`}
+              className="shrink-0 rounded-full border border-slate-200 px-4 py-2 text-sm font-black text-slate-700 hover:bg-slate-50 transition-colors"
+            >
+              {cat}
             </Link>
           ))}
         </div>
-        <AdSlot className="mt-8" label="مساحة إعلانية بعد قائمة الموارد" />
-        <LeadCapture
-          id="resources-waitlist"
-          source="resources"
-          interestType="resource_request"
-          title="اطلب المورد التالي"
-          description="إذا كنت تحتاج قالباً أو checklist أو prompt pack، أرسل الطلب وسنرتب الأولويات حسب الحاجة الفعلية."
-          subject="طلب مورد جديد من منصتي"
-          body="السلام عليكم،\n\nأحتاج مورداً حول:\nنوع المورد: قالب / checklist / guide / prompt pack\nالمجال:\n"
-          buttonLabel="أرسل طلب مورد"
-          className="mt-8"
-        />
-      </Section>
+      </section>
+
+      {/* Free resources */}
+      <section className="section-light">
+        <div className="page-shell py-16">
+          <p className="eyebrow-pill-light">مجانية</p>
+          <h2 className="mt-4 text-2xl font-black text-slate-950">ابدأ بالموارد المجانية</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {free.map((resource) => (
+              <Link
+                key={resource.slug}
+                href={`/resources/${resource.slug}`}
+                className="card-premium group flex flex-col p-5"
+              >
+                <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-emerald-50">
+                  <Download className="h-5 w-5 text-emerald-600" />
+                </div>
+                <span className="badge-free mb-3 self-start">{resourceTypeLabel(resource.type)}</span>
+                <h3 className="font-black text-slate-950 transition-colors group-hover:text-blue-700">
+                  {resource.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-7 text-slate-500 line-clamp-2">
+                  {resource.description}
+                </p>
+                <span className="mt-4 text-sm font-black text-blue-600">تصفح المورد ←</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* All resources */}
+      <section className="section-soft">
+        <div className="page-shell py-16">
+          <h2 className="mb-8 text-2xl font-black text-slate-950">كل الموارد ({resources.length})</h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {resources.map((resource) => (
+              <Link
+                key={resource.slug}
+                href={`/resources/${resource.slug}`}
+                className="card-premium group p-5"
+              >
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100">
+                    <Download className="h-5 w-5 text-slate-600" />
+                  </div>
+                  {resource.free
+                    ? <span className="badge-free">مجاني</span>
+                    : <span className="badge-pro">Pro</span>
+                  }
+                </div>
+                <p className="mb-2 text-xs font-black uppercase tracking-wider text-blue-600">
+                  {resource.category}
+                </p>
+                <h3 className="font-black text-slate-950 transition-colors group-hover:text-blue-700">
+                  {resource.title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-slate-500 line-clamp-2">
+                  {resource.description}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Resource request LeadCapture */}
+      <section className="section-light">
+        <div className="page-shell py-16">
+          <div className="mx-auto max-w-2xl">
+            <LeadCapture
+              id="resources-waitlist"
+              source="resources"
+              interestType="resource_request"
+              title="اطلب المورد التالي"
+              description="إذا كنت تحتاج قالباً أو checklist أو prompt pack، أرسل الطلب وسنرتب الأولويات حسب الحاجة الفعلية."
+              subject="طلب مورد جديد من منصتي"
+              buttonLabel="أرسل طلب مورد"
+            />
+          </div>
+        </div>
+      </section>
     </>
   );
 }
