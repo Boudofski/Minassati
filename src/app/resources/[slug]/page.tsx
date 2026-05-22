@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CheckCircle2, Copy, Mail } from "lucide-react";
-import { AdSlot } from "@/components/minassati/AdSlot";
 import { LeadCapture } from "@/components/minassati/LeadCapture";
 import { getResource, resources, resourceTypeLabel } from "@/data/resources";
 
@@ -34,21 +33,19 @@ export default function ResourcePage({ params }: Props) {
       </nav>
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div>
-          <section className="rounded-2xl bg-slate-950 p-7 text-white shadow-navy-glow sm:p-10">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-black text-teal-200">{resource.category}</span>
+          <section className="rounded-2xl bg-slate-950 p-7 text-white shadow-[var(--shadow-navy)] sm:p-10">
+            <span className="eyebrow-pill">{resource.category}</span>
             <h1 className="mt-5 text-4xl font-black leading-tight sm:text-6xl">{resource.title}</h1>
             <p className="mt-5 max-w-3xl text-xl leading-9 text-slate-300">{resource.description}</p>
             <p className="mt-4 max-w-3xl text-sm font-bold leading-7 text-slate-400">المورد الكامل أو ملف التحميل قد لا يكون منشوراً بعد. هذه الصفحة تعرض المعاينة والهيكل حتى تتم إضافة النسخ القابلة للتحميل.</p>
-            <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-300">
-              <span className="rounded-full bg-white/10 px-4 py-2">{resourceTypeLabel(resource.type)}</span>
-              <span className="rounded-full bg-white/10 px-4 py-2">{resource.language}</span>
-              <span className="rounded-full bg-white/10 px-4 py-2">{resource.free ? "مجاني" : "Pro قريبًا"}</span>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="badge-soon">{resourceTypeLabel(resource.type)}</span>
+              <span className="badge-soon">{resource.language}</span>
+              {resource.free ? <span className="badge-free">مجاني</span> : <span className="badge-pro">Pro قريبًا</span>}
             </div>
           </section>
 
-          <AdSlot className="mt-8" label="مساحة إعلانية مناسبة قبل معاينة المورد" />
-
-          <section className="mt-8 rounded-2xl bg-white p-6 shadow-soft sm:p-8">
+          <section className="mt-8 card-premium p-6 sm:p-8">
             <h2 className="text-2xl font-black text-slate-950">ماذا يحتوي؟</h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               {resource.previewSections.map((section) => (
@@ -60,7 +57,7 @@ export default function ResourcePage({ params }: Props) {
             </div>
           </section>
 
-          <section className="mt-8 rounded-2xl border border-blue-100 bg-blue-50 p-6 sm:p-8">
+          <section className="mt-8 card-premium p-6 sm:p-8">
             <h2 className="text-2xl font-black text-slate-950">معاينة النموذج</h2>
             <div className="mt-5 rounded-2xl bg-white p-5 text-sm leading-8 text-slate-700">
               <p className="font-black">الهدف:</p>
@@ -91,7 +88,7 @@ export default function ResourcePage({ params }: Props) {
         </div>
 
         <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+          <div className="card-premium p-6">
             <p className="text-sm font-black text-slate-500">الإجراء</p>
             <p className="mt-2 text-2xl font-black text-slate-950">{resource.cta}</p>
             <p className="mt-3 text-sm leading-7 text-slate-600">لا توجد تنزيلات فعلية لبعض الموارد بعد. البنية جاهزة لإضافة ملفات PDF أو نماذج قابلة للنسخ لاحقاً.</p>
@@ -99,8 +96,7 @@ export default function ResourcePage({ params }: Props) {
               <Copy className="h-4 w-4" /> اطلب هذا المورد
             </Link>
           </div>
-          <AdSlot label="مساحة إعلانية جانبية" />
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+          <div className="card-premium p-6">
             <h2 className="font-black text-slate-950">وسوم</h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {resource.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{tag}</span>)}
