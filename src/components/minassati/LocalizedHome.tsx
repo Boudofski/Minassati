@@ -1,445 +1,720 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpenCheck, CheckCircle2, Download, GraduationCap, Layers, Mail, Sparkles, Users } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpenCheck,
+  Download,
+  GraduationCap,
+  Layers,
+  MapPin,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Zap,
+} from "lucide-react";
 import { CourseCard } from "@/components/minassati/CourseExplorer";
-import { Section } from "@/components/minassati/Section";
 import { courses } from "@/data/courses";
 import { learningPaths } from "@/data/learning-paths";
 import { resources } from "@/data/resources";
 import { localeDirections, type Locale } from "@/i18n/config";
 
-const categories: Record<Locale, [string, string, string][]> = {
-  ar: [
-    ["الذكاء الاصطناعي", "أدوات عملية للأعمال والمحتوى والأتمتة.", "دورات وموارد"],
-    ["التسويق الرقمي", "خطط محتوى وإعلانات وSEO للمشاريع.", "دورات وموارد"],
-    ["العمل الحر", "بورتفوليو، عروض، تواصل، وتسعير.", "دورات وموارد"],
-    ["التجارة الإلكترونية", "إطلاق متجر، بيع، تصوير، وخدمة عملاء.", "دورات وموارد"],
-    ["ريادة الأعمال", "نماذج وأفكار لتطوير مشروع صغير.", "دورات وموارد"],
-    ["التصميم وصناعة المحتوى", "Canva، منشورات، فيديوهات، وهوية بسيطة.", "دورات وموارد"],
-    ["اللغات", "فرنسية وإنجليزية عملية للعمل والعمل الحر.", "دورات وموارد"],
-    ["الدعم المدرسي", "تنظيم الدراسة والبحث والتحضير للامتحانات.", "دورات وموارد"],
-    ["القرآن والعلوم الإسلامية", "قراءة واستماع وأذكار ومواد موثوقة.", "دورات وموارد"],
-    ["تطوير الذات", "إنتاجية، أهداف، وعادات تعلم مستقرة.", "دورات وموارد"],
-  ],
-  en: [
-    ["AI and automation", "Practical tools for business, content, and workflows.", "Courses and resources"],
-    ["Digital marketing", "Content, ads, and SEO foundations for projects.", "Courses and resources"],
-    ["Freelancing", "Portfolio, proposals, client work, and pricing.", "Courses and resources"],
-    ["E-commerce", "Launch, selling, product photos, and support.", "Courses and resources"],
-    ["Entrepreneurship", "Templates and ideas for small digital projects.", "Courses and resources"],
-    ["Design and content", "Canva, posts, short video, and simple branding.", "Courses and resources"],
-    ["Languages", "Practical French and English for work.", "Courses and resources"],
-    ["School support", "Study planning, research, and exam preparation.", "Courses and resources"],
-    ["Quran and Islamic knowledge", "Reading, listening, and trusted Islamic resources.", "Courses and resources"],
-    ["Personal development", "Productivity, goals, and learning habits.", "Courses and resources"],
-  ],
-  fr: [
-    ["IA et automatisation", "Outils pratiques pour business, contenu et workflows.", "Cours et ressources"],
-    ["Marketing digital", "Contenu, publicité et SEO pour projets.", "Cours et ressources"],
-    ["Freelance", "Portfolio, propositions, clients et tarification.", "Cours et ressources"],
-    ["E-commerce", "Lancement, vente, photos produit et support.", "Cours et ressources"],
-    ["Entrepreneuriat", "Modèles et idées pour projets digitaux.", "Cours et ressources"],
-    ["Design et contenu", "Canva, posts, vidéo courte et branding simple.", "Cours et ressources"],
-    ["Langues", "Français et anglais pratiques pour le travail.", "Cours et ressources"],
-    ["Soutien scolaire", "Organisation, recherche et préparation examens.", "Cours et ressources"],
-    ["Coran et savoir islamique", "Lecture, écoute et ressources islamiques fiables.", "Cours et ressources"],
-    ["Développement personnel", "Productivité, objectifs et habitudes d'apprentissage.", "Cours et ressources"],
-  ],
-  es: [
-    ["IA y automatización", "Herramientas prácticas para negocio, contenido y flujos.", "Cursos y recursos"],
-    ["Marketing digital", "Contenido, anuncios y SEO para proyectos.", "Cursos y recursos"],
-    ["Freelance", "Portafolio, propuestas, clientes y precios.", "Cursos y recursos"],
-    ["E-commerce", "Lanzamiento, venta, fotos de producto y soporte.", "Cursos y recursos"],
-    ["Emprendimiento", "Plantillas e ideas para proyectos digitales.", "Cursos y recursos"],
-    ["Diseño y contenido", "Canva, posts, video corto y marca simple.", "Cursos y recursos"],
-    ["Idiomas", "Francés e inglés prácticos para trabajo.", "Cursos y recursos"],
-    ["Apoyo escolar", "Organización, investigación y preparación de exámenes.", "Cursos y recursos"],
-    ["Corán y conocimiento islámico", "Lectura, audio y recursos islámicos fiables.", "Cursos y recursos"],
-    ["Desarrollo personal", "Productividad, objetivos y hábitos de aprendizaje.", "Cursos y recursos"],
-  ],
-};
+// ─── Translations ─────────────────────────────────────────────────────────────
 
-const trustPoints: Record<Locale, string[]> = {
-  ar: ["محتوى عملي", "واجهة عربية وفرنسية وإنجليزية وإسبانية", "موارد قابلة للتطبيق", "قرآن مجاني", "تطوير مستمر", "مناسبة للمتعلمين والمدربين"],
-  en: ["Practical content", "Multilingual core UI", "Actionable resources", "Free Quran utility", "Continuous improvement", "Built for learners and instructors"],
-  fr: ["Contenu pratique", "Interface multilingue", "Ressources applicables", "Coran gratuit", "Amélioration continue", "Pour apprenants et formateurs"],
-  es: ["Contenido práctico", "Interfaz multilingüe", "Recursos aplicables", "Corán gratuito", "Mejora continua", "Para estudiantes e instructores"],
-};
-const localizedNotice: Record<Locale, string> = {
-  ar: "بعض المحتوى التفصيلي لا يزال بالعربية ضمن خطة الترجمة المرحلية.",
-  en: "Some detailed learning resources are currently Arabic-first while translations are being expanded.",
-  fr: "Certaines ressources détaillées sont encore principalement en arabe pendant l’extension des traductions.",
-  es: "Algunos recursos detallados siguen estando primero en árabe mientras ampliamos las traducciones.",
-};
-
-const homeCopy: Record<Locale, {
-  eyebrow: string;
-  headline: string;
-  subhead: string;
-  courses: string;
-  paths: string;
-  waitlist: string;
-  noticeTitle: string;
-  noticeText: string;
-  noticeCta: string;
-  categoriesTitle: string;
-  coursesTitle: string;
-  allCourses: string;
-  pricing: string;
-  pathsTitle: string;
-  resourcesTitle: string;
-  quranEyebrow: string;
-  quranTitle: string;
-  quranText: string;
-  quranCta: string;
-  audioCta: string;
-  instructorTitle: string;
-  instructorText: string;
-  instructorCta: string;
-  pricingTitle: string;
-  pricingNote: string;
-  trustTitle: string;
-  finalTitle: string;
-  resourcesCta: string;
-  stats: string[];
-  mockupLabel: string;
-  mockupPath: string;
-  mockupCards: [string, string, string][];
-  growthTitle: string;
-  growthText: string;
-  planCards: string[];
-}> = {
+const t: Record<
+  Locale,
+  {
+    heroEyebrow: string;
+    heroHeadline: string;
+    heroSubhead: string;
+    heroNotice: string;
+    heroCta1: string;
+    heroCta2: string;
+    heroCta3: string;
+    heroStats: [string, string][];
+    mockupPathLabel: string;
+    mockupPathName: string;
+    mockupNextStep: string;
+    mockupNextLabel: string;
+    conversionTitle: string;
+    conversionSub: string;
+    conversionCta: string;
+    problemEyebrow: string;
+    problemTitle: string;
+    problems: { title: string; desc: string }[];
+    solutionEyebrow: string;
+    solutionTitle: string;
+    pillars: { title: string; desc: string; link: string }[];
+    coursesEyebrow: string;
+    coursesTitle: string;
+    coursesViewAll: string;
+    pathsEyebrow: string;
+    pathsTitle: string;
+    pathsSteps: string;
+    resourcesEyebrow: string;
+    resourcesTitle: string;
+    resourcesViewAll: string;
+    quranEyebrow: string;
+    quranTitle: string;
+    quranText: string;
+    quranCta: string;
+    audioCta: string;
+    instructorEyebrow: string;
+    instructorTitle: string;
+    instructorText: string;
+    instructorCta: string;
+    instructorBenefits: string[];
+    finalTitle: string;
+    finalSub: string;
+    finalCta1: string;
+    finalCta2: string;
+    finalCta3: string;
+  }
+> = {
   ar: {
-    eyebrow: "منصة مغربية للتعلم، الدورات، والموارد الرقمية",
-    headline: "منصتي — تعلّم مهارات جديدة وابدأ رحلتك الرقمية بثقة",
-    subhead: "اكتشف دورات ومسارات تعليمية في التسويق الرقمي، الذكاء الاصطناعي، العمل الحر، اللغات، ريادة الأعمال، والتعلم الإسلامي — مع محتوى مجاني وموارد عملية تساعدك على التطور خطوة بخطوة.",
-    courses: "استكشف الدورات",
-    paths: "تصفح المسارات",
-    waitlist: "انضم لقائمة الانتظار",
-    noticeTitle: "الدفع غير مفعّل بعد. ساعدنا نحدد أول الدورات المدفوعة.",
-    noticeText: "انضم لقائمة الاهتمام وسنرسل لك عند توفر النسخة التجريبية أو الاشتراك. لا نطلب أي بطاقة أو دفع حالياً.",
-    noticeCta: "أرسل اهتمامك",
-    categoriesTitle: "تعلّم ما تحتاجه لحياتك وعملك",
+    heroEyebrow: "منصة مغربية للتعلم، الدورات، والموارد الرقمية",
+    heroHeadline: "منصتي — تعلّم مهارات جديدة وابدأ رحلتك الرقمية بثقة",
+    heroSubhead:
+      "دورات ومسارات تعليمية في التسويق الرقمي، الذكاء الاصطناعي، العمل الحر، اللغات، ريادة الأعمال، والتعلم الإسلامي — مع محتوى مجاني وموارد عملية.",
+    heroNotice: "",
+    heroCta1: "استكشف الدورات",
+    heroCta2: "تصفح الموارد",
+    heroCta3: "قارئ القرآن →",
+    heroStats: [
+      ["29", "دورة"],
+      ["10", "مسارات"],
+      ["30+", "مورد"],
+      ["114", "سورة"],
+    ],
+    mockupPathLabel: "مسار التعلم",
+    mockupPathName: "مسار التسويق الرقمي",
+    mockupNextStep: "الخطوة التالية",
+    mockupNextLabel: "ابن خطة محتوى شهرية",
+    conversionTitle: "الدفع غير مفعّل بعد — ساعدنا نحدد أول الدورات المدفوعة",
+    conversionSub:
+      "انضم لقائمة الاهتمام وسنرسل لك عند توفر النسخة التجريبية أو الاشتراك. لا نطلب أي بطاقة الآن.",
+    conversionCta: "انضم لقائمة الانتظار",
+    problemEyebrow: "المشكلة",
+    problemTitle: "التعلّم العشوائي يضيع وقتك",
+    problems: [
+      { title: "يوتيوب متشتت بلا خارطة طريق", desc: "ساعات من الفيديوهات دون تقدم حقيقي أو مسار واضح للمهارة." },
+      { title: "لا ترتيب ولا أولويات", desc: "تبدأ بمحاضرة وتنهيها بأخرى غير ذات صلة. لا يوجد نظام." },
+      { title: "لا قوالب عملية قابلة للتطبيق", desc: "تفهم النظرية لكنك تقف أمام الورقة البيضاء بلا أدوات." },
+      { title: "لا سياق مغربي", desc: "المحتوى الأجنبي لا يأخذ في الحسبان السوق والثقافة المحلية." },
+      { title: "لا هيكل موثوق", desc: "كل شيء مبعثر بين منصات متعددة بلا مرجع واحد موثوق." },
+    ],
+    solutionEyebrow: "الحل",
+    solutionTitle: "منصتي تنظّم لك الطريق",
+    pillars: [
+      { title: "دورات عملية", desc: "محتوى منظم خطوة بخطوة من مبتدئ لمحترف في كل مجال.", link: "/courses" },
+      { title: "مسارات واضحة", desc: "خطط تعلم متكاملة تجمع الدورات والموارد في مسار واحد منطقي.", link: "/paths" },
+      { title: "موارد قابلة للتحميل", desc: "قوالب وقوائم فحص وأدلة جاهزة للاستعمال الفوري.", link: "/resources" },
+    ],
+    coursesEyebrow: "الدورات",
     coursesTitle: "دورات مختارة للبدء",
-    allCourses: "شاهد كل الدورات",
-    pricing: "كيف ستعمل الاشتراكات؟",
+    coursesViewAll: "شاهد كل الدورات",
+    pathsEyebrow: "المسارات",
     pathsTitle: "مسارات واضحة بدل التشتت",
+    pathsSteps: "مرحلة",
+    resourcesEyebrow: "الموارد",
     resourcesTitle: "موارد مجانية تساعدك اليوم",
+    resourcesViewAll: "تصفح كل الموارد",
     quranEyebrow: "قرآن مجاني",
     quranTitle: "القرآن الكريم دائمًا ضمن منصتي",
-    quranText: "يبقى القرآن الكريم مورداً مجانياً ومحترماً داخل منصتي: قراءة 114 سورة، استماع أثناء القراءة، وترجمات إنجليزية وفرنسية وإسبانية حيث تتوفر. هو جزء من مواردنا الإسلامية المجانية وليس هوية الموقع الوحيدة.",
+    quranText:
+      "يبقى القرآن الكريم مورداً مجانياً ومحترماً داخل منصتي: قراءة 114 سورة، استماع أثناء القراءة، وترجمات إنجليزية وفرنسية وإسبانية حيث تتوفر.",
     quranCta: "افتح قارئ القرآن",
     audioCta: "استمع للتلاوات",
+    instructorEyebrow: "للمدربين",
     instructorTitle: "هل لديك معرفة تريد بيعها؟",
-    instructorText: "ستدعم منصتي المدربين وصناع المعرفة الذين يريدون نشر دورات وموارد ومسارات للجمهور المغربي والعربي، مع مراجعة جودة وتجربة بيع منظمة لاحقاً.",
+    instructorText:
+      "ستدعم منصتي المدربين وصناع المعرفة الذين يريدون نشر دورات وموارد ومسارات للجمهور المغربي والعربي، مع مراجعة جودة وتجربة بيع منظمة لاحقاً.",
     instructorCta: "انضم كمدرب",
-    pricingTitle: "تعلم مجاني، واشتراك للمحتوى المتقدم",
-    pricingNote: "الدفع والاشتراكات قيد التحضير.",
-    trustTitle: "منصة مغربية بمعايير احترافية",
+    instructorBenefits: ["وصول لجمهور مغربي وعربي", "أدوات نشر وتتبع", "شهادات ومسارات موثوقة"],
     finalTitle: "ابدأ من دورة واحدة اليوم",
-    resourcesCta: "تصفح الموارد",
-    stats: ["دورات ومسارات عملية", "محتوى مجاني ومدفوع", "موارد قابلة للتحميل", "قرآن واستماع مجاني"],
-    mockupLabel: "لوحة تعلم",
-    mockupPath: "مسار التسويق الرقمي",
-    mockupCards: [["AI", "الذكاء الاصطناعي للأعمال", "مجاني"], ["MKT", "التسويق الرقمي من الصفر", "مجاني"], ["QUR", "قارئ القرآن", "114 سورة"], ["INS", "صفحة مدرب", "قريبًا"]],
-    growthTitle: "منصة قابلة للنمو",
-    growthText: "دورات وموارد واشتراكات قيد التحضير، مع القرآن كأداة مجانية موثوقة لا كهوية وحيدة للمنصة.",
-    planCards: ["مجاني: مقالات، موارد، بعض الدورات، القرآن", "Pro: دورات متقدمة وموارد قابلة للتحميل - قريبًا", "Instructor: نشر وبيع الدورات والموارد - قريبًا"],
+    finalSub: "المحتوى العملي، المسارات المنظمة، والموارد المجانية — كلها تنتظرك الآن.",
+    finalCta1: "استكشف الدورات",
+    finalCta2: "تصفح الموارد",
+    finalCta3: "قارئ القرآن",
   },
   en: {
-    eyebrow: "Moroccan learning marketplace",
-    headline: "Minassati helps you learn practical digital skills with confidence",
-    subhead: "Explore Arabic-first courses, learning paths, resources, articles, and Quran tools for Moroccan learners, professionals, freelancers, and future instructors.",
-    courses: "Explore courses",
-    paths: "Browse paths",
-    waitlist: "Join the waitlist",
-    noticeTitle: "Payments are not active yet. Help us prioritize paid courses.",
-    noticeText: "Join the interest list and we will notify you when beta access or subscriptions are ready. No card or payment is requested now.",
-    noticeCta: "Send interest",
-    categoriesTitle: "Learn skills for work, study, and business",
+    heroEyebrow: "Moroccan learning marketplace",
+    heroHeadline: "Minassati — learn practical digital skills and start your journey with confidence",
+    heroSubhead:
+      "Courses and learning paths in digital marketing, AI, freelancing, languages, entrepreneurship, and Islamic knowledge — with free content and actionable resources.",
+    heroNotice:
+      "Some detailed learning resources are currently Arabic-first while translations are being expanded.",
+    heroCta1: "Explore courses",
+    heroCta2: "Browse resources",
+    heroCta3: "Quran reader →",
+    heroStats: [
+      ["29", "courses"],
+      ["10", "paths"],
+      ["30+", "resources"],
+      ["114", "surahs"],
+    ],
+    mockupPathLabel: "Learning path",
+    mockupPathName: "Digital marketing path",
+    mockupNextStep: "Next step",
+    mockupNextLabel: "Build a monthly content plan",
+    conversionTitle: "Payments are not active yet — help us prioritize paid courses",
+    conversionSub:
+      "Join the interest list and we will notify you when beta access or subscriptions are ready. No card or payment is requested now.",
+    conversionCta: "Join the waitlist",
+    problemEyebrow: "The problem",
+    problemTitle: "Random learning wastes your time",
+    problems: [
+      { title: "Scattered YouTube with no roadmap", desc: "Hours of videos without real progress or a clear skill path." },
+      { title: "No structure or priorities", desc: "You start one lecture and finish an unrelated one. No system." },
+      { title: "No actionable templates", desc: "You understand theory but face a blank page without tools." },
+      { title: "No Moroccan context", desc: "Foreign content doesn't account for the local market and culture." },
+      { title: "No trusted structure", desc: "Everything scattered across multiple platforms without one reliable reference." },
+    ],
+    solutionEyebrow: "The solution",
+    solutionTitle: "Minassati organises your path",
+    pillars: [
+      { title: "Practical courses", desc: "Structured content step by step from beginner to professional in every field.", link: "/courses" },
+      { title: "Clear learning paths", desc: "Complete learning plans combining courses and resources in one logical path.", link: "/paths" },
+      { title: "Downloadable resources", desc: "Templates, checklists and guides ready for immediate use.", link: "/resources" },
+    ],
+    coursesEyebrow: "Courses",
     coursesTitle: "Featured courses to start with",
-    allCourses: "View all courses",
-    pricing: "How subscriptions will work",
+    coursesViewAll: "View all courses",
+    pathsEyebrow: "Paths",
     pathsTitle: "Structured paths instead of scattered learning",
+    pathsSteps: "steps",
+    resourcesEyebrow: "Resources",
     resourcesTitle: "Free resources you can use today",
+    resourcesViewAll: "Browse all resources",
     quranEyebrow: "Free Quran utility",
     quranTitle: "The Quran remains free inside Minassati",
-    quranText: "Quran reading and listening remain a respectful free utility inside Minassati. It supports trust and SEO, but it is not the whole brand.",
+    quranText:
+      "Quran reading and listening remain a respectful free utility inside Minassati: read all 114 surahs, listen while reading, and access translations where available.",
     quranCta: "Open Quran reader",
     audioCta: "Listen to recitations",
+    instructorEyebrow: "For instructors",
     instructorTitle: "Have knowledge you want to sell?",
-    instructorText: "Minassati will support instructors and creators who want to publish courses, resources, and paths for Moroccan and Arabic-speaking audiences.",
+    instructorText:
+      "Minassati will support instructors and creators who want to publish courses, resources, and paths for Moroccan and Arabic-speaking audiences, with quality review and an organised sales experience later.",
     instructorCta: "Apply as instructor",
-    pricingTitle: "Free learning now, premium content later",
-    pricingNote: "Payments and subscriptions are being prepared.",
-    trustTitle: "A Moroccan platform with professional standards",
+    instructorBenefits: ["Reach Moroccan and Arabic audiences", "Publishing and tracking tools", "Certified and trusted paths"],
     finalTitle: "Start with one course today",
-    resourcesCta: "Browse resources",
-    stats: ["Practical courses and paths", "Free and paid-soon content", "Downloadable resources planned", "Free Quran reading and audio"],
-    mockupLabel: "Learning dashboard",
-    mockupPath: "Digital marketing path",
-    mockupCards: [["AI", "AI for business", "Free"], ["MKT", "Digital marketing from zero", "Free"], ["QUR", "Quran reader", "114 surahs"], ["INS", "Instructor page", "Soon"]],
-    growthTitle: "Built to grow",
-    growthText: "Courses, resources, and subscriptions are being prepared, while Quran remains a free trusted utility rather than the whole brand.",
-    planCards: ["Free: articles, resources, selected courses, Quran", "Pro: advanced courses and downloadable resources - soon", "Instructor: publish courses and resources - soon"],
+    finalSub: "Practical content, structured paths, and free resources — all waiting for you now.",
+    finalCta1: "Explore courses",
+    finalCta2: "Browse resources",
+    finalCta3: "Quran reader",
   },
   fr: {
-    eyebrow: "Plateforme marocaine d'apprentissage",
-    headline: "Minassati vous aide à apprendre des compétences digitales utiles",
-    subhead: "Découvrez des cours, parcours, ressources, articles et outils Coran en priorité arabe, pour apprenants marocains, professionnels, freelances et futurs formateurs.",
-    courses: "Explorer les cours",
-    paths: "Voir les parcours",
-    waitlist: "Rejoindre la liste",
-    noticeTitle: "Le paiement n'est pas encore activé. Aidez-nous à prioriser les cours.",
-    noticeText: "Inscrivez votre intérêt et nous vous préviendrons quand la bêta ou l'abonnement sera prêt. Aucune carte n'est demandée.",
-    noticeCta: "Envoyer l'intérêt",
-    categoriesTitle: "Apprenez des compétences utiles pour le travail et les projets",
+    heroEyebrow: "Plateforme marocaine d'apprentissage",
+    heroHeadline: "Minassati — apprenez des compétences digitales et démarrez votre parcours avec confiance",
+    heroSubhead:
+      "Cours et parcours en marketing digital, IA, freelance, langues, entrepreneuriat et savoir islamique — avec du contenu gratuit et des ressources applicables.",
+    heroNotice:
+      "Certaines ressources détaillées sont encore principalement en arabe pendant l'extension des traductions.",
+    heroCta1: "Explorer les cours",
+    heroCta2: "Voir les ressources",
+    heroCta3: "Lecteur du Coran →",
+    heroStats: [
+      ["29", "cours"],
+      ["10", "parcours"],
+      ["30+", "ressources"],
+      ["114", "sourates"],
+    ],
+    mockupPathLabel: "Parcours d'apprentissage",
+    mockupPathName: "Parcours marketing digital",
+    mockupNextStep: "Prochaine étape",
+    mockupNextLabel: "Créer un plan de contenu mensuel",
+    conversionTitle: "Les paiements ne sont pas encore actifs — aidez-nous à prioriser les cours payants",
+    conversionSub:
+      "Inscrivez votre intérêt et nous vous préviendrons quand la bêta ou l'abonnement sera prêt. Aucune carte n'est demandée.",
+    conversionCta: "Rejoindre la liste",
+    problemEyebrow: "Le problème",
+    problemTitle: "L'apprentissage aléatoire gaspille votre temps",
+    problems: [
+      { title: "YouTube éparpillé sans feuille de route", desc: "Des heures de vidéos sans progrès réel ni chemin clair vers une compétence." },
+      { title: "Pas de structure ni de priorités", desc: "Vous commencez une leçon et finissez une autre sans lien. Aucun système." },
+      { title: "Pas de modèles pratiques applicables", desc: "Vous comprenez la théorie mais faites face à une page blanche sans outils." },
+      { title: "Pas de contexte marocain", desc: "Le contenu étranger ne tient pas compte du marché et de la culture locale." },
+      { title: "Pas de structure fiable", desc: "Tout dispersé sur plusieurs plateformes sans référence unique et fiable." },
+    ],
+    solutionEyebrow: "La solution",
+    solutionTitle: "Minassati organise votre chemin",
+    pillars: [
+      { title: "Cours pratiques", desc: "Contenu structuré étape par étape du débutant au professionnel dans chaque domaine.", link: "/courses" },
+      { title: "Parcours clairs", desc: "Plans d'apprentissage complets combinant cours et ressources en un parcours logique.", link: "/paths" },
+      { title: "Ressources téléchargeables", desc: "Modèles, listes de contrôle et guides prêts à utiliser immédiatement.", link: "/resources" },
+    ],
+    coursesEyebrow: "Cours",
     coursesTitle: "Cours sélectionnés pour commencer",
-    allCourses: "Voir tous les cours",
-    pricing: "Fonctionnement des abonnements",
+    coursesViewAll: "Voir tous les cours",
+    pathsEyebrow: "Parcours",
     pathsTitle: "Des parcours structurés plutôt que dispersés",
+    pathsSteps: "étapes",
+    resourcesEyebrow: "Ressources",
     resourcesTitle: "Ressources gratuites à utiliser aujourd'hui",
+    resourcesViewAll: "Voir toutes les ressources",
     quranEyebrow: "Coran gratuit",
     quranTitle: "Le Coran reste gratuit dans Minassati",
-    quranText: "La lecture et l'écoute du Coran restent un outil gratuit et respectueux dans Minassati. Il renforce la confiance sans devenir toute l'identité de la plateforme.",
+    quranText:
+      "La lecture et l'écoute du Coran restent un outil gratuit et respectueux dans Minassati : lisez les 114 sourates, écoutez pendant la lecture, et accédez aux traductions disponibles.",
     quranCta: "Ouvrir le lecteur",
-    audioCta: "Écouter",
-    instructorTitle: "Vous avez une expertise à vendre ?",
-    instructorText: "Minassati accompagnera les formateurs et créateurs qui souhaitent publier des cours, ressources et parcours pour les publics marocains et arabophones.",
+    audioCta: "Écouter les récitations",
+    instructorEyebrow: "Pour les formateurs",
+    instructorTitle: "Vous avez une expertise à partager ?",
+    instructorText:
+      "Minassati accompagnera les formateurs et créateurs qui souhaitent publier des cours, ressources et parcours pour les publics marocains et arabophones, avec revue qualité et expérience de vente organisée.",
     instructorCta: "Devenir formateur",
-    pricingTitle: "Gratuit maintenant, premium plus tard",
-    pricingNote: "Les paiements et abonnements sont en préparation.",
-    trustTitle: "Une plateforme marocaine avec des standards professionnels",
+    instructorBenefits: ["Atteindre un public marocain et arabophone", "Outils de publication et de suivi", "Parcours certifiés et fiables"],
     finalTitle: "Commencez par un cours aujourd'hui",
-    resourcesCta: "Voir les ressources",
-    stats: ["Cours et parcours pratiques", "Contenu gratuit et payant bientôt", "Ressources téléchargeables prévues", "Coran et audio gratuits"],
-    mockupLabel: "Tableau d'apprentissage",
-    mockupPath: "Parcours marketing digital",
-    mockupCards: [["AI", "IA pour le business", "Gratuit"], ["MKT", "Marketing digital de zéro", "Gratuit"], ["QUR", "Lecteur du Coran", "114 sourates"], ["INS", "Page formateur", "Bientôt"]],
-    growthTitle: "Conçu pour grandir",
-    growthText: "Cours, ressources et abonnements sont en préparation, avec le Coran comme outil gratuit fiable et non comme toute l'identité.",
-    planCards: ["Gratuit : articles, ressources, cours sélectionnés, Coran", "Pro : cours avancés et ressources téléchargeables - bientôt", "Instructor : publier cours et ressources - bientôt"],
+    finalSub: "Contenu pratique, parcours structurés et ressources gratuites — tout vous attend maintenant.",
+    finalCta1: "Explorer les cours",
+    finalCta2: "Voir les ressources",
+    finalCta3: "Lecteur du Coran",
   },
   es: {
-    eyebrow: "Marketplace marroquí de aprendizaje",
-    headline: "Minassati te ayuda a aprender habilidades digitales útiles",
-    subhead: "Explora cursos, rutas, recursos, artículos y herramientas del Corán en una experiencia árabe primero para estudiantes, profesionales, freelancers e instructores.",
-    courses: "Explorar cursos",
-    paths: "Ver rutas",
-    waitlist: "Unirse a la lista",
-    noticeTitle: "Los pagos aún no están activos. Ayúdanos a priorizar cursos.",
-    noticeText: "Registra tu interés y te avisaremos cuando la beta o la suscripción esté lista. No pedimos tarjeta ni pago ahora.",
-    noticeCta: "Enviar interés",
-    categoriesTitle: "Aprende habilidades para trabajo, estudio y negocios",
+    heroEyebrow: "Marketplace marroquí de aprendizaje",
+    heroHeadline: "Minassati — aprende habilidades digitales prácticas y empieza tu camino con confianza",
+    heroSubhead:
+      "Cursos y rutas de aprendizaje en marketing digital, IA, freelance, idiomas, emprendimiento y conocimiento islámico — con contenido gratuito y recursos aplicables.",
+    heroNotice:
+      "Algunos recursos detallados siguen estando primero en árabe mientras ampliamos las traducciones.",
+    heroCta1: "Explorar cursos",
+    heroCta2: "Ver recursos",
+    heroCta3: "Lector del Corán →",
+    heroStats: [
+      ["29", "cursos"],
+      ["10", "rutas"],
+      ["30+", "recursos"],
+      ["114", "suras"],
+    ],
+    mockupPathLabel: "Ruta de aprendizaje",
+    mockupPathName: "Ruta de marketing digital",
+    mockupNextStep: "Siguiente paso",
+    mockupNextLabel: "Crear un plan de contenido mensual",
+    conversionTitle: "Los pagos aún no están activos — ayúdanos a priorizar los cursos de pago",
+    conversionSub:
+      "Registra tu interés y te avisaremos cuando la beta o la suscripción estén listas. No pedimos tarjeta ni pago ahora.",
+    conversionCta: "Unirse a la lista",
+    problemEyebrow: "El problema",
+    problemTitle: "El aprendizaje aleatorio desperdicia tu tiempo",
+    problems: [
+      { title: "YouTube disperso sin hoja de ruta", desc: "Horas de vídeos sin progreso real ni un camino claro hacia una habilidad." },
+      { title: "Sin estructura ni prioridades", desc: "Empiezas una lección y terminas otra sin relación. Sin sistema." },
+      { title: "Sin plantillas prácticas aplicables", desc: "Entiendes la teoría pero te enfrentas a una página en blanco sin herramientas." },
+      { title: "Sin contexto marroquí", desc: "El contenido extranjero no tiene en cuenta el mercado y la cultura local." },
+      { title: "Sin estructura fiable", desc: "Todo disperso en varias plataformas sin una referencia única y confiable." },
+    ],
+    solutionEyebrow: "La solución",
+    solutionTitle: "Minassati organiza tu camino",
+    pillars: [
+      { title: "Cursos prácticos", desc: "Contenido estructurado paso a paso desde principiante hasta profesional en cada área.", link: "/courses" },
+      { title: "Rutas claras", desc: "Planes de aprendizaje completos que combinan cursos y recursos en una ruta lógica.", link: "/paths" },
+      { title: "Recursos descargables", desc: "Plantillas, listas de verificación y guías listas para uso inmediato.", link: "/resources" },
+    ],
+    coursesEyebrow: "Cursos",
     coursesTitle: "Cursos destacados para empezar",
-    allCourses: "Ver todos los cursos",
-    pricing: "Cómo funcionarán las suscripciones",
+    coursesViewAll: "Ver todos los cursos",
+    pathsEyebrow: "Rutas",
     pathsTitle: "Rutas claras en lugar de aprendizaje disperso",
+    pathsSteps: "pasos",
+    resourcesEyebrow: "Recursos",
     resourcesTitle: "Recursos gratuitos para usar hoy",
+    resourcesViewAll: "Ver todos los recursos",
     quranEyebrow: "Corán gratis",
     quranTitle: "El Corán sigue siendo gratuito en Minassati",
-    quranText: "La lectura y el audio del Corán siguen siendo una utilidad gratuita y respetuosa dentro de Minassati. Aporta confianza sin ser toda la identidad de la marca.",
-    quranCta: "Abrir lector",
-    audioCta: "Escuchar",
-    instructorTitle: "¿Tienes conocimiento para vender?",
-    instructorText: "Minassati apoyará a instructores y creadores que quieran publicar cursos, recursos y rutas para públicos marroquíes y arabófonos.",
+    quranText:
+      "La lectura y el audio del Corán siguen siendo una utilidad gratuita y respetuosa dentro de Minassati: lee las 114 suras, escucha mientras lees y accede a traducciones disponibles.",
+    quranCta: "Abrir lector del Corán",
+    audioCta: "Escuchar recitaciones",
+    instructorEyebrow: "Para instructores",
+    instructorTitle: "¿Tienes conocimiento que quieres compartir?",
+    instructorText:
+      "Minassati apoyará a instructores y creadores que quieran publicar cursos, recursos y rutas para públicos marroquíes y arabófonos, con revisión de calidad y experiencia de venta organizada.",
     instructorCta: "Aplicar como instructor",
-    pricingTitle: "Aprendizaje gratis ahora, premium después",
-    pricingNote: "Los pagos y suscripciones están en preparación.",
-    trustTitle: "Una plataforma marroquí con estándares profesionales",
+    instructorBenefits: ["Llegar a audiencias marroquíes y arabófonas", "Herramientas de publicación y seguimiento", "Rutas certificadas y confiables"],
     finalTitle: "Empieza con un curso hoy",
-    resourcesCta: "Ver recursos",
-    stats: ["Cursos y rutas prácticas", "Contenido gratis y de pago pronto", "Recursos descargables previstos", "Corán y audio gratis"],
-    mockupLabel: "Panel de aprendizaje",
-    mockupPath: "Ruta de marketing digital",
-    mockupCards: [["AI", "IA para negocios", "Gratis"], ["MKT", "Marketing digital desde cero", "Gratis"], ["QUR", "Lector del Corán", "114 suras"], ["INS", "Página de instructor", "Pronto"]],
-    growthTitle: "Preparado para crecer",
-    growthText: "Cursos, recursos y suscripciones están en preparación, con el Corán como utilidad gratuita fiable y no como toda la identidad.",
-    planCards: ["Gratis: artículos, recursos, cursos seleccionados, Corán", "Pro: cursos avanzados y recursos descargables - pronto", "Instructor: publicar cursos y recursos - pronto"],
+    finalSub: "Contenido práctico, rutas estructuradas y recursos gratuitos — todo te espera ahora.",
+    finalCta1: "Explorar cursos",
+    finalCta2: "Ver recursos",
+    finalCta3: "Lector del Corán",
   },
 };
 
+// ─── Mockup card data ─────────────────────────────────────────────────────────
+
+const mockupCards: Record<Locale, [string, string, string, string][]> = {
+  ar: [
+    ["🤖", "الذكاء الاصطناعي للأعمال", "badge-free", "مجاني"],
+    ["📈", "التسويق الرقمي من الصفر", "badge-free", "مجاني"],
+    ["📖", "قارئ القرآن", "badge-free", "114 سورة"],
+    ["🎓", "صفحة مدرب", "badge-soon", "قريبًا"],
+  ],
+  en: [
+    ["🤖", "AI for business", "badge-free", "Free"],
+    ["📈", "Digital marketing", "badge-free", "Free"],
+    ["📖", "Quran reader", "badge-free", "114 surahs"],
+    ["🎓", "Instructor page", "badge-soon", "Soon"],
+  ],
+  fr: [
+    ["🤖", "IA pour le business", "badge-free", "Gratuit"],
+    ["📈", "Marketing digital", "badge-free", "Gratuit"],
+    ["📖", "Lecteur du Coran", "badge-free", "114 sourates"],
+    ["🎓", "Page formateur", "badge-soon", "Bientôt"],
+  ],
+  es: [
+    ["🤖", "IA para negocios", "badge-free", "Gratis"],
+    ["📈", "Marketing digital", "badge-free", "Gratis"],
+    ["📖", "Lector del Corán", "badge-free", "114 suras"],
+    ["🎓", "Página de instructor", "badge-soon", "Pronto"],
+  ],
+};
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export function LocalizedHome({ locale }: { locale: Locale }) {
-  const featuredCourses = courses.filter((course) => course.featured).slice(0, 6);
-  const featuredPaths = learningPaths.filter((path) => path.featured).slice(0, 6);
-  const freeResources = resources.filter((resource) => resource.free).slice(0, 7);
+  const copy = t[locale];
   const dir = localeDirections[locale];
-  const t = homeCopy[locale];
+
+  const featuredCourses = courses.filter((c) => c.featured).slice(0, 6);
+  const featuredPaths = learningPaths.slice(0, 4);
+  const freeResources = resources.filter((r) => r.free).slice(0, 8);
+  const cards = mockupCards[locale];
 
   return (
-    <div lang={locale} dir={dir} className="overflow-hidden bg-[#F7FAFC]">
-      <section className="relative bg-slate-950 text-white">
-        <div className="absolute inset-0 islamic-bg-white opacity-[0.05]" />
-        <div className="page-shell relative grid min-h-[calc(100vh-5rem)] min-w-0 gap-10 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-center">
+    <div lang={locale} dir={dir} className="overflow-hidden">
+
+      {/* ── Section 1: Hero ──────────────────────────────────────────────── */}
+      <section className="section-navy relative">
+        {/* Geometric pattern */}
+        <div className="absolute inset-0 islamic-bg-white opacity-[0.03]" />
+        {/* Gradient orbs */}
+        <div className="pointer-events-none absolute -left-40 -top-40 h-[480px] w-[480px] rounded-full bg-blue-600/20 blur-[120px]" />
+        <div className="pointer-events-none absolute -bottom-40 -right-40 h-[480px] w-[480px] rounded-full bg-teal-500/15 blur-[120px]" />
+
+        <div className="page-shell relative grid min-h-[calc(100vh-5rem)] gap-10 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center">
+          {/* Left: copy */}
           <div className="min-w-0">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm font-black text-teal-200">
-              <Sparkles className="h-4 w-4 text-amber-300" /> {t.eyebrow}
-            </p>
-            <h1 className="mt-6 max-w-5xl break-words text-3xl font-black leading-tight sm:text-6xl lg:text-7xl">{t.headline}</h1>
+            <span className="eyebrow-pill">
+              <Sparkles className="h-4 w-4 text-amber-300" />
+              {copy.heroEyebrow}
+            </span>
+
+            <h1 className="mt-6 max-w-5xl break-words text-4xl font-black leading-tight sm:text-6xl lg:text-7xl">
+              {copy.heroHeadline}
+            </h1>
+
             <p className="mt-6 max-w-3xl text-lg leading-9 text-slate-300 sm:text-xl">
-              {t.subhead}
+              {copy.heroSubhead}
             </p>
-            {locale !== "ar" ? <p className="mt-4 rounded-2xl border border-white/10 bg-white/6 p-4 text-sm font-bold leading-7 text-slate-300">{localizedNotice[locale]}</p> : null}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/courses" className="cta-home-courses rounded-full bg-white px-7 py-4 text-center text-base font-black text-slate-950" data-cta-id="home-hero-courses">{t.courses}</Link>
-              <Link href="/paths" className="cta-home-paths rounded-full border border-white/20 px-7 py-4 text-center text-base font-black text-white hover:bg-white/10" data-cta-id="home-hero-paths">{t.paths}</Link>
-              <Link href="/pricing#pricing-waitlist" className="cta-home-waitlist rounded-full px-7 py-4 text-center text-base font-black text-teal-200 hover:bg-white/10" data-cta-id="home-hero-waitlist">{t.waitlist}</Link>
+
+            {locale !== "ar" && copy.heroNotice ? (
+              <p className="mt-4 rounded-2xl border border-white/10 bg-white/[0.06] p-4 text-sm font-bold leading-7 text-slate-400">
+                {copy.heroNotice}
+              </p>
+            ) : null}
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/courses" className="btn-primary bg-white text-slate-950 hover:bg-slate-100">
+                {copy.heroCta1}
+              </Link>
+              <Link href="/resources" className="btn-ghost-white">
+                {copy.heroCta2}
+              </Link>
+              <Link href="/quran" className="inline-flex items-center gap-1 px-4 py-3 text-sm font-black text-teal-300 hover:text-teal-200">
+                {copy.heroCta3}
+              </Link>
             </div>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {t.stats.map((item) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-white/6 p-4 text-sm font-black text-slate-200">{item}</div>
+
+            {/* Stats grid */}
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {copy.heroStats.map(([num, label]) => (
+                <div key={label} className="card-dark rounded-2xl p-4 text-center">
+                  <p className="text-2xl font-black text-white">{num}</p>
+                  <p className="mt-1 text-xs font-bold text-slate-400">{label}</p>
+                </div>
               ))}
             </div>
           </div>
 
-          <div className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/8 p-3 shadow-2xl shadow-blue-950/30 backdrop-blur sm:p-4">
-            <div className="min-w-0 rounded-2xl bg-white p-4 text-slate-950 sm:p-5">
+          {/* Right: dashboard mockup */}
+          <div className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-3 shadow-2xl backdrop-blur sm:p-4">
+            <div className="rounded-2xl bg-white p-4 text-slate-950 sm:p-5">
+              {/* Progress header */}
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-black text-blue-700">{t.mockupLabel}</p>
-                  <h2 className="mt-1 break-words text-xl font-black sm:text-2xl">{t.mockupPath}</h2>
+                  <p className="text-xs font-black text-blue-700">{copy.mockupPathLabel}</p>
+                  <h2 className="mt-1 break-words text-lg font-black sm:text-xl">{copy.mockupPathName}</h2>
                 </div>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">62%</span>
+                <span className="badge-free shrink-0">62%</span>
               </div>
-              <div className="mt-5 h-3 rounded-full bg-slate-100"><div className="h-3 w-[62%] rounded-full bg-blue-600" /></div>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {t.mockupCards.map(([icon, title, meta]) => (
-                  <div key={title} className="rounded-2xl border border-slate-200 p-4">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-950 text-xs font-black text-white">{icon}</span>
-                    <strong className="mt-3 block text-sm leading-6">{title}</strong>
-                    <span className="mt-2 block text-xs font-bold text-slate-500">{meta}</span>
+
+              {/* Progress bar */}
+              <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className="h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-teal-400"
+                  style={{ width: "62%" }}
+                />
+              </div>
+
+              {/* Mini cards 2x2 */}
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                {cards.map(([emoji, title, badgeClass, badgeLabel]) => (
+                  <div key={title} className="rounded-xl border border-slate-100 p-3">
+                    <span className="text-2xl leading-none">{emoji}</span>
+                    <strong className="mt-2 block text-sm font-black leading-snug text-slate-900">{title}</strong>
+                    <span className={`mt-2 ${badgeClass}`}>{badgeLabel}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-5 rounded-2xl bg-slate-950 p-5 text-white">
-                <p className="text-sm font-black text-amber-300">{t.growthTitle}</p>
-                <p className="mt-2 text-sm leading-7 text-slate-300">{t.growthText}</p>
+
+              {/* Next step panel */}
+              <div className="mt-4 rounded-2xl bg-slate-950 p-4 text-white">
+                <p className="text-xs font-black text-teal-300">{copy.mockupNextStep}</p>
+                <p className="mt-1 text-sm font-bold text-slate-200">{copy.mockupNextLabel}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white">
-        <div className="page-shell grid gap-4 py-5 lg:grid-cols-[1fr_auto] lg:items-center">
+      {/* ── Section 2: Conversion strip ─────────────────────────────────── */}
+      <section className="section-light border-b border-slate-200">
+        <div className="page-shell grid gap-4 py-5 sm:grid-cols-[1fr_auto] sm:items-center">
           <div>
-            <h2 className="text-xl font-black text-slate-950">{t.noticeTitle}</h2>
-            <p className="mt-1 text-sm font-bold leading-7 text-slate-600">{t.noticeText}</p>
+            <h2 className="text-base font-black text-slate-950 sm:text-lg">{copy.conversionTitle}</h2>
+            <p className="mt-1 text-sm font-medium leading-6 text-slate-600">{copy.conversionSub}</p>
           </div>
-          <Link href="/pricing#pricing-waitlist" className="cta-home-interest inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white" data-cta-id="home-interest-strip">
-            <Mail className="h-4 w-4" /> {t.noticeCta}
+          <Link
+            href="/pricing#pricing-waitlist"
+            className="btn-primary shrink-0 text-center"
+          >
+            {copy.conversionCta}
           </Link>
         </div>
       </section>
 
-      <Section eyebrow={locale === "ar" ? "التصنيفات" : "Categories"} title={t.categoriesTitle} centered={false}>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {categories[locale].map(([title, description, cta]) => (
-            <Link key={title} href={`/courses?category=${encodeURIComponent(title)}`} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200">
-              <h3 className="text-lg font-black text-slate-950">{title}</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">{description}</p>
-              <span className="mt-4 inline-flex text-xs font-black text-blue-700">{cta}</span>
-            </Link>
-          ))}
-        </div>
-      </Section>
+      {/* ── Section 3: Problem ──────────────────────────────────────────── */}
+      <section className="section-soft section-space">
+        <div className="page-shell">
+          <div className="text-center">
+            <span className="eyebrow-pill-light">
+              {copy.problemEyebrow}
+            </span>
+            <h2 className="mt-4 text-3xl font-black text-slate-950 sm:text-4xl lg:text-5xl">
+              {copy.problemTitle}
+            </h2>
+          </div>
 
-      <Section className="bg-slate-50" eyebrow={locale === "ar" ? "الدورات" : "Courses"} title={t.coursesTitle} centered={false}>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featuredCourses.map((course) => <CourseCard key={course.slug} course={course} compact />)}
-        </div>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/courses" className="cta-home-all-courses rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white" data-cta-id="home-featured-all-courses">{t.allCourses}</Link>
-          <Link href="/pricing" className="cta-home-pricing rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800" data-cta-id="home-featured-pricing">{t.pricing}</Link>
-        </div>
-      </Section>
-
-      <Section eyebrow={locale === "ar" ? "المسارات" : "Paths"} title={t.pathsTitle} centered={false}>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featuredPaths.map((path) => (
-            <Link key={path.slug} href={`/paths/${path.slug}`} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:border-blue-200">
-              <Layers className="h-7 w-7 text-blue-600" />
-              <h3 className="mt-4 text-xl font-black text-slate-950">{path.title}</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">{path.outcome}</p>
-              <div className="mt-4 flex gap-2 text-xs font-bold text-slate-500">
-                <span>{path.steps.length} مراحل</span><span>•</span><span>{path.duration}</span>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {copy.problems.map((p) => (
+              <div key={p.title} className="card-premium p-6">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-red-500" />
+                <h3 className="mt-3 text-base font-black text-slate-950">{p.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{p.desc}</p>
               </div>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
-      </Section>
+      </section>
 
-      <Section className="bg-white" eyebrow={locale === "ar" ? "الموارد" : "Resources"} title={t.resourcesTitle} centered={false}>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {freeResources.map((resource) => (
-            <Link key={resource.slug} href={`/resources/${resource.slug}`} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:border-emerald-200">
-              <Download className="h-6 w-6 text-emerald-600" />
-              <h3 className="mt-3 font-black text-slate-950">{resource.title}</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">{resource.description}</p>
-            </Link>
-          ))}
+      {/* ── Section 4: Solution — 3 pillars ─────────────────────────────── */}
+      <section className="section-navy section-space relative">
+        <div className="pointer-events-none absolute inset-0 islamic-bg-white opacity-[0.025]" />
+        <div className="page-shell relative">
+          <div className="text-center">
+            <span className="eyebrow-pill">
+              <Zap className="h-4 w-4 text-teal-300" />
+              {copy.solutionEyebrow}
+            </span>
+            <h2 className="mt-4 text-3xl font-black sm:text-4xl lg:text-5xl">
+              {copy.solutionTitle}
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+            {copy.pillars.map((pillar, i) => {
+              const icons = [GraduationCap, Layers, Download];
+              const Icon = icons[i] ?? GraduationCap;
+              return (
+                <Link key={pillar.link} href={pillar.link} className="card-dark group rounded-2xl p-7 transition hover:bg-white/10">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600">
+                    <Icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="mt-5 text-xl font-black text-white">{pillar.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-400">{pillar.desc}</p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-black text-teal-300 group-hover:gap-2">
+                    {pillar.title} <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </Section>
+      </section>
 
-      <Section className="bg-slate-950 text-white" eyebrow={t.quranEyebrow} title={t.quranTitle} centered={false}>
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
+      {/* ── Section 5: Featured Courses ──────────────────────────────────── */}
+      <section className="section-light section-space">
+        <div className="page-shell">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="eyebrow-pill-light">{copy.coursesEyebrow}</span>
+              <h2 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">{copy.coursesTitle}</h2>
+            </div>
+            <Link href="/courses" className="btn-secondary shrink-0">
+              {copy.coursesViewAll}
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {featuredCourses.map((course) => (
+              <CourseCard key={course.slug} course={course} compact />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 6: Learning Paths ────────────────────────────────────── */}
+      <section className="section-soft section-space">
+        <div className="page-shell">
+          <div className="text-center">
+            <span className="eyebrow-pill-light">{copy.pathsEyebrow}</span>
+            <h2 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">{copy.pathsTitle}</h2>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredPaths.map((path) => (
+              <Link key={path.slug} href={`/paths/${path.slug}`} className="card-premium p-6 flex flex-col">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50">
+                  <MapPin className="h-5 w-5 text-blue-600" />
+                </div>
+                <span className="badge-soon mt-3 self-start">
+                  {path.steps.length} {copy.pathsSteps}
+                </span>
+                <h3 className="mt-3 text-lg font-black text-slate-950">{path.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-6 text-slate-500">{path.outcome}</p>
+                <p className="mt-4 text-xs font-bold text-slate-400">{path.duration}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 7: Resources ─────────────────────────────────────────── */}
+      <section className="section-light section-space">
+        <div className="page-shell">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="eyebrow-pill-light">{copy.resourcesEyebrow}</span>
+              <h2 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">{copy.resourcesTitle}</h2>
+            </div>
+            <Link href="/resources" className="btn-secondary shrink-0">
+              {copy.resourcesViewAll}
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+            {freeResources.map((resource) => (
+              <Link
+                key={resource.slug}
+                href={`/resources/${resource.slug}`}
+                className="card-premium flex flex-col p-5"
+              >
+                <Download className="h-5 w-5 text-emerald-600" />
+                <span className="badge-free mt-3 self-start">{resource.type ?? "resource"}</span>
+                <h3 className="mt-3 font-black text-slate-950">{resource.title}</h3>
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{resource.description}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 8: Quran ─────────────────────────────────────────────── */}
+      <section className="section-navy section-space relative">
+        <div className="pointer-events-none absolute inset-0 islamic-bg-white opacity-[0.03]" />
+        <div className="page-shell relative grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-center">
+          {/* Copy */}
           <div>
-            <p className="max-w-3xl text-lg leading-9 text-slate-300">
-              {t.quranText}
+            <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/[0.1] px-4 py-2 text-sm font-black text-amber-300">
+              <BookOpenCheck className="h-4 w-4" />
+              {copy.quranEyebrow}
+            </span>
+            <h2 className="mt-4 text-3xl font-black sm:text-4xl lg:text-5xl">{copy.quranTitle}</h2>
+            <p className="mt-5 max-w-2xl text-lg leading-9 text-slate-300">{copy.quranText}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link href="/quran" className="btn-primary bg-white text-slate-950 hover:bg-slate-100">
+                {copy.quranCta}
+              </Link>
+              <Link href="/audio" className="btn-ghost-white">
+                {copy.audioCta}
+              </Link>
+            </div>
+          </div>
+
+          {/* Bismillah panel */}
+          <div className="card-dark rounded-3xl p-8 text-center">
+            <p className="quran-text text-4xl leading-[2.2] text-amber-100">
+              بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href="/quran" className="rounded-full bg-white px-7 py-3 text-center text-sm font-black text-slate-950">{t.quranCta}</Link>
-              <Link href="/audio" className="rounded-full border border-white/20 px-7 py-3 text-center text-sm font-black text-white">{t.audioCta}</Link>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/6 p-6">
-            <BookOpenCheck className="h-10 w-10 text-amber-300" />
-            <p className="quran-text mt-5 text-center text-4xl leading-[2]">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-          </div>
-        </div>
-      </Section>
-
-      <Section eyebrow={locale === "ar" ? "للمدربين" : "Instructors"} title={t.instructorTitle} centered={false}>
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-          <p className="text-lg leading-9 text-slate-600">{t.instructorText}</p>
-          <Link href="/instructors" className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white">
-            <Users className="h-4 w-4" /> {t.instructorCta}
-          </Link>
-        </div>
-      </Section>
-
-      <Section className="bg-slate-50" eyebrow={locale === "ar" ? "الاشتراك" : "Pricing"} title={t.pricingTitle} centered={false}>
-        <div className="grid gap-5 md:grid-cols-3">
-          {t.planCards.map((plan) => (
-            <div key={plan} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
-              <GraduationCap className="h-7 w-7 text-blue-600" />
-              <p className="mt-4 text-lg font-black leading-8 text-slate-950">{plan}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-6 text-sm font-bold text-slate-500">{t.pricingNote}</p>
-      </Section>
-
-      <Section eyebrow={locale === "ar" ? "الثقة" : "Trust"} title={t.trustTitle} centered={false}>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {trustPoints[locale].map((point) => (
-            <div key={point} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-              <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-              <span className="font-black text-slate-800">{point}</span>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <section className="page-shell pb-16">
-        <div className="rounded-2xl bg-slate-950 p-8 text-center text-white shadow-navy-glow sm:p-12">
-          <h2 className="text-3xl font-black sm:text-5xl">{t.finalTitle}</h2>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/courses" className="rounded-full bg-white px-7 py-4 text-sm font-black text-slate-950">{t.courses}</Link>
-            <Link href="/resources" className="rounded-full border border-white/20 px-7 py-4 text-sm font-black text-white">{t.resourcesCta}</Link>
-            <Link href="/quran" className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm font-black text-teal-200">{t.quranCta} <ArrowLeft className="h-4 w-4" /></Link>
           </div>
         </div>
       </section>
+
+      {/* ── Section 9: Instructor CTA ────────────────────────────────────── */}
+      <section className="section-soft section-space">
+        <div className="page-shell grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-center">
+          {/* Copy */}
+          <div>
+            <span className="eyebrow-pill-light">{copy.instructorEyebrow}</span>
+            <h2 className="mt-4 text-3xl font-black text-slate-950 sm:text-4xl lg:text-5xl">
+              {copy.instructorTitle}
+            </h2>
+            <p className="mt-5 text-lg leading-9 text-slate-600">{copy.instructorText}</p>
+            <Link href="/instructors" className="btn-primary mt-8 inline-flex">
+              {copy.instructorCta}
+            </Link>
+          </div>
+
+          {/* Benefit cards */}
+          <div className="flex flex-col gap-4">
+            {copy.instructorBenefits.map((benefit, i) => {
+              const icons = [Target, TrendingUp, GraduationCap];
+              const Icon = icons[i] ?? Target;
+              return (
+                <div key={benefit} className="card-premium flex items-center gap-4 p-5">
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-50">
+                    <Icon className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <p className="font-black text-slate-900">{benefit}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 10: Final CTA ────────────────────────────────────────── */}
+      <section className="section-soft section-space">
+        <div className="page-shell">
+          <div
+            className="rounded-3xl bg-slate-950 p-10 text-center text-white shadow-[var(--shadow-navy)] sm:p-16"
+          >
+            <h2 className="text-3xl font-black sm:text-5xl">{copy.finalTitle}</h2>
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-9 text-slate-300">{copy.finalSub}</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link href="/courses" className="btn-primary bg-white text-slate-950 hover:bg-slate-100">
+                {copy.finalCta1}
+              </Link>
+              <Link href="/resources" className="btn-ghost-white">
+                {copy.finalCta2}
+              </Link>
+              <Link href="/quran" className="inline-flex items-center gap-2 px-6 py-3 text-sm font-black text-teal-300 hover:text-teal-200">
+                {copy.finalCta3} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
