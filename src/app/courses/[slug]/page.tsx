@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Clock, GraduationCap, Mail, ShieldCheck, Star, Users } from "lucide-react";
+import { CheckCircle2, Clock, GraduationCap, Mail, ShieldCheck } from "lucide-react";
 import { AdSlot } from "@/components/minassati/AdSlot";
 import { CourseCard } from "@/components/minassati/CourseExplorer";
 import { LeadCapture } from "@/components/minassati/LeadCapture";
@@ -73,8 +73,6 @@ export default function CoursePage({ params }: Props) {
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><GraduationCap className="h-4 w-4" />{course.level}</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Clock className="h-4 w-4" />{course.duration}</span>
               <span className="rounded-full bg-white/10 px-4 py-2">{course.lessonsCount} درس</span>
-              {course.rating ? <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Star className="h-4 w-4 text-amber-300" />{course.rating}</span> : null}
-              {course.studentsCount ? <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2"><Users className="h-4 w-4" />{course.studentsCount}</span> : null}
             </div>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href={course.priceType === "free" ? "#curriculum" : `#${waitlistId}`} className="cta-course-hero inline-flex justify-center rounded-full bg-white px-6 py-3 text-sm font-black text-slate-950" data-cta-id={`course-hero-${course.slug}`} data-course-slug={course.slug}>

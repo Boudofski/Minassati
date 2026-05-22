@@ -397,7 +397,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               {copy.heroEyebrow}
             </span>
 
-            <h1 className="mt-6 max-w-5xl break-words text-4xl font-black leading-tight sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-5xl break-words text-3xl font-black leading-tight sm:text-5xl lg:text-6xl xl:text-7xl">
               {copy.heroHeadline}
             </h1>
 
