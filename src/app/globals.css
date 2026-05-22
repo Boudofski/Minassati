@@ -33,6 +33,8 @@
   --shadow-hover: 0 16px 48px -8px rgba(59,130,246,0.18), 0 4px 16px rgba(15,23,42,0.06);
   --shadow-gold: 0 8px 32px -4px rgba(245,158,11,0.22);
   --shadow-teal: 0 8px 32px -4px rgba(20,184,166,0.22);
+  --shadow-card-hover: 0 12px 40px -8px rgba(59,130,246,0.15), 0 4px 12px rgba(15,23,42,0.06);
+  --shadow-navy: 0 20px 60px -12px rgba(15,23,42,0.45);
 }
 
 * {
@@ -290,3 +292,53 @@ textarea {
 /* Hide scrollbar while keeping functionality */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@layer utilities {
+  /* === Minassati Design System v2 === */
+
+  /* Badge system */
+  .badge-free {
+    @apply inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-black text-emerald-700 ring-1 ring-emerald-200;
+  }
+  .badge-pro {
+    @apply inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-black text-amber-700 ring-1 ring-amber-200;
+  }
+  .badge-soon {
+    @apply inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-black text-slate-600;
+  }
+  .badge-new {
+    @apply inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-black text-blue-700 ring-1 ring-blue-200;
+  }
+
+  /* Card system */
+  .card-premium {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[var(--shadow-card-hover)];
+  }
+  .card-dark {
+    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur;
+  }
+
+  /* Section system */
+  .section-light { @apply bg-white; }
+  .section-soft  { @apply bg-[#F7FAFC]; }
+  .section-navy  { @apply bg-slate-950 text-white; }
+
+  /* Eyebrow pills */
+  .eyebrow-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-4 py-2 text-sm font-black text-teal-200;
+  }
+  .eyebrow-pill-light {
+    @apply inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-black text-blue-700;
+  }
+
+  /* Button system */
+  .btn-primary {
+    @apply rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white transition hover:bg-slate-800 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-800 transition hover:bg-slate-50 active:scale-[0.98];
+  }
+  .btn-ghost-white {
+    @apply rounded-full border border-white/20 px-6 py-3 text-sm font-black text-white transition hover:bg-white/10 active:scale-[0.98];
+  }
+}
