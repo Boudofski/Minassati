@@ -85,23 +85,25 @@ export default function ArticlePage({ params }: Props) {
         <span>/</span>
         <Link href="/articles" className="hover:text-slate-800">المقالات</Link>
         <span>/</span>
-        <span className="text-slate-800">{article.title}</span>
+        <span className="line-clamp-1 text-slate-800">{article.title}</span>
       </nav>
 
       <TrustStrip />
 
-      <div className="mt-6 aurora-panel rounded-[2.5rem] border border-white p-7 shadow-xl shadow-teal-100/60 sm:p-10">
-        <span className="rounded-full bg-blue-50 px-4 py-2 text-sm font-extrabold text-blue-700">{article.category}</span>
-        <h1 className="mt-5 text-balance text-4xl font-black leading-tight text-slate-950 sm:text-6xl">{article.title}</h1>
-        <p className="mt-5 max-w-3xl text-xl leading-9 text-slate-600">{article.excerpt}</p>
-        <div className="mt-6 flex flex-wrap items-center gap-4 text-sm font-bold text-slate-500">
+      {/* Article hero */}
+      <div className="mt-6 rounded-2xl bg-slate-950 p-7 text-white shadow-[var(--shadow-navy)] sm:p-10">
+        <span className="badge-soon">{article.category}</span>
+        <h1 className="mt-5 text-balance text-4xl font-black leading-tight sm:text-6xl">{article.title}</h1>
+        <p className="mt-5 max-w-3xl text-xl leading-9 text-slate-300">{article.excerpt}</p>
+        <div className="mt-6 flex flex-wrap items-center gap-4 text-sm font-bold text-slate-400">
           <span className="flex items-center gap-1.5"><Clock className="h-4 w-4" />{article.readingTime}</span>
           <span className="flex items-center gap-1.5"><CalendarDays className="h-4 w-4" />{article.publishedAt}</span>
         </div>
       </div>
 
+      {/* Content + sidebar */}
       <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
-        <div className="rounded-[2rem] bg-white p-6 shadow-soft sm:p-8">
+        <div className="card-premium p-6 sm:p-8">
           {article.sections.map((section, index) => (
             <section key={section.heading} className="mb-8 last:mb-0">
               <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
@@ -110,25 +112,32 @@ export default function ArticlePage({ params }: Props) {
             </section>
           ))}
         </div>
+
         <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
           <AdSlot label="مساحة إعلانية جانبية للمقال" />
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="card-premium p-5">
             <h2 className="font-black text-slate-950">تابع التعلم</h2>
             <p className="mt-2 text-sm leading-7 text-slate-600">حوّل قراءة المقال إلى تطبيق عملي عبر دورة أو مورد مرتبط.</p>
-            <Link href="/courses" className="mt-4 inline-flex w-full justify-center rounded-full bg-slate-950 px-4 py-3 text-sm font-black text-white">استكشف الدورات</Link>
+            <Link
+              href="/courses"
+              className="mt-4 inline-flex w-full justify-center rounded-full bg-slate-950 px-4 py-3 text-sm font-black text-white"
+            >
+              استكشف الدورات
+            </Link>
           </div>
         </aside>
       </div>
 
+      {/* FAQ */}
       {article.faqs && article.faqs.length > 0 && (
-        <section className="mt-8 rounded-[2rem] bg-amber-50 p-6 shadow-soft sm:p-8">
+        <section className="mt-8 rounded-2xl bg-amber-50 p-6 sm:p-8">
           <h2 className="flex items-center gap-2 text-2xl font-black text-slate-950">
             <HelpCircle className="h-6 w-6 text-amber-600" />
             أسئلة شائعة
           </h2>
-          <div className="mt-5 space-y-5">
+          <div className="mt-5 space-y-4">
             {article.faqs.map((faq) => (
-              <div key={faq.q} className="rounded-2xl border border-amber-100 bg-white p-5">
+              <div key={faq.q} className="card-premium p-5">
                 <p className="font-black text-slate-950">{faq.q}</p>
                 <p className="mt-2 leading-8 text-slate-700">{faq.a}</p>
               </div>
@@ -137,8 +146,9 @@ export default function ArticlePage({ params }: Props) {
         </section>
       )}
 
+      {/* Internal links */}
       {article.internalLinks.length > 0 && (
-        <section className="mt-8 rounded-[2rem] bg-blue-50 p-6 shadow-soft">
+        <section className="mt-8 rounded-2xl bg-blue-50 p-6">
           <h2 className="flex items-center gap-2 text-xl font-black text-slate-950">
             <BookOpen className="h-5 w-5 text-blue-600" />
             محتوى مرتبط في منصتي
@@ -148,7 +158,7 @@ export default function ArticlePage({ params }: Props) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-blue-100 bg-white p-4 font-bold text-slate-700 transition hover:border-blue-300 hover:text-blue-700"
+                className="card-premium flex items-center justify-between gap-3 p-4 font-bold text-slate-700 transition hover:text-blue-700"
               >
                 {link.label}
                 <ArrowLeft className="h-4 w-4 shrink-0" />
@@ -170,6 +180,7 @@ export default function ArticlePage({ params }: Props) {
         <NewsletterCTA />
       </div>
 
+      {/* Related articles */}
       {related.length > 0 && (
         <section className="mt-10">
           <h2 className="text-2xl font-black text-slate-950">مقالات مرتبطة</h2>
@@ -178,7 +189,7 @@ export default function ArticlePage({ params }: Props) {
               <Link
                 key={rel.slug}
                 href={`/articles/${rel.slug}`}
-                className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200"
+                className="group card-premium p-5 transition hover:-translate-y-1"
               >
                 <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">{rel.category}</span>
                 <p className="mt-3 font-black text-slate-950">{rel.title}</p>
