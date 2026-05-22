@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpenCheck, Mail } from "lucide-react";
+import { BookOpenCheck } from "lucide-react";
 import { isLocale, rootLocalizedPath, type Locale } from "@/i18n/config";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -25,7 +25,7 @@ const footerCopy: Record<Locale, {
     columns: [
       { title: "التعلم", links: [["/courses", "الدورات"], ["/paths", "المسارات"], ["/articles", "المقالات"], ["/resources", "الموارد"]] },
       { title: "القرآن", links: [["/quran", "قارئ القرآن"], ["/audio", "الصوتيات"], ["/islamic-kids", "محتوى الأطفال"]] },
-      { title: "المنصة", links: [["/pricing", "الاشتراك"], ["/instructors", "للمدربين"], ["/student-dashboard-preview", "لوحة المتعلم"], ["/creator-preview", "لوحة المدرب"]] },
+      { title: "المنصة", links: [["/pricing", "الاشتراك"], ["/instructors", "للمدربين"]] },
       { title: "الشركة", links: [["/about", "من نحن"], ["/contact", "تواصل معنا"], ["/privacy", "سياسة الخصوصية"], ["/terms", "شروط الاستخدام"], ["/help", "مركز المساعدة"]] },
     ],
   },
@@ -39,7 +39,7 @@ const footerCopy: Record<Locale, {
     columns: [
       { title: "Learning", links: [["/courses", "Courses"], ["/paths", "Paths"], ["/articles", "Articles"], ["/resources", "Resources"]] },
       { title: "Quran", links: [["/quran", "Quran reader"], ["/audio", "Audio Quran"], ["/islamic-kids", "Islamic Kids"]] },
-      { title: "Platform", links: [["/pricing", "Pricing"], ["/instructors", "Instructors"], ["/student-dashboard-preview", "Student preview"], ["/creator-preview", "Creator preview"]] },
+      { title: "Platform", links: [["/pricing", "Pricing"], ["/instructors", "Instructors"]] },
       { title: "Company", links: [["/about", "About"], ["/contact", "Contact"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/help", "Help"]] },
     ],
   },
@@ -53,7 +53,7 @@ const footerCopy: Record<Locale, {
     columns: [
       { title: "Apprendre", links: [["/courses", "Cours"], ["/paths", "Parcours"], ["/articles", "Articles"], ["/resources", "Ressources"]] },
       { title: "Coran", links: [["/quran", "Lecteur du Coran"], ["/audio", "Audio Coran"], ["/islamic-kids", "Enfants"]] },
-      { title: "Plateforme", links: [["/pricing", "Abonnement"], ["/instructors", "Formateurs"], ["/student-dashboard-preview", "Aperçu étudiant"], ["/creator-preview", "Aperçu créateur"]] },
+      { title: "Plateforme", links: [["/pricing", "Abonnement"], ["/instructors", "Formateurs"]] },
       { title: "Entreprise", links: [["/about", "À propos"], ["/contact", "Contact"], ["/privacy", "Confidentialité"], ["/terms", "Conditions"], ["/help", "Aide"]] },
     ],
   },
@@ -67,7 +67,7 @@ const footerCopy: Record<Locale, {
     columns: [
       { title: "Aprender", links: [["/courses", "Cursos"], ["/paths", "Rutas"], ["/articles", "Artículos"], ["/resources", "Recursos"]] },
       { title: "Corán", links: [["/quran", "Lector del Corán"], ["/audio", "Audio Corán"], ["/islamic-kids", "Niños"]] },
-      { title: "Plataforma", links: [["/pricing", "Suscripción"], ["/instructors", "Instructores"], ["/student-dashboard-preview", "Vista estudiante"], ["/creator-preview", "Vista creador"]] },
+      { title: "Plataforma", links: [["/pricing", "Suscripción"], ["/instructors", "Instructores"]] },
       { title: "Empresa", links: [["/about", "Acerca de"], ["/contact", "Contacto"], ["/privacy", "Privacidad"], ["/terms", "Términos"], ["/help", "Ayuda"]] },
     ],
   },
@@ -78,44 +78,56 @@ export function Footer() {
   const firstSegment = pathname.split("/").filter(Boolean)[0];
   const locale: Locale = firstSegment && isLocale(firstSegment) ? firstSegment : "ar";
   const prefix = (href: string) => rootLocalizedPath(locale, href);
-  const copy = footerCopy[locale];
+  const l = footerCopy[locale];
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="relative overflow-hidden bg-slate-950 text-white">
-      <div className="absolute inset-0 islamic-bg-white opacity-[0.04]" />
-      <div className="page-shell relative py-14">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1.4fr]">
-          <div>
-            <Link href={prefix("/")} className="inline-flex items-center gap-3">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-slate-950"><BookOpenCheck className="h-6 w-6" /></span>
-              <span><strong className="block text-2xl font-black">منصتي</strong><span className="text-sm font-bold text-teal-300">{copy.tagline}</span></span>
-            </Link>
-            <p className="mt-5 max-w-xl text-sm leading-8 text-slate-300">
-              {copy.description}
-            </p>
-            <div className="mt-5"><LanguageSwitcher align="start" /></div>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {copy.columns.map((column) => (
-              <div key={column.title}>
-                <h2 className="mb-4 text-sm font-black text-white">{column.title}</h2>
-                <nav className="space-y-3" aria-label={column.title}>
-                  {column.links.map(([href, label]) => <Link key={href} href={href} className="block text-sm font-semibold text-slate-400 hover:text-teal-200">{label}</Link>)}
-                </nav>
-              </div>
-            ))}
+    <footer className="bg-slate-950 text-white" dir={locale === "ar" ? "rtl" : "ltr"}>
+      {/* Main grid */}
+      <div className="page-shell grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+        {/* Brand column */}
+        <div>
+          <Link href={prefix("/")} className="flex items-center gap-3" aria-label="منصتي">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-slate-950">
+              <BookOpenCheck className="h-6 w-6" />
+            </span>
+            <div className="leading-tight">
+              <strong className="block text-xl font-black">منصتي</strong>
+              <span className="text-xs font-bold text-slate-400">{l.tagline}</span>
+            </div>
+          </Link>
+          <p className="mt-5 max-w-xs text-sm leading-7 text-slate-400">{l.description}</p>
+          <div className="mt-5">
+            <LanguageSwitcher />
           </div>
         </div>
-        <div className="mt-10 grid gap-4 rounded-2xl border border-white/10 bg-white/6 p-5 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <h2 className="font-black">{copy.newsletter}</h2>
-            <p className="mt-1 text-sm leading-7 text-slate-400">{copy.newsletterText}</p>
+
+        {/* Link columns */}
+        {l.columns.map((col) => (
+          <div key={col.title}>
+            <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-slate-500">{col.title}</h3>
+            <ul className="flex flex-col gap-2">
+              {col.links.map(([href, label]) => (
+                <li key={href}>
+                  <Link href={href} className="text-sm font-bold text-slate-400 transition hover:text-white">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <form className="flex flex-col gap-2 sm:flex-row" aria-label="النشرة البريدية">
-            <input type="email" placeholder={copy.email} className="h-12 rounded-full border border-white/10 bg-white/10 px-4 text-sm text-white placeholder:text-slate-500 outline-none focus:border-teal-300" />
-            <button className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-black text-slate-950" type="submit"><Mail className="h-4 w-4" />{copy.subscribe}</button>
-          </form>
+        ))}
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-white/10">
+        <div className="page-shell flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs font-bold text-slate-500">© {currentYear} منصتي · minassati.ma · جميع الحقوق محفوظة</p>
+          <div className="flex gap-4 text-xs font-bold text-slate-500">
+            <Link href="/privacy" className="transition hover:text-white">Privacy</Link>
+            <Link href="/terms" className="transition hover:text-white">Terms</Link>
+          </div>
         </div>
-        <div className="mt-8 border-t border-white/10 pt-6 text-xs font-semibold text-slate-500">© 2026 منصتي - minassati.ma</div>
       </div>
     </footer>
   );
