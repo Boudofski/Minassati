@@ -522,8 +522,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-black text-white">سورة الفاتحة</p>
-                    <p className="text-[10px] font-bold text-slate-400">مكية · ٧ آيات</p>
+                    <p className="text-xs font-black text-white" dir="rtl">سورة الفاتحة</p>
+                    <p className="text-[10px] font-bold text-slate-400" dir="rtl">مكية · ٧ آيات</p>
                   </div>
                   <span className="badge-free shrink-0 text-[10px]">{dash.freeBadge}</span>
                 </div>
@@ -760,8 +760,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
             {/* Surah header — always RTL for Arabic text correctness */}
             <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4" dir="rtl">
               <div>
-                <p className="text-lg font-black text-white">سورة الفاتحة</p>
-                <p className="mt-0.5 text-xs font-bold text-slate-400">مكية · ٧ آيات</p>
+                <p className="text-lg font-black text-white" dir="rtl">سورة الفاتحة</p>
+                <p className="mt-0.5 text-xs font-bold text-slate-400" dir="rtl">مكية · ٧ آيات</p>
               </div>
               <span className="inline-flex items-center gap-1 rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-xs font-black text-teal-300">
                 <BookOpenCheck className="h-3 w-3" />
