@@ -12,6 +12,16 @@ const priceOptions = [
   { value: "comingSoon", label: "قريبًا" },
 ];
 
+const categoryGradient: Record<string, string> = {
+  "الذكاء الاصطناعي":       "from-violet-900 to-indigo-900",
+  "التسويق الرقمي":          "from-blue-900 to-cyan-900",
+  "العمل الحر":              "from-amber-900 to-orange-900",
+  "التجارة الإلكترونية":     "from-emerald-900 to-teal-900",
+  "التصميم وصناعة المحتوى": "from-rose-900 to-pink-900",
+  "اللغات":                  "from-sky-900 to-blue-900",
+  "الإنتاجية":               "from-slate-800 to-slate-900",
+};
+
 export function CourseCard({ course, compact = false }: { course: Course; compact?: boolean }) {
   // status badge
   const statusBadge =
@@ -25,10 +35,12 @@ export function CourseCard({ course, compact = false }: { course: Course; compac
     : course.level === "متوسط" ? "badge-new"
     : "badge-pro";
 
+  const thumbGradient = categoryGradient[course.category] ?? "from-slate-900 to-slate-800";
+
   return (
     <Link href={`/courses/${course.slug}`} className="card-premium group flex flex-col overflow-hidden">
       {/* Thumbnail */}
-      <div className="relative flex h-36 items-center justify-center overflow-hidden rounded-t-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-6">
+      <div className={`relative flex h-36 items-center justify-center overflow-hidden rounded-t-2xl bg-gradient-to-br ${thumbGradient} p-6`}>
         <div className="absolute inset-0 islamic-bg-white opacity-[0.04]" />
         <span className="relative z-10 grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-2xl font-black text-white/80 backdrop-blur">
           {course.icon}
@@ -45,9 +57,14 @@ export function CourseCard({ course, compact = false }: { course: Course; compac
         <h3 className="text-lg font-black leading-tight text-slate-950 transition-colors group-hover:text-blue-700">
           {course.title}
         </h3>
-        <p className="flex-1 text-sm leading-7 text-slate-500 line-clamp-2">
+        <p className="text-sm leading-7 text-slate-500 line-clamp-2">
           {course.subtitle}
         </p>
+        {course.outcomes[0] && (
+          <p className="mt-1 flex-1 text-xs font-bold text-emerald-700">
+            ✓ {course.outcomes[0]}
+          </p>
+        )}
         <div className="mt-2 flex items-center justify-between gap-2 border-t border-slate-100 pt-3">
           <div className="flex items-center gap-2">
             <span className={levelClass}>{course.level}</span>

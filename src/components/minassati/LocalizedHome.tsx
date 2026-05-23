@@ -14,7 +14,7 @@ import {
 import { CourseCard } from "@/components/minassati/CourseExplorer";
 import { courses } from "@/data/courses";
 import { learningPaths } from "@/data/learning-paths";
-import { resources } from "@/data/resources";
+import { resources, resourceTypeLabel } from "@/data/resources";
 import { localeDirections, type Locale } from "@/i18n/config";
 
 // ─── Translations ─────────────────────────────────────────────────────────────
@@ -338,33 +338,71 @@ const t: Record<
   },
 };
 
-// ─── Mockup card data ─────────────────────────────────────────────────────────
+// ─── Dashboard mockup data ────────────────────────────────────────────────────
 
-const mockupCards: Record<Locale, [string, string, string, string][]> = {
-  ar: [
-    ["🤖", "الذكاء الاصطناعي للأعمال", "badge-free", "مجاني"],
-    ["📈", "التسويق الرقمي من الصفر", "badge-free", "مجاني"],
-    ["📖", "قارئ القرآن", "badge-free", "114 سورة"],
-    ["🎓", "صفحة مدرب", "badge-soon", "قريبًا"],
-  ],
-  en: [
-    ["🤖", "AI for business", "badge-free", "Free"],
-    ["📈", "Digital marketing", "badge-free", "Free"],
-    ["📖", "Quran reader", "badge-free", "114 surahs"],
-    ["🎓", "Instructor page", "badge-soon", "Soon"],
-  ],
-  fr: [
-    ["🤖", "IA pour le business", "badge-free", "Gratuit"],
-    ["📈", "Marketing digital", "badge-free", "Gratuit"],
-    ["📖", "Lecteur du Coran", "badge-free", "114 sourates"],
-    ["🎓", "Page formateur", "badge-soon", "Bientôt"],
-  ],
-  es: [
-    ["🤖", "IA para negocios", "badge-free", "Gratis"],
-    ["📈", "Marketing digital", "badge-free", "Gratis"],
-    ["📖", "Lector del Corán", "badge-free", "114 suras"],
-    ["🎓", "Página de instructor", "badge-soon", "Pronto"],
-  ],
+type MockupDashboard = {
+  courses: { dot: string; title: string; free: boolean }[];
+  resourceTitle: string;
+  resourceType: string;
+  freeBadge: string;
+  soonBadge: string;
+  waitlist: string;
+  bismillahTranslation: string;
+};
+
+const mockupDashboard: Record<Locale, MockupDashboard> = {
+  ar: {
+    courses: [
+      { dot: "bg-purple-500", title: "الذكاء الاصطناعي للأعمال", free: true },
+      { dot: "bg-blue-500", title: "التسويق الرقمي من الصفر", free: true },
+      { dot: "bg-emerald-500", title: "العمل الحر من المغرب", free: false },
+    ],
+    resourceTitle: "تقويم تسويق شهري",
+    resourceType: "قالب مجاني",
+    freeBadge: "مجاني",
+    soonBadge: "قريبًا",
+    waitlist: "١٢ شخصاً في قائمة الانتظار",
+    bismillahTranslation: "بسم الله الرحمن الرحيم",
+  },
+  en: {
+    courses: [
+      { dot: "bg-purple-500", title: "AI for Business", free: true },
+      { dot: "bg-blue-500", title: "Digital Marketing", free: true },
+      { dot: "bg-emerald-500", title: "Freelancing Guide", free: false },
+    ],
+    resourceTitle: "Monthly Marketing Calendar",
+    resourceType: "Free template",
+    freeBadge: "Free",
+    soonBadge: "Soon",
+    waitlist: "12 people on the waitlist",
+    bismillahTranslation: "In the name of Allah, the Entirely Merciful, the Especially Merciful",
+  },
+  fr: {
+    courses: [
+      { dot: "bg-purple-500", title: "IA pour le business", free: true },
+      { dot: "bg-blue-500", title: "Marketing digital", free: true },
+      { dot: "bg-emerald-500", title: "Guide freelance", free: false },
+    ],
+    resourceTitle: "Calendrier marketing mensuel",
+    resourceType: "Modèle gratuit",
+    freeBadge: "Gratuit",
+    soonBadge: "Bientôt",
+    waitlist: "12 personnes sur liste d'attente",
+    bismillahTranslation: "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux",
+  },
+  es: {
+    courses: [
+      { dot: "bg-purple-500", title: "IA para negocios", free: true },
+      { dot: "bg-blue-500", title: "Marketing digital", free: true },
+      { dot: "bg-emerald-500", title: "Guía freelance", free: false },
+    ],
+    resourceTitle: "Calendario de marketing mensual",
+    resourceType: "Plantilla gratuita",
+    freeBadge: "Gratis",
+    soonBadge: "Pronto",
+    waitlist: "12 personas en lista de espera",
+    bismillahTranslation: "En el nombre de Allah, el Compasivo, el Misericordioso",
+  },
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -375,8 +413,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
 
   const featuredCourses = courses.filter((c) => c.featured).slice(0, 6);
   const featuredPaths = learningPaths.slice(0, 4);
-  const freeResources = resources.filter((r) => r.free).slice(0, 8);
-  const cards = mockupCards[locale];
+  const freeResources = resources.filter((r) => r.free).slice(0, 10);
+  const dash = mockupDashboard[locale];
 
   return (
     <div lang={locale} dir={dir} className="overflow-hidden">
@@ -424,53 +462,88 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               </Link>
             </div>
 
-            {/* Stats grid */}
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {/* Stats strip — integrated, no floating boxes */}
+            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/10 pt-6">
               {copy.heroStats.map(([num, label]) => (
-                <div key={label} className="card-dark rounded-2xl p-4 text-center">
+                <div key={label}>
                   <p className="text-2xl font-black text-white">{num}</p>
-                  <p className="mt-1 text-xs font-bold text-slate-400">{label}</p>
+                  <p className="text-xs font-bold text-slate-400">{label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right: dashboard mockup */}
+          {/* Right: product dashboard mockup */}
           <div className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-3 shadow-2xl backdrop-blur sm:p-4">
             <div className="rounded-2xl bg-white p-4 text-slate-950 sm:p-5">
-              {/* Progress header */}
+
+              {/* Path progress header */}
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-xs font-black text-blue-700">{copy.mockupPathLabel}</p>
-                  <h2 className="mt-1 break-words text-lg font-black sm:text-xl">{copy.mockupPathName}</h2>
+                  <h2 className="mt-0.5 truncate text-base font-black">{copy.mockupPathName}</h2>
                 </div>
                 <span className="badge-free shrink-0">62%</span>
               </div>
-
-              {/* Progress bar */}
-              <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-slate-100">
-                <div
-                  className="h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-teal-400"
-                  style={{ width: "62%" }}
-                />
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
+                <div className="h-2 w-[62%] rounded-full bg-gradient-to-r from-blue-500 to-teal-400" />
               </div>
 
-              {/* Mini cards 2x2 */}
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                {cards.map(([emoji, title, badgeClass, badgeLabel]) => (
-                  <div key={title} className="rounded-xl border border-slate-100 p-3">
-                    <span className="text-2xl leading-none">{emoji}</span>
-                    <strong className="mt-2 block text-sm font-black leading-snug text-slate-900">{title}</strong>
-                    <span className={`mt-2 ${badgeClass}`}>{badgeLabel}</span>
+              {/* Course list strip */}
+              <div className="mt-4 space-y-1.5">
+                {dash.courses.map((c) => (
+                  <div key={c.title} className="flex items-center gap-2.5 rounded-xl border border-slate-100 px-3 py-2">
+                    <span className={`h-2 w-2 shrink-0 rounded-full ${c.dot}`} />
+                    <span className="flex-1 truncate text-sm font-black text-slate-900">{c.title}</span>
+                    {c.free
+                      ? <span className="badge-free shrink-0">{dash.freeBadge}</span>
+                      : <span className="badge-soon shrink-0">{dash.soonBadge}</span>
+                    }
                   </div>
                 ))}
               </div>
 
-              {/* Next step panel */}
-              <div className="mt-4 rounded-2xl bg-slate-950 p-4 text-white">
-                <p className="text-xs font-black text-teal-300">{copy.mockupNextStep}</p>
-                <p className="mt-1 text-sm font-bold text-slate-200">{copy.mockupNextLabel}</p>
+              {/* Resource preview */}
+              <div className="mt-3 flex items-center gap-3 rounded-xl border border-amber-100 bg-amber-50 px-3 py-2.5">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-amber-100 text-amber-700">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-xs font-black text-slate-900">{dash.resourceTitle}</p>
+                  <p className="text-[11px] text-slate-400">{dash.resourceType}</p>
+                </div>
+                <span className="badge-free shrink-0">{dash.freeBadge}</span>
               </div>
+
+              {/* Quran mini-player */}
+              <div className="mt-3 rounded-xl bg-slate-950 px-3 py-3 text-white" dir="rtl">
+                <div className="flex items-center gap-2">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-teal-500/20 text-teal-300">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-black text-white">سورة الفاتحة</p>
+                    <p className="text-[10px] font-bold text-slate-400">مكية · ٧ آيات</p>
+                  </div>
+                  <span className="badge-free shrink-0 text-[10px]">{dash.freeBadge}</span>
+                </div>
+                <div className="mt-2 flex h-4 items-end gap-px" aria-hidden="true">
+                  {[3,5,8,6,9,7,4,6,8,5,7,9,6,4,7,5,8,6,9,5,7,4,6,8,5].map((h, i) => (
+                    <div key={i} className={`flex-1 rounded-sm ${i < 9 ? "bg-teal-400" : "bg-white/15"}`} style={{ height: `${h * 11}%` }} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Waitlist signal */}
+              <div className="mt-3 flex items-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2">
+                <div className="flex -space-x-1.5 rtl:space-x-reverse">
+                  {["bg-blue-400","bg-teal-400","bg-purple-400"].map((c) => (
+                    <div key={c} className={`h-5 w-5 rounded-full border-2 border-white ${c}`} />
+                  ))}
+                </div>
+                <p className="truncate text-xs font-black text-blue-700">{dash.waitlist}</p>
+              </div>
+
             </div>
           </div>
         </div>
@@ -492,24 +565,34 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* ── Section 3: Problem ──────────────────────────────────────────── */}
+      {/* ── Section 3: Problem — editorial split ────────────────────────── */}
       <section className="section-soft section-space">
-        <div className="page-shell">
-          <div className="text-center">
-            <span className="eyebrow-pill-light">
-              {copy.problemEyebrow}
-            </span>
+        <div className="page-shell grid gap-12 lg:grid-cols-[0.9fr_1fr] lg:items-start">
+          {/* Left: heading + first 2 problems as large text items */}
+          <div>
+            <span className="eyebrow-pill-light">{copy.problemEyebrow}</span>
             <h2 className="mt-4 text-3xl font-black text-slate-950 sm:text-4xl lg:text-5xl">
               {copy.problemTitle}
             </h2>
+            <div className="mt-8 space-y-6">
+              {copy.problems.slice(0, 2).map((p) => (
+                <div key={p.title} className="border-s-4 border-red-500 ps-4">
+                  <h3 className="text-lg font-black text-slate-950">{p.title}</h3>
+                  <p className="mt-1 text-sm leading-7 text-slate-600">{p.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {copy.problems.map((p) => (
-              <div key={p.title} className="card-premium p-6">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-red-500" />
-                <h3 className="mt-3 text-base font-black text-slate-950">{p.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-500">{p.desc}</p>
+          {/* Right: remaining 3 problems as compact cards */}
+          <div className="space-y-4 lg:mt-[5.5rem]">
+            {copy.problems.slice(2).map((p) => (
+              <div key={p.title} className="card-premium flex items-start gap-4 p-5">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-red-400" />
+                <div>
+                  <h3 className="text-sm font-black text-slate-950">{p.title}</h3>
+                  <p className="mt-1 text-sm leading-7 text-slate-500">{p.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -611,19 +694,41 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-            {freeResources.map((resource) => (
-              <Link
-                key={resource.slug}
-                href={`/resources/${resource.slug}`}
-                className="card-premium flex flex-col p-5"
-              >
-                <Download className="h-5 w-5 text-emerald-600" />
-                <span className="badge-free mt-3 self-start">{resource.type ?? "resource"}</span>
-                <h3 className="mt-3 font-black text-slate-950">{resource.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{resource.description}</p>
-              </Link>
-            ))}
+          {/* Horizontal scroll shelf — no-scrollbar hides bar, overflow-hidden on parent prevents page overflow */}
+          <div className="mt-10 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="flex gap-4 overflow-x-auto pb-3 no-scrollbar">
+              {freeResources.map((resource) => {
+                const typeStyle: Record<string, { bg: string; text: string }> = {
+                  checklist: { bg: "bg-emerald-50", text: "text-emerald-700" },
+                  template: { bg: "bg-blue-50", text: "text-blue-700" },
+                  guide: { bg: "bg-amber-50", text: "text-amber-700" },
+                  "prompt-pack": { bg: "bg-purple-50", text: "text-purple-700" },
+                  planner: { bg: "bg-orange-50", text: "text-orange-700" },
+                };
+                const style = typeStyle[resource.type] ?? { bg: "bg-slate-50", text: "text-slate-700" };
+                return (
+                  <Link
+                    key={resource.slug}
+                    href={`/resources/${resource.slug}`}
+                    className="card-premium flex w-52 shrink-0 flex-col p-4"
+                  >
+                    <div className={`grid h-9 w-9 place-items-center rounded-xl ${style.bg} ${style.text}`}>
+                      <Download className="h-4 w-4" />
+                    </div>
+                    <p className="mt-3 text-[10px] font-black uppercase tracking-wider text-slate-400">
+                      {resource.category}
+                    </p>
+                    <h3 className="mt-1 text-sm font-black leading-snug text-slate-950">
+                      {resource.title}
+                    </h3>
+                    <p className="mt-1.5 line-clamp-2 flex-1 text-xs leading-5 text-slate-500">
+                      {resource.description}
+                    </p>
+                    <span className="mt-3 self-start badge-free">{resourceTypeLabel(resource.type)}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -650,11 +755,62 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          {/* Bismillah panel */}
-          <div className="card-dark rounded-3xl p-8 text-center">
-            <p className="quran-text text-4xl leading-[2.2] text-amber-100">
-              بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          {/* Quran reader preview panel */}
+          <div className="card-dark rounded-3xl p-5 sm:p-7">
+            {/* Surah header — always RTL for Arabic text correctness */}
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4" dir="rtl">
+              <div>
+                <p className="text-lg font-black text-white">سورة الفاتحة</p>
+                <p className="mt-0.5 text-xs font-bold text-slate-400">مكية · ٧ آيات</p>
+              </div>
+              <span className="inline-flex items-center gap-1 rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-xs font-black text-teal-300">
+                <BookOpenCheck className="h-3 w-3" />
+                {copy.quranEyebrow}
+              </span>
+            </div>
+
+            {/* Ayah display */}
+            <div className="mt-5 text-center" dir="rtl">
+              <p className="quran-text text-3xl leading-[2.8] text-amber-100">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+              </p>
+              <p className="mt-1 text-xs font-bold text-slate-500">١</p>
+            </div>
+
+            {/* Translation */}
+            <p className="mt-3 text-center text-xs font-bold leading-6 text-slate-500">
+              {dash.bismillahTranslation}
             </p>
+
+            {/* Audio player mockup */}
+            <div className="mt-5 flex items-center gap-3 rounded-2xl bg-white/5 px-4 py-3">
+              <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-teal-500 text-white" aria-label="play">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div className="flex flex-1 items-end gap-px h-6" aria-hidden="true">
+                {[2,4,7,5,9,6,4,8,7,5,9,6,3,7,6,8,5,9,4,7,5,8,6,4,7].map((h, i) => (
+                  <div key={i} className={`flex-1 rounded-sm ${i < 8 ? "bg-teal-400" : "bg-white/20"}`} style={{ height: `${h * 10}%` }} />
+                ))}
+              </div>
+              <span className="shrink-0 text-xs font-black text-teal-300">{copy.audioCta.split(" ")[0]}</span>
+            </div>
+
+            {/* Surah navigation chips */}
+            <div className="mt-4 flex gap-2 overflow-x-auto no-scrollbar" dir="rtl">
+              {[
+                { name: "الفاتحة", num: "١", active: true },
+                { name: "البقرة", num: "٢", active: false },
+                { name: "آل عمران", num: "٣", active: false },
+                { name: "النساء", num: "٤", active: false },
+              ].map((s) => (
+                <div
+                  key={s.name}
+                  className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-black ${s.active ? "bg-teal-500/20 text-teal-300" : "bg-white/5 text-slate-400"}`}
+                >
+                  {s.num} · {s.name}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
