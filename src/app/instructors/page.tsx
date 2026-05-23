@@ -27,7 +27,7 @@ export default function InstructorsPage() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="#instructor-application" className="cta-instructor-apply rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white" data-cta-id="instructor-hero-apply">أرسل طلب الانضمام</Link>
-            <Link href="/creator-preview" className="cta-instructor-preview rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800" data-cta-id="instructor-hero-preview">معاينة لوحة المدرب</Link>
+            <Link href="/pricing#pricing-waitlist" className="cta-instructor-preview rounded-full border border-slate-200 bg-white px-6 py-3 text-center text-sm font-black text-slate-800" data-cta-id="instructor-hero-waitlist">قائمة انتظار المدربين</Link>
           </div>
         </div>
         <div className="rounded-2xl bg-slate-950 p-6 text-white shadow-navy-glow">

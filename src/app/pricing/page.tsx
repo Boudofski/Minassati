@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertTriangle, CheckCircle2, Mail } from "lucide-react";
+import { AlertTriangle, CheckCircle2, HelpCircle, Mail } from "lucide-react";
 import { LeadCapture } from "@/components/minassati/LeadCapture";
 
 export const metadata: Metadata = {
@@ -61,6 +61,52 @@ export default function PricingPage() {
         buttonLabel="انضم لقائمة الانتظار"
         className="mt-8"
       />
+
+      {/* FAQ */}
+      <section className="mt-12">
+        <h2 className="flex items-center gap-2 text-2xl font-black text-slate-950">
+          <HelpCircle className="h-6 w-6 text-blue-600" />
+          أسئلة شائعة
+        </h2>
+        <div className="mt-5 space-y-3">
+          {[
+            {
+              q: "هل الدفع مفعّل حالياً؟",
+              a: "لا. لا يوجد أي نظام دفع أو checkout نشط الآن. كل الخطط المدفوعة قيد التحضير. إذا رأيت سعراً على أي دورة فهو مقدّر فقط.",
+            },
+            {
+              q: "ما الذي يمكنني الوصول إليه مجاناً الآن؟",
+              a: "الموارد المجانية، معظم الدورات للتصفح، قارئ القرآن كاملاً (114 سورة)، الصوتيات، المقالات، والمسارات العامة — كلها متاحة بدون تسجيل أو دفع.",
+            },
+            {
+              q: "متى سيكون Pro متاحاً؟",
+              a: "لم نحدد موعداً بعد. نجمع قائمة الاهتمام أولاً لتحديد الأولويات. سنعلم المسجلين مباشرة قبل الإطلاق.",
+            },
+            {
+              q: "هل ستكون الشهادات متاحة؟",
+              a: "الشهادات مخططة ضمن Pro لكنها غير مفعلة حالياً. سيتم الإعلان عنها بوضوح عند توفرها.",
+            },
+            {
+              q: "هل يمكنني الإلغاء بعد الاشتراك؟",
+              a: "عند إطلاق الاشتراك، سيكون الإلغاء ممكناً في أي وقت. لن نحتجز أموالاً بدون إشعار مسبق.",
+            },
+            {
+              q: "كيف أعرف أن الدورة مجانية فعلاً؟",
+              a: "كل دورة تحمل شارة واضحة: مجاني، أو قريبًا، أو سعر مقدّر. إذا كانت مجانية فلا يوجد أي حاجز للوصول إلى المحتوى.",
+            },
+          ].map(({ q, a }) => (
+            <div key={q} className="rounded-2xl border border-slate-200 bg-white p-5">
+              <p className="font-black text-slate-950">{q}</p>
+              <p className="mt-2 text-sm leading-8 text-slate-600">{a}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link href="/contact" className="text-sm font-black text-blue-700 hover:underline">
+            سؤال آخر؟ تواصل معنا مباشرة
+          </Link>
+        </div>
+      </section>
     </section>
   );
 }

@@ -2,10 +2,12 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpenCheck,
+  CheckCircle2,
   Download,
   GraduationCap,
   Layers,
   MapPin,
+  ShieldCheck,
   Sparkles,
   Target,
   TrendingUp,
@@ -405,6 +407,80 @@ const mockupDashboard: Record<Locale, MockupDashboard> = {
   },
 };
 
+// ─── Trust section copy ───────────────────────────────────────────────────────
+
+const trustCopy: Record<Locale, {
+  title: string;
+  cards: { title: string; desc: string }[];
+  statusTitle: string;
+  statusItems: { label: string; live: boolean }[];
+}> = {
+  ar: {
+    title: "لماذا تثق في منصتي؟",
+    cards: [
+      { title: "شفافية في حالة الدورات", desc: "كل دورة تحمل حالتها بوضوح: مجاني، قيد التحضير، أو قادم. لا وعود مضللة ولا أسعار وهمية." },
+      { title: "موارد عملية قابلة للاستخدام", desc: "القوالب وقوائم الفحص متاحة مباشرة للطلب — لا تسجيل مدفوع قبل الاستخدام." },
+      { title: "قرآن مجاني بدون إعلانات مزعجة", desc: "قارئ القرآن مدمج في المنصة ولن يصبح مدفوعاً أو مزدحماً بالإعلانات أبداً." },
+      { title: "منصة في طور البناء بوضوح", desc: "نعلن صراحة أننا في مرحلة بناء. لا ادعاء لنجاح سابق ولا أرقام منتحلة." },
+    ],
+    statusTitle: "حالة المنصة الآن",
+    statusItems: [
+      { label: "الموارد المجانية متاحة", live: true },
+      { label: "قارئ القرآن متاح", live: true },
+      { label: "طلبات المدربين مفتوحة", live: true },
+      { label: "الدورات المدفوعة قيد التحضير", live: false },
+    ],
+  },
+  en: {
+    title: "Why trust Minassati?",
+    cards: [
+      { title: "Transparent course status", desc: "Every course shows its status clearly: free, in preparation, or coming soon. No misleading promises." },
+      { title: "Actionable, usable resources", desc: "Templates and checklists are available to request — no paid barrier before use." },
+      { title: "Free Quran with no intrusive ads", desc: "The Quran reader is built into the platform and will never become paid or ad-cluttered." },
+      { title: "Platform openly under construction", desc: "We openly say we are building. No fake success metrics, no invented numbers." },
+    ],
+    statusTitle: "Platform status right now",
+    statusItems: [
+      { label: "Free resources available", live: true },
+      { label: "Quran reader available", live: true },
+      { label: "Instructor applications open", live: true },
+      { label: "Paid courses in preparation", live: false },
+    ],
+  },
+  fr: {
+    title: "Pourquoi faire confiance à Minassati ?",
+    cards: [
+      { title: "Transparence sur l'état des cours", desc: "Chaque cours affiche clairement son statut : gratuit, en préparation ou à venir. Pas de promesses trompeuses." },
+      { title: "Ressources pratiques utilisables", desc: "Les modèles et listes de contrôle sont disponibles à la demande — sans barrière payante." },
+      { title: "Coran gratuit sans publicités intrusives", desc: "Le lecteur du Coran est intégré à la plateforme et ne deviendra jamais payant." },
+      { title: "Plateforme ouvertement en construction", desc: "Nous déclarons ouvertement que nous construisons. Pas de faux chiffres ni de métriques inventées." },
+    ],
+    statusTitle: "État actuel de la plateforme",
+    statusItems: [
+      { label: "Ressources gratuites disponibles", live: true },
+      { label: "Lecteur du Coran disponible", live: true },
+      { label: "Candidatures formateurs ouvertes", live: true },
+      { label: "Cours payants en préparation", live: false },
+    ],
+  },
+  es: {
+    title: "¿Por qué confiar en Minassati?",
+    cards: [
+      { title: "Transparencia en el estado de los cursos", desc: "Cada curso muestra claramente su estado: gratuito, en preparación o próximamente. Sin promesas engañosas." },
+      { title: "Recursos prácticos y utilizables", desc: "Las plantillas y listas de verificación están disponibles para solicitar — sin barrera de pago." },
+      { title: "Corán gratuito sin anuncios intrusivos", desc: "El lector del Corán está integrado y nunca se volverá de pago ni se llenará de anuncios." },
+      { title: "Plataforma abiertamente en construcción", desc: "Declaramos abiertamente que estamos construyendo. Sin métricas falsas ni números inventados." },
+    ],
+    statusTitle: "Estado actual de la plataforma",
+    statusItems: [
+      { label: "Recursos gratuitos disponibles", live: true },
+      { label: "Lector del Corán disponible", live: true },
+      { label: "Solicitudes de instructores abiertas", live: true },
+      { label: "Cursos de pago en preparación", live: false },
+    ],
+  },
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
@@ -415,6 +491,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
   const featuredPaths = learningPaths.slice(0, 4);
   const freeResources = resources.filter((r) => r.free).slice(0, 10);
   const dash = mockupDashboard[locale];
+  const tc = trustCopy[locale];
 
   return (
     <div lang={locale} dir={dir} className="overflow-hidden">
@@ -841,6 +918,53 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                     <Icon className="h-5 w-5 text-blue-600" />
                   </div>
                   <p className="font-black text-slate-900">{benefit}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 9.5: Trust ───────────────────────────────────────────── */}
+      <section className="section-light section-space">
+        <div className="page-shell">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="eyebrow-pill-light"><ShieldCheck className="h-4 w-4 text-blue-600" /> {tc.statusTitle}</span>
+              <h2 className="mt-4 text-3xl font-black text-slate-950 sm:text-4xl">{tc.title}</h2>
+            </div>
+          </div>
+
+          {/* Status strip */}
+          <div className="mt-6 flex flex-wrap gap-3">
+            {tc.statusItems.map(({ label, live }) => (
+              <span
+                key={label}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-black ${
+                  live
+                    ? "bg-emerald-50 text-emerald-700"
+                    : "bg-amber-50 text-amber-700"
+                }`}
+              >
+                {live
+                  ? <CheckCircle2 className="h-4 w-4" />
+                  : <span className="inline-block h-3.5 w-3.5 rounded-full border-2 border-amber-400" />
+                }
+                {label}
+              </span>
+            ))}
+          </div>
+
+          {/* Trust cards */}
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {tc.cards.map(({ title, desc }, i) => {
+              const icons = [ShieldCheck, Download, BookOpenCheck, MapPin];
+              const Icon = icons[i] ?? ShieldCheck;
+              return (
+                <div key={title} className="card-premium p-5">
+                  <Icon className="h-5 w-5 text-blue-600" />
+                  <h3 className="mt-3 font-black text-slate-950">{title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">{desc}</p>
                 </div>
               );
             })}

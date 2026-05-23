@@ -12,6 +12,7 @@ node_modules
 out
 dist
 dist-ssr
+tsconfig.tsbuildinfo
 *.local
 .env
 .env*.local

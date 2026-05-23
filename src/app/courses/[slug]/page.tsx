@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Clock, GraduationCap, Mail, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Clock, GraduationCap, Layers, Lock, Mail, ShieldCheck, Unlock } from "lucide-react";
 import { AdSlot } from "@/components/minassati/AdSlot";
 import { CourseCard } from "@/components/minassati/CourseExplorer";
 import { LeadCapture } from "@/components/minassati/LeadCapture";
 import { courses, getCourse, getRelatedCourses, priceLabel } from "@/data/courses";
+import { learningPaths } from "@/data/learning-paths";
 import { absoluteUrl, site } from "@/lib/site";
 
 type Props = { params: { slug: string } };
@@ -30,6 +31,7 @@ export default function CoursePage({ params }: Props) {
   const course = getCourse(params.slug);
   if (!course) notFound();
   const related = getRelatedCourses(course);
+  const relatedPaths = learningPaths.filter((p) => p.relatedCourses.includes(course.slug));
   const cta = course.priceType === "free" ? "ابدأ مجانًا" : course.status === "comingSoon" ? "أعلمني عند الإطلاق" : "انضم لقائمة الاهتمام";
   const waitlistId = `course-waitlist-${course.slug}`;
   const waitlistSubject = `اهتمام بدورة: ${course.title}`;
@@ -65,7 +67,18 @@ export default function CoursePage({ params }: Props) {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div>
           <section className="rounded-2xl bg-slate-950 p-7 text-white shadow-navy-glow sm:p-10">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-black text-teal-200">{course.category}</span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-black text-teal-200">{course.category}</span>
+              {course.priceType === "free" && (
+                <span className="badge-free">متاح مجاناً</span>
+              )}
+              {course.priceType === "comingSoon" && (
+                <span className="badge-soon">قيد التحضير</span>
+              )}
+              {course.priceType === "paid" && (
+                <span className="badge-pro">{priceLabel(course)} — قيد التحضير</span>
+              )}
+            </div>
             <h1 className="mt-5 text-4xl font-black leading-tight sm:text-6xl">{course.title}</h1>
             <p className="mt-4 text-xl leading-9 text-slate-300">{course.subtitle}</p>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-400">{course.description}</p>
@@ -112,13 +125,46 @@ export default function CoursePage({ params }: Props) {
           </section>
 
           <section id="curriculum" className="mt-8 rounded-2xl bg-white p-6 shadow-soft sm:p-8">
-            <h2 className="text-2xl font-black text-slate-950">المحتوى</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-2xl font-black text-slate-950">المنهج الدراسي</h2>
+              <span className="text-sm font-bold text-slate-400">{course.curriculum.reduce((sum, m) => sum + m.lessons.length, 0)} درس</span>
+            </div>
+            {course.priceType !== "free" && (
+              <p className="mt-2 text-xs font-bold text-slate-400">
+                الدرس الأول في كل وحدة معاينة مجانية — باقي الدروس تتطلب الاشتراك عند الإطلاق.
+              </p>
+            )}
             <div className="mt-5 space-y-4">
-              {course.curriculum.map((module, index) => (
+              {course.curriculum.map((module, moduleIdx) => (
                 <div key={module.title} className="rounded-xl border border-slate-200 p-5">
-                  <h3 className="font-black text-slate-950">{index + 1}. {module.title}</h3>
-                  <ul className="mt-3 space-y-2 text-sm font-semibold leading-7 text-slate-600">
-                    {module.lessons.map((lesson) => <li key={lesson}>• {lesson}</li>)}
+                  <h3 className="font-black text-slate-950">{moduleIdx + 1}. {module.title}</h3>
+                  <ul className="mt-3 space-y-2">
+                    {module.lessons.map((lesson, lessonIdx) => {
+                      const isFree = course.priceType === "free";
+                      const isPreview = !isFree && lessonIdx === 0;
+                      const isLocked = !isFree && lessonIdx > 0;
+                      return (
+                        <li
+                          key={lesson}
+                          className={`flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-7 ${
+                            isLocked ? "text-slate-400" : "text-slate-700"
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            {isFree
+                              ? <Unlock className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                              : isPreview
+                                ? <Unlock className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                                : <Lock className="h-3.5 w-3.5 shrink-0 text-slate-300" />
+                            }
+                            {lesson}
+                          </span>
+                          {isPreview && (
+                            <span className="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-black text-emerald-700">معاينة</span>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
@@ -185,6 +231,30 @@ export default function CoursePage({ params }: Props) {
           </div>
         </aside>
       </div>
+
+      {relatedPaths.length > 0 && (
+        <section className="mt-10 rounded-2xl border border-blue-100 bg-blue-50 p-6 sm:p-8">
+          <h2 className="flex items-center gap-2 text-xl font-black text-slate-950">
+            <Layers className="h-5 w-5 text-blue-600" />
+            هذه الدورة ضمن مسار تعليمي
+          </h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {relatedPaths.map((path) => (
+              <Link
+                key={path.slug}
+                href={`/paths/${path.slug}`}
+                className="card-premium flex items-center justify-between gap-3 p-4 font-bold text-slate-700 transition hover:text-blue-700"
+              >
+                <div>
+                  <p className="font-black text-slate-950">{path.title}</p>
+                  <p className="mt-0.5 text-xs text-slate-500">{path.duration} · {path.steps.length} مراحل</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">عرض المسار</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="mt-10">
