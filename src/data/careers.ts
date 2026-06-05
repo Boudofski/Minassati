@@ -55,7 +55,7 @@ export const careers: Career[] = rows.map(([slug, title, category, description, 
   firstSteps,
   moroccanContext: baseContext,
   related: {
-    articles: ["madha-afal-baad-al-bac-fi-almaghrib", "kaifa-akhtar-altakhasos-almonasib"],
+    articles: ["what-to-do-after-bac-morocco", "kaifa-akhtar-altakhasos-almonasib"],
     resources: ["major-choice-checklist", "student-cv-template"],
   },
 })) as Career[];

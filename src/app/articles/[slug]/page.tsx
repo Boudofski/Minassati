@@ -119,10 +119,10 @@ export default function ArticlePage({ params }: Props) {
             <h2 className="font-black text-slate-950">تابع التعلم</h2>
             <p className="mt-2 text-sm leading-7 text-slate-600">حوّل قراءة المقال إلى تطبيق عملي عبر مورد أو خطوة بحث واضحة.</p>
             <Link
-              href="/orientation"
+              href="/guidance-request"
               className="mt-4 inline-flex w-full justify-center rounded-full bg-slate-950 px-4 py-3 text-sm font-black text-white"
             >
-              ابدأ التوجيه
+              أرسل طلب التوجيه
             </Link>
           </div>
         </aside>
@@ -204,7 +204,7 @@ export default function ArticlePage({ params }: Props) {
 
       <div className="mt-10 flex flex-wrap gap-3">
         <ButtonLink href="/articles">كل المقالات</ButtonLink>
-        <ButtonLink href="/resources" variant="secondary">تصفح الموارد</ButtonLink>
+        <ButtonLink href="/faq" variant="secondary">النصائح والأسئلة</ButtonLink>
       </div>
     </article>
   );

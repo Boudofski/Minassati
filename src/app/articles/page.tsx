@@ -141,16 +141,16 @@ export default function ArticlesPage() {
           <h2 className="mt-5 text-3xl font-black sm:text-4xl">اقرأ مقالة ثم طبّق موردًا واحدًا</h2>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/orientation"
+              href="/guidance-request"
               className="rounded-full bg-white px-8 py-4 text-lg font-black text-slate-950 transition hover:-translate-y-0.5"
             >
-              ابدأ التوجيه
+              أرسل طلب التوجيه
             </Link>
             <Link
-              href="/resources"
+              href="/faq"
               className="rounded-full border border-white/30 px-8 py-4 text-lg font-black text-white transition hover:bg-white/10"
             >
-              تصفح الموارد
+              النصائح والأسئلة
             </Link>
           </div>
         </div>

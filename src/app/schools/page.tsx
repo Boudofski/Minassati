@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/schools" },
 };
 
-const filters = ["المجال", "المدينة", "نوع التكوين", "الشهادة", "التكلفة", "التداريب"];
+const filters = ["الاعتماد", "المدينة", "التخصص", "شروط الولوج", "التكلفة", "آفاق التخرج"];
 
 export default function SchoolsPage() {
   return (

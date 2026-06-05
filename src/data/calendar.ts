@@ -32,4 +32,4 @@ export const calendarPlanningItems: CalendarPlanningItem[] = [
   },
 ];
 
-export const calendarWarning = "تحقق من التاريخ في الموقع الرسمي للمؤسسة.";
+export const calendarWarning = "المواعيد تقريبية ويجب التحقق منها من المواقع الرسمية.";

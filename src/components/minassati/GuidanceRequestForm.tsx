@@ -12,11 +12,9 @@ export function GuidanceRequestForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const message = [
-      `الهاتف: ${formData.get("phone") || "-"}`,
       `المدينة: ${formData.get("city") || "-"}`,
       `المستوى الحالي: ${formData.get("level") || "-"}`,
       `الاهتمامات: ${formData.get("interests") || "-"}`,
-      `المجالات المفضلة: ${formData.get("preferredFields") || "-"}`,
       "",
       `السؤال: ${formData.get("question") || ""}`,
     ].join("\n");
@@ -55,16 +53,14 @@ export function GuidanceRequestForm() {
           <option>إعادة توجيه</option>
         </select>
         <input required name="city" placeholder="المدينة" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
-        <input required name="interests" placeholder="اهتماماتك: علوم، اقتصاد، لغات..." className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
-        <input required name="preferredFields" placeholder="المجالات المفضلة: طب، هندسة، قانون..." className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
         <input required name="name" placeholder="الاسم" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
         <input required type="email" name="email" placeholder="البريد الإلكتروني" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
-        <input name="phone" placeholder="الهاتف (اختياري)" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500 sm:col-span-2" />
+        <input required name="interests" placeholder="الاهتمامات: علوم، اقتصاد، لغات..." className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500 sm:col-span-2" />
       </div>
       <textarea required minLength={10} name="question" placeholder="ما السؤال أو الحيرة التي تريد توجيهاً حولها؟" className="min-h-36 rounded-lg border border-slate-200 p-4 font-bold leading-7 outline-none focus:border-emerald-500" />
       <button type="submit" disabled={status === "loading"} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-emerald-700 px-6 text-sm font-black text-white disabled:opacity-60">
         {status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-        إرسال طلب التوجيه
+        أرسل طلب التوجيه
       </button>
       {status === "success" ? <p className="rounded-xl bg-emerald-50 p-3 text-sm font-black text-emerald-800">تم إرسال الطلب.</p> : null}
       {status === "error" ? <p className="rounded-xl bg-red-50 p-3 text-sm font-black text-red-800">تعذر إرسال الطلب. حاول مرة أخرى.</p> : null}
