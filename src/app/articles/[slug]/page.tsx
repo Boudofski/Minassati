@@ -107,7 +107,7 @@ export default function ArticlePage({ params }: Props) {
           {article.sections.map((section, index) => (
             <section key={section.heading} className="mb-8 last:mb-0">
               <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
-              <p className="mt-3 text-lg leading-9 text-slate-700">{section.body}</p>
+              <p className="mt-3 whitespace-pre-line text-lg leading-9 text-slate-700">{section.body}</p>
               {index === 0 ? <AdSlot className="mt-8" label="مساحة إعلانية بعد مقدمة المقال" /> : null}
             </section>
           ))}
