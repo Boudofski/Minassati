@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/data/articles";
-import { getReciters } from "@/lib/mp3quran-api";
 import { site } from "@/lib/site";
 
 function entry(route: string, priority = 0.7) {
@@ -8,7 +7,6 @@ function entry(route: string, priority = 0.7) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { reciters } = await getReciters();
   const staticRoutes = [
     "",
     "/schools",
@@ -18,19 +16,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/calendar",
     "/faq",
     "/articles",
-    "/quran",
-    "/audio",
     "/about",
     "/contact",
     "/privacy",
     "/terms",
+    "/help",
   ];
 
   const routes = [
     ...staticRoutes.map((route) => entry(route, route === "" ? 1 : 0.8)),
     ...articles.map((article) => ({ url: `${site.url}/articles/${article.slug}`, lastModified: new Date(article.updatedAt), priority: 0.75 })),
-    ...Array.from({ length: 114 }, (_, index) => entry(`/quran/${index + 1}`, 0.65)),
-    ...reciters.slice(0, 24).map((reciter) => entry(`/audio/${reciter.id}`, 0.55)),
   ];
 
   const seen = new Set<string>();

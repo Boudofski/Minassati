@@ -23,7 +23,6 @@ const primaryNav = [
 const moreItems = [
   { href: "/after-bac", label: "بعد الباك", icon: School },
   { href: "/faq", label: "النصائح والأسئلة", icon: HelpCircle },
-  { href: "/quran", label: "القرآن", icon: BookOpenCheck },
   { href: "/about", label: "من نحن", icon: BookText },
   { href: "/contact", label: "تواصل معنا", icon: Mail },
   { href: "/privacy", label: "الخصوصية", icon: ShieldCheck },

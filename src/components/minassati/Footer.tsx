@@ -13,20 +13,14 @@ const columns = [
       ["/calendar", "التقويم"],
       ["/faq", "النصائح والأسئلة"],
       ["/articles", "المقالات"],
+      ["/after-bac", "بعد الباك"],
     ],
   },
   {
     title: "ثانوي",
     links: [
-      ["/quran", "القرآن"],
-      ["/audio", "الصوتيات"],
       ["/about", "من نحن"],
       ["/contact", "تواصل معنا"],
-    ],
-  },
-  {
-    title: "قانوني",
-    links: [
       ["/privacy", "الخصوصية"],
       ["/terms", "الشروط"],
     ],
@@ -38,7 +32,7 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-950 text-white">
-      <div className="page-shell grid gap-7 py-8 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="page-shell grid gap-7 py-8 lg:grid-cols-[1.5fr_1fr_1fr]">
         <div>
           <Link href="/" className="flex items-center gap-3" aria-label="منصتي">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-emerald-800">

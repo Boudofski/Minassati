@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpenCheck, CalendarDays, ClipboardCheck, Plane, School, UserCheck } from "lucide-react";
+import { ArrowLeft, CalendarDays, ClipboardCheck, Compass, Plane, School, UserCheck } from "lucide-react";
 import { articles } from "@/data/articles";
 import { calendarWarning } from "@/data/calendar";
 import { schoolCategories } from "@/data/schools";
@@ -60,17 +60,13 @@ export function LocalizedHome(_: { locale: Locale }) {
         <div className="page-shell relative max-sm:w-[calc(100vw-1.25rem)] max-sm:max-w-[calc(100vw-1.25rem)] py-10 text-center sm:py-16">
           <div className="mx-auto w-full max-w-3xl overflow-hidden">
             <p className="inline-flex max-w-full rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-center text-xs font-black leading-7 text-white sm:text-sm">
-              منصتي — منصة التوجيه الدراسي المغربية
+              منصتي — دليلك للتوجيه بعد الباك
             </p>
-            <h1 className="mx-auto mt-5 max-w-[19rem] !text-[2rem] font-black leading-tight sm:max-w-3xl sm:!text-5xl">
-              منصة التوجيه
-              <br />
-              المدرسي
-              <br className="sm:hidden" />
-              <span className="sm:me-2">المغربية</span>
+            <h1 className="minassati-hero-title mx-auto mt-5 max-w-[18rem] text-balance font-black leading-tight sm:max-w-3xl">
+              اختار طريقك بعد الباك بثقة
             </h1>
-            <p className="mx-auto mt-4 max-w-[20rem] text-base font-bold leading-8 text-white/90 sm:max-w-2xl sm:text-lg">
-              رفيقك الموثوق لاختيار مسارك الدراسي والمهني في المغرب وخارجه.
+            <p className="mx-auto mt-4 max-w-[19rem] text-base font-bold leading-8 text-white/90 sm:max-w-2xl sm:text-lg">
+              منصتي كتعاونك تفهم المدارس، الفرص، التوجيه، والمقالات باش تختار مسارك الدراسي والمهني بلا صداع.
             </p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/guidance-request" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-base font-black text-emerald-800">
@@ -169,10 +165,10 @@ export function LocalizedHome(_: { locale: Locale }) {
             <p className="mt-2 text-sm font-black leading-7 text-amber-950">{calendarWarning}</p>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-            <BookOpenCheck className="h-6 w-6 text-emerald-700" />
-            <h2 className="mt-3 text-xl font-black text-slate-950">القرآن الكريم متاح مجانًا داخل منصتي</h2>
-            <p className="mt-2 text-sm font-bold leading-7 text-slate-700">أداة ثانوية مجانية للقراءة والاستماع، مع بقاء التوجيه الدراسي هو هوية المنصة الأساسية.</p>
-            <Link href="/quran" className="mt-4 inline-flex rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-black text-white">فتح القرآن</Link>
+            <Compass className="h-6 w-6 text-emerald-700" />
+            <h2 className="mt-3 text-xl font-black text-slate-950">ابدأ من دليل ما بعد الباك</h2>
+            <p className="mt-2 text-sm font-bold leading-7 text-slate-700">تعرف على أهم الاختيارات المتاحة بعد الباك وكيف تقارن بينها قبل اتخاذ القرار.</p>
+            <Link href="/after-bac" className="mt-4 inline-flex rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-black text-white">اقرأ دليل ما بعد الباك</Link>
           </div>
         </div>
       </section>
