@@ -27,7 +27,7 @@ const hiddenPrefixes = [
   "/content-review",
 ];
 
-const incompleteLocalePrefixes = ["/en", "/fr", "/es"];
+const incompleteLocalePrefixes = ["/ar", "/en", "/fr", "/es"];
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();

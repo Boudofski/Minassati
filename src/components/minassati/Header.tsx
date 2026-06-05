@@ -5,126 +5,33 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookOpenCheck, BookText, CalendarDays, ChevronDown, HelpCircle, Globe2, Home, Mail, Menu, Newspaper, School, ShieldCheck, UserCheck, X } from "lucide-react";
-import { isLocale, rootLocalizedPath, stripLocale, type Locale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 
 function isActive(pathname: string, href: string) {
-  const cleanPathname = stripLocale(pathname);
-  const cleanHref = stripLocale(href);
-  return cleanHref === "/" ? cleanPathname === "/" : cleanPathname.startsWith(cleanHref);
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
-const labels: Record<Locale, Record<string, string>> = {
-  ar: {
-    home: "الرئيسية",
-    schools: "المدارس",
-    opportunities: "الفرص",
-    guidance: "التوجيه",
-    calendar: "التقويم",
-    faq: "النصائح والأسئلة",
-    articles: "المقالات",
-    quran: "القرآن",
-    more: "المزيد",
-    about: "من نحن",
-    contact: "تواصل معنا",
-    privacy: "الخصوصية",
-    terms: "الشروط",
-    "after-bac": "بعد الباك",
-    help: "مركز المساعدة",
-    cta: "ابدأ التقييم",
-    tagline: "منصة التوجيه المدرسي المغربية",
-    menu: "القائمة",
-    aria: "التنقل الرئيسي",
-  },
-  en: {
-    home: "Home",
-    schools: "Schools",
-    opportunities: "Opportunities",
-    guidance: "Guidance",
-    calendar: "Calendar",
-    faq: "Tips & FAQ",
-    articles: "Articles",
-    quran: "Quran",
-    more: "More",
-    about: "About",
-    contact: "Contact",
-    privacy: "Privacy",
-    terms: "Terms",
-    "after-bac": "After Bac",
-    help: "Help Center",
-    cta: "Start assessment",
-    tagline: "Moroccan school guidance",
-    menu: "Menu",
-    aria: "Primary navigation",
-  },
-  fr: {
-    home: "Accueil",
-    schools: "Écoles",
-    opportunities: "Opportunités",
-    guidance: "Orientation",
-    calendar: "Calendrier",
-    faq: "Conseils & FAQ",
-    articles: "Articles",
-    quran: "Coran",
-    more: "Plus",
-    about: "À propos",
-    contact: "Contact",
-    privacy: "Confidentialité",
-    terms: "Conditions",
-    "after-bac": "Après-Bac",
-    help: "Aide",
-    cta: "Commencer",
-    tagline: "Orientation scolaire marocaine",
-    menu: "Menu",
-    aria: "Navigation principale",
-  },
-  es: {
-    home: "Inicio",
-    schools: "Escuelas",
-    opportunities: "Oportunidades",
-    guidance: "Orientación",
-    calendar: "Calendario",
-    faq: "Consejos y FAQ",
-    articles: "Artículos",
-    quran: "Corán",
-    more: "Más",
-    about: "Acerca de",
-    contact: "Contacto",
-    privacy: "Privacidad",
-    terms: "Términos",
-    "after-bac": "Tras el Bachillerato",
-    help: "Ayuda",
-    cta: "Empezar",
-    tagline: "Orientación escolar marroquí",
-    menu: "Menú",
-    aria: "Navegación principal",
-  },
-};
+const primaryNav = [
+  { href: "/", label: "الرئيسية", icon: Home },
+  { href: "/schools", label: "المدارس", icon: School },
+  { href: "/opportunities", label: "الفرص", icon: Globe2 },
+  { href: "/guidance-request", label: "التوجيه", icon: UserCheck },
+  { href: "/calendar", label: "التقويم", icon: CalendarDays },
+  { href: "/articles", label: "المقالات", icon: Newspaper },
+];
+
+const moreItems = [
+  { href: "/after-bac", label: "بعد الباك", icon: School },
+  { href: "/faq", label: "النصائح والأسئلة", icon: HelpCircle },
+  { href: "/quran", label: "القرآن", icon: BookOpenCheck },
+  { href: "/about", label: "من نحن", icon: BookText },
+  { href: "/contact", label: "تواصل معنا", icon: Mail },
+  { href: "/privacy", label: "الخصوصية", icon: ShieldCheck },
+  { href: "/terms", label: "الشروط", icon: BookText },
+];
 
 export function Header() {
   const pathname = usePathname();
-  const firstSegment = pathname.split("/").filter(Boolean)[0];
-  const locale: Locale = firstSegment && isLocale(firstSegment) ? firstSegment : "ar";
-  const l = labels[locale];
-  const prefix = (href: string) => rootLocalizedPath(locale, href);
-  const primaryNav = [
-    { href: prefix("/"), label: l.home, icon: Home },
-    { href: "/schools", label: l.schools, icon: School },
-    { href: "/opportunities", label: l.opportunities, icon: Globe2 },
-    { href: "/guidance-request", label: l.guidance, icon: UserCheck },
-    { href: "/calendar", label: l.calendar, icon: CalendarDays },
-    { href: "/articles", label: l.articles, icon: Newspaper },
-  ];
-  const moreItems = [
-    { href: "/after-bac", label: l["after-bac"], icon: School },
-    { href: "/faq", label: l.faq, icon: HelpCircle },
-    { href: "/quran", label: l.quran, icon: BookOpenCheck },
-    { href: "/about", label: l.about, icon: BookText },
-    { href: "/contact", label: l.contact, icon: Mail },
-    { href: "/privacy", label: l.privacy, icon: ShieldCheck },
-    { href: "/terms", label: l.terms, icon: BookText },
-  ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -148,24 +55,20 @@ export function Header() {
       <div className="page-shell flex h-14 items-center justify-between gap-3">
 
         {/* Logo */}
-        <Link
-          href={prefix("/")}
-          className="flex shrink-0 items-center gap-2 max-sm:hidden"
-          aria-label="منصتي"
-        >
+        <Link href="/" className="flex shrink-0 items-center gap-2 max-sm:hidden" aria-label="منصتي">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-emerald-800 text-white">
             <BookOpenCheck className="h-4 w-4" />
           </span>
           <span className="whitespace-nowrap leading-tight">
             <strong className="block text-base font-black text-slate-950">منصتي</strong>
-            <span className="hidden text-[11px] font-bold text-slate-500 min-[1440px]:block">{l.tagline}</span>
+            <span className="hidden text-[11px] font-bold text-slate-500 min-[1440px]:block">منصة التوجيه المدرسي المغربية</span>
           </span>
         </Link>
 
         {/* Desktop nav — only visible at xl (1280px+) */}
         <nav
           className="hidden shrink-0 items-center gap-px rounded-full border border-slate-200 bg-white p-0.5 shadow-sm xl:flex"
-          aria-label={l.aria}
+          aria-label="التنقل الرئيسي"
         >
           {primaryNav.map((item) => {
             const active = isActive(pathname, item.href);
@@ -199,7 +102,7 @@ export function Header() {
                   : "text-slate-600 hover:bg-slate-100"
               )}
             >
-              {l.more}
+              المزيد
               <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", dropdownOpen && "rotate-180")} />
             </button>
             <AnimatePresence>
@@ -234,17 +137,15 @@ export function Header() {
             href="/guidance-request"
             className="inline-flex h-8 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-red-700 px-4 text-sm font-black leading-none text-white hover:bg-red-800"
           >
-            {l.cta}
+            ابدأ التقييم
           </Link>
-
-          <LanguageSwitcher className="hidden min-[1440px]:inline-block" />
         </div>
 
         {/* Mobile/tablet hamburger — visible below xl (< 1280px) */}
         <button
           onClick={() => setMobileOpen((v) => !v)}
           className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-800 xl:hidden"
-          aria-label={l.menu}
+          aria-label="القائمة"
         >
           {mobileOpen ? <X className="h-4.5 w-4.5" /> : <Menu className="h-4.5 w-4.5" />}
         </button>
@@ -282,11 +183,8 @@ export function Header() {
                 href="/guidance-request"
                 className="flex items-center justify-center rounded-full bg-red-700 px-5 py-3 text-sm font-black text-white sm:col-span-2"
               >
-                {l.cta}
+                ابدأ التقييم
               </Link>
-              <div className="sm:col-span-2">
-                <LanguageSwitcher align="start" className="w-full [&>button]:w-full [&>button]:justify-center" />
-              </div>
             </div>
           </motion.div>
         )}
