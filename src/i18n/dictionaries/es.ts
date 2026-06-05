@@ -58,7 +58,7 @@ export const es = {
     methodology: { title: "Cómo enseña Minassati", desc: "Simplicidad, repetición y comprensión antes de memorizar." },
     contentReview: { title: "Revisión del contenido", desc: "Contenido educativo que apoya a padres y sabios." },
     privacy: { title: "Privacidad", desc: "Una experiencia de aprendizaje simple con expectativas claras sobre datos." },
-    contact: { title: "Contacto", desc: "Envía ideas de cursos, solicitudes de recursos, alianzas o solicitudes de instructor." },
+    contact: { title: "Contacto", desc: "Envía preguntas de orientación, sugerencias de artículos, alianzas o mensajes generales." },
   },
   quran: {
     ...en.quran,

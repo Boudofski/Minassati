@@ -261,8 +261,9 @@ span {
 
 @media (max-width: 640px) {
   .page-shell {
-    width: min(calc(100% - 1.25rem), 80rem);
+    width: calc(100vw - 1.25rem);
     max-width: calc(100vw - 1.25rem);
+    overflow-x: clip;
   }
 
   h1 {

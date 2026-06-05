@@ -57,13 +57,19 @@ export function LocalizedHome(_: { locale: Locale }) {
     <>
       <section className="relative overflow-hidden bg-[linear-gradient(135deg,#b91c1c_0%,#0f7a3b_58%,#075c32_100%)] text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.16),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(255,214,10,0.14),transparent_24%)]" />
-        <div className="page-shell relative py-12 text-center sm:py-16">
-          <div className="mx-auto max-w-3xl">
-            <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-black text-white">
+        <div className="page-shell relative max-sm:w-[calc(100vw-1.25rem)] max-sm:max-w-[calc(100vw-1.25rem)] py-10 text-center sm:py-16">
+          <div className="mx-auto w-full max-w-3xl overflow-hidden">
+            <p className="inline-flex max-w-full rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-center text-xs font-black leading-7 text-white sm:text-sm">
               منصتي — منصة التوجيه الدراسي المغربية
             </p>
-            <h1 className="mt-5 text-3xl font-black leading-tight sm:text-5xl">منصة التوجيه المدرسي<br />المغربية</h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-white/90 sm:text-lg">
+            <h1 className="mx-auto mt-5 max-w-[19rem] !text-[2rem] font-black leading-tight sm:max-w-3xl sm:!text-5xl">
+              منصة التوجيه
+              <br />
+              المدرسي
+              <br className="sm:hidden" />
+              <span className="sm:me-2">المغربية</span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-[20rem] text-base font-bold leading-8 text-white/90 sm:max-w-2xl sm:text-lg">
               رفيقك الموثوق لاختيار مسارك الدراسي والمهني في المغرب وخارجه.
             </p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
@@ -92,7 +98,7 @@ export function LocalizedHome(_: { locale: Locale }) {
 
       <section className="bg-white">
         <div className="page-shell py-12">
-          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-black leading-7 text-amber-950">
+          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm font-black leading-7 text-amber-950">
             المعلومات تقريبية ويجب التحقق منها من المواقع الرسمية للمؤسسات.
           </div>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">

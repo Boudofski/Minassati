@@ -3,31 +3,31 @@ import Link from "next/link";
 import { BookOpenCheck, CheckCircle2, GraduationCap, HeartHandshake, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "عن منصتي | منصة مغربية للتعلم الرقمي",
-  description: "منصتي — منصة مغربية للتعلم العملي والموارد الرقمية. نجمع الدورات والمسارات والقرآن في تجربة واحدة موجهة للمغاربة والعرب.",
+  title: "عن منصتي | منصة التوجيه المدرسي المغربية",
+  description: "منصتي منصة مغربية تساعد التلاميذ والطلبة على فهم المدارس، اختيارات ما بعد الباك، الفرص الأجنبية، وطلب توجيه شخصي.",
   alternates: { canonical: "/about" },
 };
 
 const values = [
-  { title: "تعلم عملي", text: "نركز على مهارات نافعة يمكن تطبيقها في العمل والمشاريع والدراسة — لا محاضرات نظرية طويلة.", icon: Sparkles },
-  { title: "ثقة واحترام", text: "القرآن والموارد الإسلامية جزء مجاني ومحترم من المنصة ولن يصبح مدفوعاً.", icon: HeartHandshake },
-  { title: "شفافية كاملة", text: "نوضح ما هو متاح الآن وما هو قادم. لا ندعي دفعاً أو شهادات غير موجودة.", icon: ShieldCheck },
+  { title: "توجيه عملي", text: "نساعد الطالب على مقارنة اختياراته حسب المستوى، المدينة، التخصص، التكلفة، والمصادر الرسمية.", icon: Sparkles },
+  { title: "ثقة واحترام", text: "نقدم معلومات إرشادية بدون وعود قبول، بدون ترتيب مزيف، وبدون ادعاء شروط رسمية غير موثقة.", icon: HeartHandshake },
+  { title: "تحقق دائم", text: "كل قرار مرتبط بمؤسسة أو منحة أو مباراة يجب أن يعود إلى الموقع الرسمي للجهة المعنية.", icon: ShieldCheck },
 ];
 
 const liveNow = [
-  "29+ دورة — معظمها مجانية للتصفح",
-  "30+ مورد عملي قابل للطلب",
+  "دليل للمدارس والمؤسسات التعليمية حسب الفئات",
+  "أدلة للفرص الأجنبية والدراسة بالخارج",
+  "استمارة توجيه شخصي مبسطة",
+  "تقويم تخطيطي للمباريات والمواعيد دون تواريخ مزيفة",
+  "40 مقالًا عربيًا للتوجيه الدراسي والمهني",
   "114 سورة في قارئ القرآن",
-  "10 مسارات تعليمية منظمة",
-  "قبول طلبات المدربين للمراجعة",
 ];
 
 const comingSoon = [
-  "نظام الاشتراك Pro (الأسعار قيد التحديد)",
-  "شهادات إتمام رسمية",
-  "لوحة تتبع التقدم للمتعلمين",
-  "لوحة نشر للمدربين",
-  "دفع إلكتروني مباشر",
+  "مقالات أعمق حول الشعب والمسارات",
+  "قوالب مقارنة المدارس والاختيارات",
+  "تحسينات على تجربة طلب التوجيه",
+  "موارد قابلة للتحميل عند جاهزيتها",
 ];
 
 export default function AboutPage() {
@@ -41,10 +41,10 @@ export default function AboutPage() {
             <MapPin className="h-4 w-4 text-amber-300" /> عن منصتي
           </p>
           <h1 className="mt-6 max-w-3xl text-4xl font-black leading-tight sm:text-6xl">
-            منصة مغربية للتعلم العملي والموارد الرقمية
+            منصة التوجيه المدرسي المغربية
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-[2] text-slate-300">
-            منصتي تجمع الدورات، المسارات، المقالات، الموارد، والقرآن الكريم في تجربة واحدة — موجهة للمغاربة والعرب الذين يريدون بناء مهارات حقيقية.
+            منصتي تساعد التلاميذ والطلبة في المغرب على فهم اختيارات ما بعد الباك، مقارنة المدارس، التعرف على الفرص الأجنبية، وطلب توجيه شخصي مبسط.
           </p>
         </div>
       </section>
@@ -70,7 +70,7 @@ export default function AboutPage() {
       <section className="section-soft">
         <div className="page-shell py-16">
           <p className="eyebrow-pill-light">حالة المنصة الآن</p>
-          <h2 className="mt-4 text-2xl font-black text-slate-950">ما هو متاح وما هو قادم</h2>
+          <h2 className="mt-4 text-2xl font-black text-slate-950">ما هو متاح الآن وما نعمل عليه</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
             <div className="card-premium p-6">
               <h3 className="mb-4 flex items-center gap-2 font-black text-emerald-700">
@@ -108,16 +108,16 @@ export default function AboutPage() {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-7 sm:p-10">
             <BookOpenCheck className="h-8 w-8 text-amber-300" />
             <p className="eyebrow-pill mt-5">رؤية المنتج</p>
-            <h2 className="mt-4 text-2xl font-black sm:text-3xl">سوق معرفي مغربي حقيقي</h2>
+            <h2 className="mt-4 text-2xl font-black sm:text-3xl">مرجع توجيه بسيط وموثوق للطالب المغربي</h2>
             <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-300">
-              نريد أن تصبح منصتي المرجع الأول للمتعلم المغربي: يجد الدورة والمسار والمورد والقرآن في مكان واحد، ويستطيع المدربون لاحقاً نشر محتواهم لجمهور جاهز.
+              نريد أن يجد الطالب المغربي مكانًا واضحًا يبدأ منه البحث: يفهم الفئات التعليمية، يتعلم كيف يتحقق من المعلومات، ويقرأ مقالات عملية تساعده على اتخاذ قرار أهدأ.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/courses" className="btn-primary bg-white text-slate-950 hover:bg-slate-100">
-                استكشف الدورات
+              <Link href="/schools" className="btn-primary bg-white text-slate-950 hover:bg-slate-100">
+                استكشف المدارس
               </Link>
-              <Link href="/instructors" className="btn-ghost-white">
-                انضم كمدرب
+              <Link href="/guidance-request" className="btn-ghost-white">
+                اطلب توجيهك
               </Link>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function AboutPage() {
             <GraduationCap className="mx-auto h-8 w-8 text-blue-600" />
             <h2 className="mt-4 text-xl font-black text-slate-950">من يبني منصتي؟</h2>
             <p className="mt-3 leading-8 text-slate-600">
-              منصتي مشروع مغربي في مرحلة البناء. نبني بشفافية، نستمع للمتعلمين والمدربين، ونطلق الميزات عندما تكون جاهزة فعلاً.
+              منصتي مشروع مغربي في مرحلة البناء. نبني بشفافية، نستمع للتلاميذ والطلبة والآباء، وننشر المعلومات الإرشادية مع تنبيه دائم للرجوع إلى المصادر الرسمية.
             </p>
             <Link href="/contact" className="btn-secondary mt-6 inline-flex">
               تواصل معنا

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Globe2, TriangleAlert } from "lucide-react";
+import { FileCheck2, Globe2, TriangleAlert } from "lucide-react";
 import { opportunityGuide } from "@/data/opportunities";
 
 export const metadata: Metadata = {
@@ -12,9 +12,9 @@ export default function OpportunitiesPage() {
   return (
     <>
       <section className="bg-[linear-gradient(135deg,#b91c1c,#0f7a3b)] text-white">
-        <div className="page-shell py-16 sm:py-20">
+        <div className="page-shell py-12 sm:py-16">
           <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-black">الفرص الأجنبية</p>
-          <h1 className="mt-6 max-w-3xl text-4xl font-black leading-tight sm:text-6xl">منح ودراسة بالخارج بدون وعود مزيفة</h1>
+          <h1 className="mt-5 max-w-3xl text-3xl font-black leading-tight sm:text-5xl">منح ودراسة بالخارج بدون وعود مزيفة</h1>
           <p className="mt-5 max-w-2xl text-lg font-bold leading-[2] text-white/90">تعلم أين تبحث، كيف تجهز الوثائق، وكيف تتحقق من المواعيد من المصادر الرسمية.</p>
         </div>
       </section>
@@ -28,15 +28,22 @@ export default function OpportunitiesPage() {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {opportunityGuide.categories.map((category) => (
-              <article key={category.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <article key={category.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-md">
                 <Globe2 className="h-7 w-7 text-emerald-700" />
                 <h2 className="mt-4 text-xl font-black text-slate-950">{category.title}</h2>
-                <p className="mt-3 text-sm font-bold leading-7 text-slate-600">{category.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {category.items.map((item) => <span key={item} className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">{item}</span>)}
+                <p className="mt-3 text-[15px] font-bold leading-8 text-slate-600">{category.description}</p>
+                <p className="mt-4 rounded-lg bg-emerald-50 p-3 text-sm font-bold leading-7 text-emerald-900">{category.fits}</p>
+                <h3 className="mt-4 text-sm font-black text-slate-950">خطوات البداية</h3>
+                <ul className="mt-2 space-y-2 text-sm font-bold leading-7 text-slate-700">
+                  {category.firstSteps.map((item) => <li key={item}>• {item}</li>)}
+                </ul>
+                <h3 className="mt-4 text-sm font-black text-slate-950">وثائق قد تحتاجها</h3>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {category.documents.map((item) => <span key={item} className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">{item}</span>)}
                 </div>
+                <p className="mt-4 rounded-lg bg-amber-50 p-3 text-xs font-black leading-6 text-amber-900">{opportunityGuide.categoryWarning}</p>
               </article>
             ))}
           </div>
@@ -45,7 +52,7 @@ export default function OpportunitiesPage() {
 
       <section className="bg-slate-50">
         <div className="page-shell grid gap-5 py-14 md:grid-cols-2">
-          <Box title="الوثائق المطلوبة غالباً" items={opportunityGuide.documents} />
+          <Box title="الوثائق المطلوبة غالباً" items={opportunityGuide.documents} icon="documents" />
           <Box title="خطة البحث الأولى" items={opportunityGuide.planning} />
         </div>
       </section>
@@ -53,10 +60,13 @@ export default function OpportunitiesPage() {
   );
 }
 
-function Box({ title, items }: { title: string; items: string[] }) {
+function Box({ title, items, icon }: { title: string; items: string[]; icon?: "documents" }) {
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-black text-slate-950">{title}</h2>
+      <div className="flex items-center gap-3">
+        {icon ? <FileCheck2 className="h-6 w-6 text-emerald-700" /> : null}
+        <h2 className="text-xl font-black text-slate-950">{title}</h2>
+      </div>
       <ul className="mt-4 space-y-3 text-sm font-bold leading-7 text-slate-700">
         {items.map((item) => <li key={item}>• {item}</li>)}
       </ul>

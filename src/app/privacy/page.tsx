@@ -4,12 +4,12 @@ import { Section } from "@/components/minassati/Section";
 
 export const metadata: Metadata = {
   title: "سياسة الخصوصية",
-  description: "سياسة خصوصية منصتي للتعلم الرقمي والموارد والدورات والقرآن.",
+  description: "سياسة خصوصية منصتي للتوجيه المدرسي والمقالات وطلبات التواصل.",
   alternates: { canonical: "/privacy" },
 };
 
 const principles = [
-  { title: "تقليل البيانات", text: "صفحات التعلم والقرآن والموارد لا تطلب حساباً شخصياً في المرحلة الحالية.", icon: EyeOff },
+  { title: "تقليل البيانات", text: "تصفح المدارس، المقالات، التقويم، والقرآن لا يتطلب حساباً شخصياً في المرحلة الحالية.", icon: EyeOff },
   { title: "وضوح للمستخدم", text: "أي تواصل يتم بإرادة المستخدم وبمعلومات واضحة عن الغرض من الرسالة.", icon: ShieldCheck },
   { title: "تجربة آمنة", text: "التصميم يقلل التشتيت ويبتعد عن الوعود أو أزرار الدفع غير الفعلية.", icon: LockKeyhole },
 ];
@@ -20,8 +20,8 @@ export default function PrivacyPage() {
       <section className="page-shell py-12 sm:py-16">
         <div className="aurora-panel rounded-[2.5rem] border border-white p-7 shadow-xl shadow-blue-100/60 sm:p-10">
           <p className="text-sm font-black text-blue-700">سياسة الخصوصية</p>
-          <h1 className="mt-4 text-balance text-4xl font-black text-slate-950 sm:text-6xl">خصوصية واضحة لتجربة تعلم آمنة</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-600">منصتي مصممة حول مبدأ بسيط: يمكن للزائر التعلم وقراءة القرآن وتصفح الموارد بدون إنشاء حساب في المرحلة الحالية.</p>
+          <h1 className="mt-4 text-balance text-4xl font-black text-slate-950 sm:text-6xl">خصوصية واضحة لتجربة توجيه آمنة</h1>
+          <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-600">منصتي مصممة حول مبدأ بسيط: يمكن للزائر قراءة المقالات، تصفح أدلة المدارس والفرص، واستعمال القرآن بدون إنشاء حساب في المرحلة الحالية.</p>
         </div>
       </section>
       <Section title="مبادئ الخصوصية">

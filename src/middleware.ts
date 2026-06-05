@@ -28,9 +28,14 @@ const hiddenPrefixes = [
   "/content-review",
 ];
 
+const incompleteLocalePrefixes = ["/en", "/fr", "/es"];
+
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  if (hiddenPrefixes.some((prefix) => request.nextUrl.pathname === prefix || request.nextUrl.pathname.startsWith(`${prefix}/`))) {
+  if (
+    hiddenPrefixes.some((prefix) => request.nextUrl.pathname === prefix || request.nextUrl.pathname.startsWith(`${prefix}/`)) ||
+    incompleteLocalePrefixes.some((prefix) => request.nextUrl.pathname === prefix || request.nextUrl.pathname.startsWith(`${prefix}/`))
+  ) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
   }
   return response;

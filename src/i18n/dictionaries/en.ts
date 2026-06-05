@@ -5,9 +5,9 @@ export const en = {
   locale: "en",
   site: {
     name: "Minassati",
-    tagline: "Moroccan learning marketplace",
-    title: "Minassati — Courses, learning paths, and digital resources for Morocco",
-    description: "A Moroccan learning marketplace with courses, paths, resources, articles, and Quran reading/listening as a free trusted utility.",
+    tagline: "Moroccan school guidance platform",
+    title: "Minassati — Moroccan school guidance platform",
+    description: "A Moroccan platform helping students understand schools, after-bac choices, foreign opportunities, and personal guidance.",
   },
   nav: {
     home: "Home", start: "Start here", learn: "Learn", quran: "Qur’an", qa: "Q&A", activities: "Activities", parents: "Parents",
@@ -92,7 +92,7 @@ export const en = {
     methodology: { title: "How Minassati teaches", desc: "Simplicity, repetition, understanding before memorization, and parent-led learning." },
     contentReview: { title: "Content review and responsibility", desc: "Educational content that supports, not replaces, parents and scholars." },
     privacy: { title: "Privacy", desc: "A simple learning experience with clear data expectations." },
-    contact: { title: "Contact us", desc: "Send course ideas, resource requests, partnership notes, or instructor applications." },
+    contact: { title: "Contact us", desc: "Send guidance questions, article suggestions, partnership notes, or general messages." },
   },
   quran: {
     tools: "Reading tools", ayahCount: "ayahs in this surah", fontControls: "Qur’an font size controls", decreaseFont: "Decrease font", increaseFont: "Increase font",
