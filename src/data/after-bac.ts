@@ -30,3 +30,52 @@ export const afterBacOptions: AfterBacOption[] = [
 ].map(([slug, title, category, description, goodFor]) => ({ slug, title, category, description, goodFor })) as AfterBacOption[];
 
 export const afterBacCategories = [...new Set(afterBacOptions.map((option) => option.category))];
+
+export type BacTrackGuidance = {
+  track: string;
+  paths: string[];
+  note: string;
+};
+
+export const bacTrackGuidance: BacTrackGuidance[] = [
+  {
+    track: "علوم فيزيائية",
+    paths: ["ENSA", "FST", "CPGE علمية", "كليات العلوم", "EHTP", "EMI", "IAV"],
+    note: "قد تناسبك مسارات الهندسة والعلوم التطبيقية. تحقق من شروط الولوج الرسمية لكل مؤسسة.",
+  },
+  {
+    track: "علوم الحياة والأرض",
+    paths: ["كليات العلوم", "الطب والصيدلة", "ISPITS", "IAV", "FST"],
+    note: "قد تناسبك الصحة والعلوم البيولوجية والفلاحة. تحقق دائماً من الشروط الرسمية.",
+  },
+  {
+    track: "علوم رياضية",
+    paths: ["CPGE", "ENSA", "ENCG", "EMI", "EHTP", "FST"],
+    note: "قد تناسبك الهندسة والتجارة الكمية والتحليل. تحقق من شروط كل مسار رسمياً.",
+  },
+  {
+    track: "علوم اقتصادية",
+    paths: ["ENCG", "كليات الاقتصاد", "ISCAE", "INSEA", "EST تسيير"],
+    note: "قد تناسبك التجارة والتسيير والتحليل المالي. تحقق من الشروط الرسمية.",
+  },
+  {
+    track: "آداب وعلوم إنسانية",
+    paths: ["كليات الآداب", "ISIC", "كليات الحقوق", "ترجمة وتواصل"],
+    note: "قد تناسبك الصحافة والتواصل والقانون والتعليم. تحقق من المسارات المتاحة رسمياً.",
+  },
+  {
+    track: "تقني أو مهني",
+    paths: ["BTS", "OFPPT تقني متخصص", "EST", "معاهد تقنية"],
+    note: "قد تناسبك مسارات التطبيق المباشر والتكوين المهني. تحقق من الاعتماد الرسمي.",
+  },
+];
+
+export const choiceCriteria = [
+  "المواد التي تتقنها فعلاً",
+  "نوع التعلم الذي يناسبك",
+  "المدينة والتكلفة",
+  "إيقاع الدراسة الذي تستطيع تحمله",
+  "سوق العمل في المجال",
+  "شروط الولوج الرسمية",
+  "آراء طلبة سبقوك في نفس المسار",
+];
