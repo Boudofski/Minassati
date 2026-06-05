@@ -63,7 +63,7 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-950 text-white" dir={locale === "ar" ? "rtl" : "ltr"}>
-      <div className="page-shell grid gap-8 py-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="page-shell grid gap-7 py-8 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div>
           <Link href={prefix("/")} className="flex items-center gap-3" aria-label="منصتي">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-emerald-800">
@@ -74,8 +74,8 @@ export function Footer() {
               <span className="text-xs font-bold text-slate-400">{l.tagline}</span>
             </div>
           </Link>
-          <p className="mt-5 max-w-sm text-sm font-bold leading-7 text-slate-400">{l.description}</p>
-          <p className="mt-4 rounded-xl border border-amber-400/20 bg-amber-400/10 p-3 text-xs font-black leading-6 text-amber-200">{l.disclaimer}</p>
+          <p className="mt-4 max-w-sm text-sm font-bold leading-7 text-slate-400">{l.description}</p>
+          <p className="mt-3 rounded-xl border border-amber-400/20 bg-amber-400/10 p-3 text-xs font-black leading-6 text-amber-200">{l.disclaimer}</p>
         </div>
         {l.columns.map((col) => (
           <div key={col.title}>
@@ -91,7 +91,7 @@ export function Footer() {
         ))}
       </div>
       <div className="border-t border-white/[0.07]">
-        <div className="page-shell py-5">
+        <div className="page-shell py-4">
           <p className="text-xs font-bold text-slate-600">© {currentYear} منصتي · minassati.ma · جميع الحقوق محفوظة</p>
         </div>
       </div>

@@ -6,10 +6,10 @@ import { schoolCategories } from "@/data/schools";
 import type { Locale } from "@/i18n/config";
 
 const stats = [
-  { label: "مدارس ومعاهد", value: schoolCategories.length.toString(), desc: "تصنيفات للمقارنة" },
-  { label: "فرص ومنح", value: "أدلة", desc: "بدون آجال مزيفة" },
-  { label: "أدلة ونصائح", value: articles.length.toString(), desc: "مقالات عملية" },
-  { label: "توجيه شخصي", value: "نموذج", desc: "طلب مبسط" },
+  { label: "مدارس ومعاهد", value: schoolCategories.length.toString(), desc: "تصنيفات حالية" },
+  { label: "فرص ومنح", value: "أدلة", desc: "إرشادات عامة" },
+  { label: "أدلة ونصائح", value: articles.length.toString(), desc: "مقالات منشورة" },
+  { label: "نموذج توجيه شخصي", value: "1", desc: "استمارة واحدة" },
 ];
 
 const actions = [
@@ -57,31 +57,31 @@ export function LocalizedHome(_: { locale: Locale }) {
     <>
       <section className="relative overflow-hidden bg-[linear-gradient(135deg,#b91c1c_0%,#0f7a3b_58%,#075c32_100%)] text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.16),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(255,214,10,0.14),transparent_24%)]" />
-        <div className="page-shell relative py-16 text-center sm:py-24">
+        <div className="page-shell relative py-12 text-center sm:py-16">
           <div className="mx-auto max-w-3xl">
-            <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-black text-white">
+            <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-black text-white">
               منصتي — منصة التوجيه الدراسي المغربية
             </p>
-            <h1 className="mt-6 text-4xl font-black leading-tight sm:text-6xl">منصة التوجيه المدرسي<br />المغربية</h1>
-            <p className="mx-auto mt-5 max-w-2xl text-lg font-bold leading-[2] text-white/90">
+            <h1 className="mt-5 text-3xl font-black leading-tight sm:text-5xl">منصة التوجيه المدرسي<br />المغربية</h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-white/90 sm:text-lg">
               رفيقك الموثوق لاختيار مسارك الدراسي والمهني في المغرب وخارجه.
             </p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link href="/guidance-request" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-black text-emerald-800">
+            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link href="/guidance-request" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-base font-black text-emerald-800">
                 ابدأ التقييم الآن <ArrowLeft className="h-4 w-4" />
               </Link>
-              <Link href="/schools" className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-7 py-4 text-base font-black text-white">
+              <Link href="/schools" className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-base font-black text-white">
                 اكتشف المدارس
               </Link>
-              <Link href="/articles" className="inline-flex items-center justify-center rounded-full border border-white/25 px-7 py-4 text-base font-black text-white/95">
+              <Link href="/articles" className="inline-flex items-center justify-center rounded-full border border-white/25 px-6 py-3.5 text-base font-black text-white/95">
                 تصفح المقالات
               </Link>
             </div>
           </div>
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat) => (
-              <div key={stat.label} className="rounded-xl border border-white/15 bg-white/10 p-5 text-center backdrop-blur">
-                <p className="text-2xl font-black">{stat.value}</p>
+              <div key={stat.label} className="rounded-xl border border-white/15 bg-white/10 p-4 text-center backdrop-blur">
+                <p className="text-xl font-black">{stat.value}</p>
                 <h2 className="mt-1 font-black">{stat.label}</h2>
                 <p className="mt-1 text-xs font-bold text-white/75">{stat.desc}</p>
               </div>
@@ -91,16 +91,19 @@ export function LocalizedHome(_: { locale: Locale }) {
       </section>
 
       <section className="bg-white">
-        <div className="page-shell py-14">
+        <div className="page-shell py-12">
+          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-black leading-7 text-amber-950">
+            المعلومات تقريبية ويجب التحقق منها من المواقع الرسمية للمؤسسات.
+          </div>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {actions.map(({ icon: Icon, title, description, cta, href }) => (
-              <Link key={href} href={href} className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg">
-                <span className="grid h-12 w-12 place-items-center rounded-xl bg-emerald-50 text-emerald-700">
-                  <Icon className="h-6 w-6" />
+              <Link key={href} href={href} className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-[0_18px_45px_-24px_rgba(15,23,42,0.35)]">
+                <span className="grid h-12 w-12 place-items-center rounded-full bg-emerald-700 text-white shadow-sm transition group-hover:bg-red-700">
+                  <Icon className="h-5 w-5" />
                 </span>
-                <h2 className="mt-5 text-xl font-black text-slate-950">{title}</h2>
+                <h2 className="mt-4 text-lg font-black text-slate-950">{title}</h2>
                 <p className="mt-3 text-sm font-bold leading-7 text-slate-600">{description}</p>
-                <span className="mt-5 inline-flex text-sm font-black text-red-700 group-hover:text-emerald-700">{cta} ←</span>
+                <span className="mt-5 inline-flex items-center rounded-full bg-slate-50 px-3 py-1.5 text-sm font-black text-red-700 transition group-hover:bg-emerald-50 group-hover:text-emerald-800">{cta} ←</span>
               </Link>
             ))}
           </div>
