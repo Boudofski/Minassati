@@ -60,7 +60,7 @@ export function Header() {
           </span>
           <span className="whitespace-nowrap leading-tight">
             <strong className="block text-base font-black text-slate-950">منصتي</strong>
-            <span className="hidden text-[11px] font-bold text-slate-500 min-[1440px]:block">منصة التوجيه المدرسي المغربية</span>
+            <span className="hidden text-[11px] font-bold text-slate-500 min-[1440px]:block">دليلك بعد الباك</span>
           </span>
         </Link>
 

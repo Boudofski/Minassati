@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BookOpenCheck, CheckCircle2, GraduationCap, HeartHandshake, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "عن منصتي | منصة التوجيه المدرسي المغربية",
+  title: "عن منصتي | دليلك بعد الباك",
   description: "منصتي منصة مغربية تساعد التلاميذ والطلبة على فهم المدارس، اختيارات ما بعد الباك، الفرص الأجنبية، وطلب توجيه شخصي.",
   alternates: { canonical: "/about" },
 };
@@ -41,7 +41,7 @@ export default function AboutPage() {
             <MapPin className="h-4 w-4 text-amber-300" /> عن منصتي
           </p>
           <h1 className="mt-6 max-w-3xl text-4xl font-black leading-tight sm:text-6xl">
-            منصة التوجيه المدرسي المغربية
+            دليلك بعد الباك
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-[2] text-slate-300">
             منصتي تساعد التلاميذ والطلبة في المغرب على فهم اختيارات ما بعد الباك، مقارنة المدارس، التعرف على الفرص الأجنبية، وطلب توجيه شخصي مبسط.

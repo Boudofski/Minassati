@@ -40,11 +40,11 @@ export function Footer() {
             </span>
             <div className="leading-tight">
               <strong className="block text-xl font-black">منصتي</strong>
-              <span className="text-xs font-bold text-slate-400">منصة التوجيه المدرسي المغربية</span>
+              <span className="text-xs font-bold text-slate-400">دليلك بعد الباك</span>
             </div>
           </Link>
           <p className="mt-4 max-w-sm text-sm font-bold leading-7 text-slate-400">
-            منصتي تساعد التلاميذ والطلبة على فهم اختيارات المدارس، الفرص الأجنبية، والتوجيه الشخصي بطريقة بسيطة.
+            منصتي كتعاون التلاميذ والطلبة يفهمو اختيارات ما بعد الباك، المدارس، الفرص، والتوجيه بطريقة بسيطة وواضحة.
           </p>
           <p className="mt-3 rounded-xl border border-amber-400/20 bg-amber-400/10 p-3 text-xs font-black leading-6 text-amber-200">
             المعلومات تقريبية ويجب التحقق من المواقع الرسمية للمؤسسات.
