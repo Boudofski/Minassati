@@ -1,6 +1,6 @@
 # Minassati Visual Asset Prompts
 
-Use these prompts for future generated bitmap assets. Keep visuals professional, Moroccan, and marketplace-focused. Do not imply live payments, live certificates, or a fully launched creator marketplace until those features exist.
+Use these prompts for future generated bitmap assets. Keep visuals professional and Moroccan guidance-focused. Do NOT use images from Tawjeeh.ma, 9rayti.com, or any institution without permission. Do NOT use school logos. Use icons, gradients, and SVG illustrations wherever possible.
 
 ## 1. Homepage Marketplace Hero Image
 
