@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   authors: [{ name: site.author }],
-  keywords: ["دورات", "تعلم رقمي", "المغرب", "ذكاء اصطناعي", "تسويق رقمي", "عمل حر", "قرآن", "منصتي", "موارد رقمية"],
+  keywords: ["التوجيه الدراسي", "التوجيه المهني", "بعد الباك", "المغرب", "المنح", "المدارس العليا", "الجامعة", "اختيار التخصص", "منصتي"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -76,7 +76,7 @@ const jsonLd = {
       inLanguage: "ar",
       potentialAction: {
         "@type": "SearchAction",
-        target: { "@type": "EntryPoint", urlTemplate: absoluteUrl("/courses?search={search_term_string}") },
+        target: { "@type": "EntryPoint", urlTemplate: absoluteUrl("/articles?search={search_term_string}") },
         "query-input": "required name=search_term_string",
       },
     },

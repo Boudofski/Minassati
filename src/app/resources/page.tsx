@@ -6,13 +6,12 @@ import { resources, resourceCategories, resourceTypeLabel } from "@/data/resourc
 
 export const metadata: Metadata = {
   title: "الموارد - منصتي | مكتبة قوالب وأدوات عملية",
-  description: "قوالب، قوائم تحقق، حزم برومبت، ومخططات مصممة للسوق المغربي والعربي — مجانية ومدفوعة قادمة.",
+  description: "قوالب، قوائم تحقق، ومخططات مجانية تساعد الطلبة في التوجيه الدراسي والمهني.",
   alternates: { canonical: "/resources" },
 };
 
 export default function ResourcesPage() {
   const free = resources.filter((r) => r.free);
-  const paid = resources.filter((r) => !r.free);
 
   return (
     <>
@@ -27,11 +26,11 @@ export default function ResourcesPage() {
             موارد عملية<br />تستخدمها اليوم
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-[2] text-slate-300">
-            قوالب، قوائم تحقق، حزم برومبت، ومخططات مصممة خصيصاً للسوق المغربي والعربي.
+            قوالب، قوائم تحقق، ومخططات بسيطة تساعدك على اختيار التخصص، مقارنة المدارس، تجهيز الملفات، وتنظيم المراجعة.
           </p>
           <div className="mt-6 flex gap-3">
             <span className="badge-free">{free.length} مجانية</span>
-            <span className="badge-pro">{paid.length} Pro قريبًا</span>
+            <span className="badge-soon">موجهة للطلبة</span>
           </div>
         </div>
       </section>
@@ -101,10 +100,7 @@ export default function ResourcesPage() {
                   <div className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100">
                     <Download className="h-5 w-5 text-slate-600" />
                   </div>
-                  {resource.free
-                    ? <span className="badge-free">مجاني</span>
-                    : <span className="badge-pro">Pro</span>
-                  }
+                  <span className="badge-free">مجاني</span>
                 </div>
                 <p className="mb-2 text-xs font-black uppercase tracking-wider text-blue-600">
                   {resource.category}
@@ -130,7 +126,7 @@ export default function ResourcesPage() {
               source="resources"
               interestType="resource_request"
               title="اطلب المورد التالي"
-              description="إذا كنت تحتاج قالباً أو checklist أو prompt pack، أرسل الطلب وسنرتب الأولويات حسب الحاجة الفعلية."
+              description="إذا كنت تحتاج قالباً أو checklist للتوجيه، أرسل الطلب وسنرتب الأولويات حسب الحاجة الفعلية."
               subject="طلب مورد جديد من منصتي"
               buttonLabel="أرسل طلب مورد"
             />

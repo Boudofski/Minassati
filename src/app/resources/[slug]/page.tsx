@@ -25,9 +25,9 @@ const usageGuide: Record<ResourceType, { steps: string[]; tip: string }> = {
   checklist: {
     steps: [
       "اطبع أو افتح المورد على شاشة ثانية",
-      "راجع كل نقطة بالترتيب قبل النشر أو الإطلاق",
+      "راجع كل نقطة بالترتيب قبل اتخاذ القرار",
       "ضع علامة على كل ما أنجزته",
-      "أعد الكرة في كل مشروع جديد",
+      "أعد استعمالها عند مقارنة خيار جديد",
     ],
     tip: "القوائم أكثر فائدة عند الاستخدام المتكرر — لا تستخدمها مرة واحدة.",
   },
@@ -49,15 +49,6 @@ const usageGuide: Record<ResourceType, { steps: string[]; tip: string }> = {
     ],
     tip: "الأدلة العملية تكون أكثر فائدة بعد تجربة أولى، لا قبلها.",
   },
-  "prompt-pack": {
-    steps: [
-      "افتح ChatGPT أو أداة AI التي تستخدمها",
-      "انسخ الأمر الجاهز وألصقه مباشرة",
-      "اضبط الأجزاء بين الأقواس لتناسب سياقك",
-      "احفظ الأوامر التي أعطت نتائج جيدة في ملف خاص",
-    ],
-    tip: "أفضل الأوامر تلك التي تضيف إليها سياقك المحدد.",
-  },
   planner: {
     steps: [
       "حدد الأسبوع أو الشهر الحالي",
@@ -70,14 +61,16 @@ const usageGuide: Record<ResourceType, { steps: string[]; tip: string }> = {
 };
 
 const categoryAudience: Record<string, string> = {
-  "التسويق الرقمي": "المسوقون، أصحاب الصفحات، صناع المحتوى",
-  "الذكاء الاصطناعي": "أصحاب المشاريع، المسوقون، المستقلون",
-  "العمل الحر": "المستقلون الجدد، أصحاب الخدمات الرقمية",
-  "التجارة الإلكترونية": "أصحاب المتاجر الصغيرة، العاملون في البيع الإلكتروني",
-  "صناعة المحتوى": "صناع المحتوى، منتجو الفيديوهات",
-  "التصميم": "المصممون المبتدئون، أصحاب المشاريع الصغيرة",
-  "اللغات": "المتعلمون، المحترفون الراغبون في تحسين لغتهم",
-  "القرآن والعلوم الإسلامية": "الطلاب، القراء، أصحاب المجموعات الإسلامية",
+  "اختيار التخصص": "تلاميذ الباك والطلبة الذين يقارنون بين تخصصات متعددة",
+  "المدارس": "طلبة يريدون مقارنة مؤسسات دون الاعتماد على ترتيب غير رسمي",
+  "المنح": "طلبة يجهزون ملفات المنح أو الدراسة بالخارج",
+  "الاستعداد": "طلبة يحتاجون تنظيماً للملفات، السيرة الذاتية، أو المراجعة",
+  "بعد الباك": "تلاميذ الباك وأسرهم",
+  "المهن": "شباب يريدون فهم المهن قبل اختيار التخصص",
+  "التوجيه": "طلبة وأولياء أمور يريدون نقاشاً أهدأ حول القرار",
+  "الحياة الطلابية": "طلبة يفكرون في مدينة الدراسة وتكاليفها",
+  "المهارات الرقمية": "طلبة يريدون مهارات داعمة لأي مسار",
+  "المباريات": "طلبة يستعدون لمباريات الولوج",
 };
 
 export default function ResourcePage({ params }: Props) {
@@ -100,12 +93,12 @@ export default function ResourcePage({ params }: Props) {
             <h1 className="mt-5 text-4xl font-black leading-tight sm:text-6xl">{resource.title}</h1>
             <p className="mt-5 max-w-3xl text-xl leading-9 text-slate-300">{resource.description}</p>
             <p className="mt-4 max-w-3xl text-sm font-bold leading-7 text-slate-400">
-              ملف التحميل قد لا يكون متاحاً بعد. هذه الصفحة تعرض الهيكل والمعاينة — اطلب المورد وسنرسله عند توفره.
+              هذه الصفحة تعرض هيكل المورد وطريقة استعماله. الهدف هو مساعدتك على التفكير والتنظيم، وليس بيع ملفات مدفوعة.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <span className="badge-soon">{resourceTypeLabel(resource.type)}</span>
               <span className="badge-soon">{resource.language}</span>
-              {resource.free ? <span className="badge-free">مجاني</span> : <span className="badge-pro">Pro قريبًا</span>}
+              <span className="badge-free">مجاني</span>
             </div>
           </section>
 
@@ -148,15 +141,15 @@ export default function ResourcePage({ params }: Props) {
             </h2>
             <p className="mt-3 text-sm font-bold leading-8 text-slate-700">{audience}</p>
             <p className="mt-2 text-sm leading-7 text-slate-500">
-              مناسب للمغاربة والجمهور العربي الذين يعملون في <span className="font-bold text-slate-700">{resource.category}</span> ويحتاجون أداة عملية جاهزة.
+              مناسب للطلبة في المغرب والجمهور العربي المهتم بـ <span className="font-bold text-slate-700">{resource.category}</span> ويحتاج أداة عملية بسيطة.
             </p>
           </section>
 
           {/* Download CTA */}
           <section className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 sm:p-8">
-            <h2 className="text-2xl font-black text-slate-950">هل تريد النسخة القابلة للتحميل؟</h2>
+            <h2 className="text-2xl font-black text-slate-950">هل تريد موردًا مشابهًا؟</h2>
             <p className="mt-3 text-sm font-bold leading-8 text-slate-700">
-              أرسل طلب اهتمام وسنرتب أولويات الموارد حسب الطلب الفعلي. لا يوجد دفع مطلوب حالياً.
+              أرسل طلبك وسنرتب أولويات الموارد حسب الحاجة الفعلية. لا يوجد دفع مطلوب.
             </p>
             <Link
               href={`#${leadId}`}
@@ -164,7 +157,7 @@ export default function ResourcePage({ params }: Props) {
               data-cta-id={`resource-detail-${resource.slug}`}
               data-resource-slug={resource.slug}
             >
-              <Mail className="h-4 w-4" /> أعلمني عند توفره
+              <Mail className="h-4 w-4" /> اطلب موردًا
             </Link>
           </section>
 
@@ -174,10 +167,10 @@ export default function ResourcePage({ params }: Props) {
             interestType="resource_request"
             entitySlug={resource.slug}
             title="اطلب هذا المورد"
-            description="سنرسل تحديثاً عند توفر نسخة PDF أو قالب قابل للنسخ. لا يوجد دفع مطلوب الآن."
+            description="اكتب المورد أو القالب الذي تحتاجه للتوجيه الدراسي والمهني. لا يوجد دفع مطلوب."
             subject={`طلب مورد: ${resource.title}`}
-            body={`السلام عليكم،\n\nأريد هذا المورد عند توفره: ${resource.title}\nالاسم:\nالمجال:\n`}
-            buttonLabel="أعلمني عند توفره"
+            body={`السلام عليكم،\n\nأحتاج مورداً مشابهاً لـ: ${resource.title}\nالاسم:\nالمجال:\n`}
+            buttonLabel="إرسال طلب المورد"
             className="mt-8"
           />
         </div>
@@ -187,7 +180,7 @@ export default function ResourcePage({ params }: Props) {
             <p className="text-sm font-black text-slate-500">الإجراء</p>
             <p className="mt-2 text-2xl font-black text-slate-950">{resource.cta}</p>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              لا توجد تنزيلات فعلية بعد — اطلب المورد وسنرسله عند توفره.
+              استخدم المعاينة أعلاه، أو اطلب نسخة/قالباً مشابهاً حسب حاجتك.
             </p>
             <Link
               href={`#${leadId}`}
@@ -202,10 +195,9 @@ export default function ResourcePage({ params }: Props) {
           <div className="card-premium p-5">
             <h2 className="font-black text-slate-950">طريقة الاستخدام</h2>
             <p className="mt-2 text-sm font-bold leading-7 text-slate-600">
-              {resource.type === "checklist" && "راجع كل نقطة بالترتيب قبل النشر أو الإطلاق."}
+              {resource.type === "checklist" && "راجع كل نقطة بالترتيب قبل اتخاذ القرار."}
               {resource.type === "template" && "انسخ وعدّل حسب مشروعك. لا تنسخه حرفياً."}
               {resource.type === "guide" && "اقرأه بالكامل ثم طبّق خطوة واحدة يومياً."}
-              {resource.type === "prompt-pack" && "انسخ الأمر في ChatGPT واضبطه حسب سياقك."}
               {resource.type === "planner" && "ابدأ بملء الحقول الإلزامية وراجعه أسبوعياً."}
             </p>
           </div>

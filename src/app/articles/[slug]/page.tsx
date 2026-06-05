@@ -117,12 +117,12 @@ export default function ArticlePage({ params }: Props) {
           <AdSlot label="مساحة إعلانية جانبية للمقال" />
           <div className="card-premium p-5">
             <h2 className="font-black text-slate-950">تابع التعلم</h2>
-            <p className="mt-2 text-sm leading-7 text-slate-600">حوّل قراءة المقال إلى تطبيق عملي عبر دورة أو مورد مرتبط.</p>
+            <p className="mt-2 text-sm leading-7 text-slate-600">حوّل قراءة المقال إلى تطبيق عملي عبر مورد أو خطوة بحث واضحة.</p>
             <Link
-              href="/courses"
+              href="/orientation"
               className="mt-4 inline-flex w-full justify-center rounded-full bg-slate-950 px-4 py-3 text-sm font-black text-white"
             >
-              استكشف الدورات
+              ابدأ التوجيه
             </Link>
           </div>
         </aside>

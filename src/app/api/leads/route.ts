@@ -12,7 +12,7 @@ type LeadPayload = {
   website?: string;
 };
 
-const allowedInterests = new Set(["course_waitlist", "instructor_application", "resource_request", "pro_interest", "contact"]);
+const allowedInterests = new Set(["course_waitlist", "instructor_application", "resource_request", "pro_interest", "contact", "guidance_request"]);
 const buckets = new Map<string, { count: number; resetAt: number }>();
 const windowMs = 60_000;
 const maxRequests = 5;

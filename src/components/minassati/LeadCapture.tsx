@@ -7,7 +7,7 @@ import { CheckCircle2, Loader2, Mail, Send, TriangleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackCourseInterest, trackInstructorInterest, trackLeadFormSubmit, trackResourceRequest } from "@/lib/analytics";
 
-type InterestType = "course_waitlist" | "instructor_application" | "resource_request" | "pro_interest" | "contact";
+type InterestType = "course_waitlist" | "instructor_application" | "resource_request" | "pro_interest" | "contact" | "guidance_request";
 
 type LeadCaptureProps = {
   id: string;

@@ -5,13 +5,13 @@ import { LeadCapture } from "@/components/minassati/LeadCapture";
 
 export const metadata: Metadata = {
   title: "اتصل بنا - منصتي",
-  description: "تواصل مع منصتي بخصوص الدورات، الموارد، المدربين، الشراكات، أو الاقتراحات.",
+  description: "تواصل مع منصتي بخصوص التوجيه الدراسي والمهني، المقالات، الموارد، الشراكات، أو الاقتراحات.",
   alternates: { canonical: "/contact" },
 };
 
 const reasons = [
-  { icon: MessageSquare, label: "اقتراح دورة أو مورد", href: "#contact-lead" },
-  { icon: GraduationCap, label: "الانضمام كمدرب", href: "/instructors" },
+  { icon: MessageSquare, label: "اقتراح مقال أو مورد", href: "#contact-lead" },
+  { icon: GraduationCap, label: "طلب توجيه", href: "/guidance-request" },
   { icon: Mail, label: "شراكة أو تعاون", href: "#contact-lead" },
   { icon: UserRound, label: "سؤال عام", href: "#contact-lead" },
 ];
@@ -27,7 +27,7 @@ export default function ContactPage() {
             <Mail className="h-4 w-4 text-amber-300" /> تواصل معنا
           </p>
           <h1 className="mt-6 max-w-2xl text-4xl font-black leading-tight sm:text-5xl">
-            تواصل معنا حول التعلم والشراكات
+            تواصل معنا حول التوجيه والشراكات
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-[2] text-slate-300">
             نرد على كل الطلبات الجدية. شاركنا فكرتك أو اقتراحك أو سؤالك.
@@ -83,7 +83,7 @@ export default function ContactPage() {
               source="contact"
               interestType="contact"
               title="أرسل رسالة إلى فريق منصتي"
-              description="استخدم هذا النموذج لاقتراح دورة، طلب مورد، شراكة، أو سؤال عام."
+              description="استخدم هذا النموذج لاقتراح مقال، طلب مورد، شراكة، أو سؤال عام."
               subject="رسالة من صفحة التواصل في منصتي"
               body="السلام عليكم،\n\nأريد التواصل بخصوص:\n"
               buttonLabel="إرسال الرسالة"

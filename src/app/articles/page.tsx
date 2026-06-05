@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "المقالات - منصتي",
-  description: "مقالات عملية حول الذكاء الاصطناعي، التسويق، العمل الحر، الأعمال، التجارة الإلكترونية، التعلم، والقرآن.",
+  description: "مقالات عملية حول التوجيه الدراسي والمهني، بعد الباك، اختيار التخصص، المنح، المدارس، والمهارات الرقمية للطلبة.",
   alternates: { canonical: "/articles" },
   openGraph: {
     title: "مقالات منصتي",
@@ -18,7 +18,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
   name: "مقالات منصتي",
-  description: "مقالات عملية للتعلم والعمل في المغرب والعالم العربي",
+  description: "مقالات عملية للتوجيه الدراسي والمهني في المغرب",
   url: `${site.url}/articles`,
   inLanguage: "ar",
 };
@@ -38,10 +38,10 @@ export default function ArticlesPage() {
             <BookOpen className="h-4 w-4 text-amber-300" /> المقالات
           </p>
           <h1 className="mt-6 max-w-3xl text-4xl font-black leading-tight sm:text-6xl">
-            مقالات تساعدك<br />على التعلم والعمل
+            مقالات تساعدك<br />على اختيار مسارك
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-[2] text-slate-300">
-            أدلة عملية حول الذكاء الاصطناعي، التسويق، العمل الحر، التجارة الإلكترونية، اللغات، والتعلم.
+            أدلة عملية حول ما بعد الباك، اختيار التخصص، المدارس، المنح، المسارات المهنية، والمهارات الرقمية.
           </p>
           <div className="mt-6 flex gap-3">
             <span className="badge-free">{articles.length} مقالة</span>
@@ -141,10 +141,10 @@ export default function ArticlesPage() {
           <h2 className="mt-5 text-3xl font-black sm:text-4xl">اقرأ مقالة ثم طبّق موردًا واحدًا</h2>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/courses"
+              href="/orientation"
               className="rounded-full bg-white px-8 py-4 text-lg font-black text-slate-950 transition hover:-translate-y-0.5"
             >
-              استكشف الدورات
+              ابدأ التوجيه
             </Link>
             <Link
               href="/resources"

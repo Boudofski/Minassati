@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpenCheck, BookText, ChevronDown, GraduationCap, HelpCircle, Home, Layers, Mail, Menu, Newspaper, PackageOpen, ShieldCheck, Tag, Users, X } from "lucide-react";
+import { BookOpenCheck, BookText, BriefcaseBusiness, ChevronDown, Compass, GraduationCap, HelpCircle, Home, Mail, Menu, Newspaper, PackageOpen, School, ShieldCheck, X } from "lucide-react";
 import { isLocale, rootLocalizedPath, stripLocale, type Locale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -18,85 +18,89 @@ function isActive(pathname: string, href: string) {
 const labels: Record<Locale, Record<string, string>> = {
   ar: {
     home: "الرئيسية",
-    courses: "الدورات",
+    orientation: "التوجيه",
+    afterBac: "بعد الباك",
     paths: "المسارات",
+    schools: "المدارس",
+    scholarships: "المنح",
     articles: "المقالات",
     quran: "القرآن",
     resources: "الموارد",
-    pricing: "الاشتراك",
-    instructors: "للمدربين",
+    careers: "المهن",
     more: "المزيد",
     about: "من نحن",
     contact: "تواصل معنا",
     privacy: "سياسة الخصوصية",
     terms: "شروط الاستخدام",
     help: "مركز المساعدة",
-    kids: "الأطفال",
-    cta: "ابدأ التعلم",
-    tagline: "تعلم، دورات، وموارد رقمية",
+    cta: "اطلب توجيهًا",
+    tagline: "التوجيه الدراسي والمهني",
     menu: "القائمة",
     aria: "التنقل الرئيسي",
   },
   en: {
     home: "Home",
-    courses: "Courses",
+    orientation: "Guidance",
+    afterBac: "After bac",
     paths: "Paths",
+    schools: "Schools",
+    scholarships: "Scholarships",
     articles: "Articles",
     quran: "Quran",
     resources: "Resources",
-    pricing: "Pricing",
-    instructors: "Instructors",
+    careers: "Careers",
     more: "More",
     about: "About",
     contact: "Contact",
     privacy: "Privacy",
     terms: "Terms",
     help: "Help Center",
-    kids: "Islamic Kids",
-    cta: "Start Learning",
-    tagline: "Courses, paths, and digital resources",
+    cta: "Request guidance",
+    tagline: "Study and career guidance",
     menu: "Menu",
     aria: "Primary navigation",
   },
   fr: {
     home: "Accueil",
-    courses: "Cours",
+    orientation: "Orientation",
+    afterBac: "Après bac",
     paths: "Parcours",
+    schools: "Écoles",
+    scholarships: "Bourses",
     articles: "Articles",
     quran: "Coran",
     resources: "Ressources",
-    pricing: "Abonnement",
-    instructors: "Formateurs",
+    careers: "Métiers",
     more: "Plus",
     about: "À propos",
     contact: "Contact",
     privacy: "Confidentialité",
     terms: "Conditions",
     help: "Aide",
-    kids: "Enfants",
-    cta: "Commencer",
-    tagline: "Cours, parcours et ressources numériques",
+    cta: "Demander conseil",
+    tagline: "Orientation scolaire et professionnelle",
     menu: "Menu",
     aria: "Navigation principale",
   },
   es: {
     home: "Inicio",
-    courses: "Cursos",
+    orientation: "Orientación",
+    afterBac: "Después bac",
     paths: "Rutas",
+    schools: "Escuelas",
+    scholarships: "Becas",
     articles: "Artículos",
     quran: "Corán",
     resources: "Recursos",
-    pricing: "Suscripción",
-    instructors: "Instructores",
+    careers: "Carreras",
     more: "Más",
     about: "Acerca de",
     contact: "Contacto",
     privacy: "Privacidad",
     terms: "Términos",
     help: "Ayuda",
-    kids: "Niños",
-    cta: "Empezar",
-    tagline: "Cursos, rutas y recursos digitales",
+    cta: "Pedir guía",
+    tagline: "Orientación académica y profesional",
     menu: "Menú",
     aria: "Navegación principal",
   },
@@ -110,21 +114,22 @@ export function Header() {
   const prefix = (href: string) => rootLocalizedPath(locale, href);
   const primaryNav = [
     { href: prefix("/"), label: l.home, icon: Home },
-    { href: "/courses", label: l.courses, icon: GraduationCap },
-    { href: "/paths", label: l.paths, icon: Layers },
+    { href: "/orientation", label: l.orientation, icon: Compass },
+    { href: "/after-bac", label: l.afterBac, icon: GraduationCap },
+    { href: "/paths", label: l.paths, icon: BriefcaseBusiness },
+    { href: "/schools", label: l.schools, icon: School },
+    { href: "/scholarships", label: l.scholarships, icon: BookText },
     { href: "/articles", label: l.articles, icon: Newspaper },
-    { href: "/quran", label: l.quran, icon: BookOpenCheck },
-    { href: "/resources", label: l.resources, icon: PackageOpen },
-    { href: "/pricing", label: l.pricing, icon: Tag },
-    { href: "/instructors", label: l.instructors, icon: Users },
   ];
   const moreItems = [
+    { href: "/careers", label: l.careers, icon: BriefcaseBusiness },
+    { href: "/resources", label: l.resources, icon: PackageOpen },
+    { href: "/quran", label: l.quran, icon: BookOpenCheck },
     { href: "/about", label: l.about, icon: BookText },
     { href: "/contact", label: l.contact, icon: Mail },
     { href: "/privacy", label: l.privacy, icon: ShieldCheck },
     { href: "/terms", label: l.terms, icon: BookText },
     { href: "/help", label: l.help, icon: HelpCircle },
-    { href: "/islamic-kids", label: l.kids, icon: BookOpenCheck },
   ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -184,7 +189,7 @@ export function Header() {
               )}
             </AnimatePresence>
           </div>
-          <Link href="/courses" className="rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white">{l.cta}</Link>
+          <Link href="/guidance-request" className="rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white">{l.cta}</Link>
           <LanguageSwitcher />
         </div>
 

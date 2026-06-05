@@ -9,153 +9,43 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 const footerCopy: Record<Locale, {
   tagline: string;
   description: string;
-  newsletter: { label: string; btn: string };
   columns: { title: string; links: [string, string][] }[];
-  islamicKids: string;
 }> = {
   ar: {
-    tagline: "منصة مغربية للتعلم والموارد الرقمية",
-    description: "دورات ومسارات وموارد عملية مع قارئ قرآن مجاني — للمغاربة والعالم العربي.",
-    newsletter: { label: "احصل على إشعار عند فتح الاشتراك Pro", btn: "أعلمني" },
+    tagline: "منصة مغربية للتوجيه الدراسي والمهني",
+    description: "نساعد التلاميذ والطلبة في المغرب على فهم اختيارات ما بعد الباك، المهن، المدارس، المنح، والموارد العملية.",
     columns: [
-      {
-        title: "التعلم",
-        links: [
-          ["/courses", "الدورات"],
-          ["/paths", "المسارات"],
-          ["/articles", "المقالات"],
-          ["/resources", "الموارد"],
-          ["/quran", "قارئ القرآن"],
-          ["/audio", "الصوتيات"],
-        ],
-      },
-      {
-        title: "المنصة",
-        links: [
-          ["/pricing", "الاشتراك"],
-          ["/instructors", "للمدربين"],
-          ["/about", "من نحن"],
-          ["/contact", "تواصل معنا"],
-        ],
-      },
-      {
-        title: "قانوني",
-        links: [
-          ["/privacy", "سياسة الخصوصية"],
-          ["/terms", "شروط الاستخدام"],
-          ["/help", "مركز المساعدة"],
-        ],
-      },
+      { title: "التوجيه", links: [["/orientation", "التوجيه"], ["/after-bac", "بعد الباك"], ["/paths", "المسارات"], ["/careers", "المهن"]] },
+      { title: "المعرفة", links: [["/schools", "المدارس"], ["/scholarships", "المنح"], ["/articles", "المقالات"], ["/resources", "الموارد"]] },
+      { title: "المنصة", links: [["/quran", "القرآن"], ["/audio", "الصوتيات"], ["/about", "من نحن"], ["/contact", "تواصل معنا"], ["/privacy", "الخصوصية"], ["/terms", "الشروط"], ["/help", "المساعدة"]] },
     ],
-    islamicKids: "محتوى الأطفال",
   },
   en: {
-    tagline: "Moroccan learning marketplace",
-    description: "Practical courses, paths, and resources — with a free Quran reader built in.",
-    newsletter: { label: "Get notified when Pro opens", btn: "Notify me" },
+    tagline: "Moroccan study and career guidance",
+    description: "Guidance for Moroccan students on after-bac options, careers, schools, scholarships, articles, and practical resources.",
     columns: [
-      {
-        title: "Learning",
-        links: [
-          ["/courses", "Courses"],
-          ["/paths", "Paths"],
-          ["/articles", "Articles"],
-          ["/resources", "Resources"],
-          ["/quran", "Quran Reader"],
-          ["/audio", "Audio Quran"],
-        ],
-      },
-      {
-        title: "Platform",
-        links: [
-          ["/pricing", "Pricing"],
-          ["/instructors", "Instructors"],
-          ["/about", "About"],
-          ["/contact", "Contact"],
-        ],
-      },
-      {
-        title: "Legal",
-        links: [
-          ["/privacy", "Privacy"],
-          ["/terms", "Terms"],
-          ["/help", "Help"],
-        ],
-      },
+      { title: "Guidance", links: [["/orientation", "Guidance"], ["/after-bac", "After bac"], ["/paths", "Paths"], ["/careers", "Careers"]] },
+      { title: "Knowledge", links: [["/schools", "Schools"], ["/scholarships", "Scholarships"], ["/articles", "Articles"], ["/resources", "Resources"]] },
+      { title: "Platform", links: [["/quran", "Quran"], ["/audio", "Audio"], ["/about", "About"], ["/contact", "Contact"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/help", "Help"]] },
     ],
-    islamicKids: "Islamic Kids",
   },
   fr: {
-    tagline: "Plateforme marocaine d'apprentissage",
-    description: "Cours, parcours et ressources pratiques — avec un lecteur de Coran gratuit intégré.",
-    newsletter: { label: "Être notifié à l'ouverture de l'abonnement Pro", btn: "M'avertir" },
+    tagline: "Orientation scolaire et professionnelle au Maroc",
+    description: "Orientation pour les élèves et étudiants marocains: après bac, métiers, écoles, bourses, articles et ressources pratiques.",
     columns: [
-      {
-        title: "Apprendre",
-        links: [
-          ["/courses", "Cours"],
-          ["/paths", "Parcours"],
-          ["/articles", "Articles"],
-          ["/resources", "Ressources"],
-          ["/quran", "Lecteur du Coran"],
-          ["/audio", "Audio Coran"],
-        ],
-      },
-      {
-        title: "Plateforme",
-        links: [
-          ["/pricing", "Abonnement"],
-          ["/instructors", "Formateurs"],
-          ["/about", "À propos"],
-          ["/contact", "Contact"],
-        ],
-      },
-      {
-        title: "Légal",
-        links: [
-          ["/privacy", "Confidentialité"],
-          ["/terms", "Conditions"],
-          ["/help", "Aide"],
-        ],
-      },
+      { title: "Orientation", links: [["/orientation", "Orientation"], ["/after-bac", "Après bac"], ["/paths", "Parcours"], ["/careers", "Métiers"]] },
+      { title: "Savoir", links: [["/schools", "Écoles"], ["/scholarships", "Bourses"], ["/articles", "Articles"], ["/resources", "Ressources"]] },
+      { title: "Plateforme", links: [["/quran", "Coran"], ["/audio", "Audio"], ["/about", "À propos"], ["/contact", "Contact"], ["/privacy", "Confidentialité"], ["/terms", "Conditions"], ["/help", "Aide"]] },
     ],
-    islamicKids: "Enfants",
   },
   es: {
-    tagline: "Plataforma marroquí de aprendizaje",
-    description: "Cursos, rutas y recursos prácticos — con un lector del Corán gratuito integrado.",
-    newsletter: { label: "Recibe un aviso cuando abra la suscripción Pro", btn: "Avisarme" },
+    tagline: "Orientación académica y profesional en Marruecos",
+    description: "Guía para estudiantes marroquíes sobre opciones después del bac, carreras, escuelas, becas, artículos y recursos.",
     columns: [
-      {
-        title: "Aprender",
-        links: [
-          ["/courses", "Cursos"],
-          ["/paths", "Rutas"],
-          ["/articles", "Artículos"],
-          ["/resources", "Recursos"],
-          ["/quran", "Lector del Corán"],
-          ["/audio", "Audio Corán"],
-        ],
-      },
-      {
-        title: "Plataforma",
-        links: [
-          ["/pricing", "Suscripción"],
-          ["/instructors", "Instructores"],
-          ["/about", "Acerca de"],
-          ["/contact", "Contacto"],
-        ],
-      },
-      {
-        title: "Legal",
-        links: [
-          ["/privacy", "Privacidad"],
-          ["/terms", "Términos"],
-          ["/help", "Ayuda"],
-        ],
-      },
+      { title: "Orientación", links: [["/orientation", "Orientación"], ["/after-bac", "Después bac"], ["/paths", "Rutas"], ["/careers", "Carreras"]] },
+      { title: "Conocimiento", links: [["/schools", "Escuelas"], ["/scholarships", "Becas"], ["/articles", "Artículos"], ["/resources", "Recursos"]] },
+      { title: "Plataforma", links: [["/quran", "Corán"], ["/audio", "Audio"], ["/about", "Acerca de"], ["/contact", "Contacto"], ["/privacy", "Privacidad"], ["/terms", "Términos"], ["/help", "Ayuda"]] },
     ],
-    islamicKids: "Niños",
   },
 };
 
@@ -169,22 +59,7 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-950 text-white" dir={locale === "ar" ? "rtl" : "ltr"}>
-      {/* Newsletter interest strip */}
-      <div className="border-b border-white/[0.07]">
-        <div className="page-shell flex flex-col gap-3 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm font-bold text-slate-400">{l.newsletter.label}</p>
-          <Link
-            href={prefix("/pricing") + "#pricing-waitlist"}
-            className="inline-flex shrink-0 items-center rounded-full bg-white/10 px-5 py-2 text-sm font-black text-white transition hover:bg-white/20"
-          >
-            {l.newsletter.btn}
-          </Link>
-        </div>
-      </div>
-
-      {/* Main grid */}
       <div className="page-shell grid gap-10 py-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
-        {/* Brand column */}
         <div>
           <Link href={prefix("/")} className="flex items-center gap-3" aria-label="منصتي">
             <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white text-slate-950">
@@ -201,7 +76,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Link columns */}
         {l.columns.map((col) => (
           <div key={col.title}>
             <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-slate-500">{col.title}</h3>
@@ -218,14 +92,13 @@ export function Footer() {
         ))}
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-white/[0.07]">
         <div className="page-shell flex flex-col gap-3 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs font-bold text-slate-600">© {currentYear} منصتي · minassati.ma · جميع الحقوق محفوظة</p>
           <div className="flex flex-wrap gap-4 text-xs font-bold text-slate-600">
             <Link href={prefix("/privacy")} className="transition hover:text-white">Privacy</Link>
             <Link href={prefix("/terms")} className="transition hover:text-white">Terms</Link>
-            <Link href={prefix("/islamic-kids")} className="transition hover:text-slate-400">{l.islamicKids}</Link>
+            <Link href={prefix("/contact")} className="transition hover:text-white">Contact</Link>
           </div>
         </div>
       </div>
