@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   authors: [{ name: site.author }],
-  keywords: ["التوجيه الدراسي", "التوجيه المهني", "بعد الباك", "المغرب", "المنح", "المدارس العليا", "الجامعة", "اختيار التخصص", "منصتي"],
+  keywords: ["التوجيه المدرسي", "التوجيه الدراسي", "المدارس المغربية", "بعد الباك", "المغرب", "المنح", "الدراسة بالخارج", "المباريات", "منصتي"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

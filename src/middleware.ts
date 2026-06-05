@@ -2,6 +2,12 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const hiddenPrefixes = [
   "/courses",
+  "/orientation",
+  "/after-bac",
+  "/careers",
+  "/paths",
+  "/resources",
+  "/scholarships",
   "/pricing",
   "/instructors",
   "/student-dashboard-preview",

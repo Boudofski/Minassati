@@ -1,190 +1,169 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpenCheck, Compass, FileText, GraduationCap, Map, School, Sparkles, TriangleAlert } from "lucide-react";
-import { afterBacOptions } from "@/data/after-bac";
+import { ArrowLeft, BookOpenCheck, CalendarDays, ClipboardCheck, Plane, School, UserCheck } from "lucide-react";
 import { articles } from "@/data/articles";
-import { careers } from "@/data/careers";
-import { resources, resourceTypeLabel } from "@/data/resources";
+import { calendarWarning } from "@/data/calendar";
+import { schoolCategories } from "@/data/schools";
 import type { Locale } from "@/i18n/config";
 
-const problems = ["كثرة الاختيارات", "الخوف من اختيار خاطئ", "نقص المعلومات", "ضغط العائلة", "عدم وضوح سوق العمل"];
-const categories = [
-  ["بعد الباك", "/after-bac", "فهم الجامعة، المدارس، التكوين، والدراسة بالخارج."],
-  ["اختيار التخصص", "/orientation", "حوّل الاختيار إلى معايير واضحة قابلة للمقارنة."],
-  ["المدارس والجامعات", "/schools", "تعلم كيف تقارن المؤسسات دون معلومات مزيفة."],
-  ["المسارات المهنية", "/careers", "اكتشف المهن والمهارات وخطوات البداية."],
-  ["المنح والدراسة بالخارج", "/scholarships", "جهز الوثائق وتعلم أين تبحث عن الفرص."],
-  ["المهارات الرقمية", "/careers/web-developer", "مهارات داعمة لأي طالب أو خريج."],
+const stats = [
+  { label: "مدارس ومعاهد", value: schoolCategories.length.toString(), desc: "تصنيفات للمقارنة" },
+  { label: "فرص ومنح", value: "أدلة", desc: "بدون آجال مزيفة" },
+  { label: "أدلة ونصائح", value: articles.length.toString(), desc: "مقالات عملية" },
+  { label: "توجيه شخصي", value: "نموذج", desc: "طلب مبسط" },
 ];
-const careerPreview = ["digital-marketer", "ai-specialist", "software-developer", "designer", "e-commerce-manager", "doctor", "lawyer", "teacher"];
+
+const actions = [
+  {
+    icon: School,
+    title: "ابحث عن المدارس المناسبة",
+    description: "استكشف المدارس والمعاهد حسب المجال، المدينة، ونوع التكوين مع تنبيه دائم للتحقق من الموقع الرسمي.",
+    cta: "اكتشف المزيد",
+    href: "/schools",
+  },
+  {
+    icon: Plane,
+    title: "تعرف على الفرص الأجنبية",
+    description: "أدلة حول المنح، الدراسة بالخارج، الوثائق المطلوبة، ورسائل التحفيز دون مواعيد مزيفة.",
+    cta: "اكتشف الفرص",
+    href: "/opportunities",
+  },
+  {
+    icon: UserCheck,
+    title: "توجيه شخصي مبسط",
+    description: "أجب على أسئلة بسيطة حول مستواك واهتماماتك لتحصل على توصية أولية تساعدك على التفكير.",
+    cta: "ابدأ الآن",
+    href: "/guidance-request",
+  },
+  {
+    icon: CalendarDays,
+    title: "تقويم المباريات والمواعيد",
+    description: "صفحة تنظيمية للمواعيد المهمة مع تنبيه أن التواريخ يجب تأكيدها من المصادر الرسمية.",
+    cta: "تابع التقويم",
+    href: "/calendar",
+  },
+];
+
+const steps = [
+  ["أخبرنا بمستواك", "حدد هل أنت تلميذ باك، طالب جامعي، أو في مرحلة إعادة توجيه."],
+  ["اختر اهتماماتك", "اختر المجالات التي تميل إليها مثل الصحة، الهندسة، القانون، اللغات، أو الرقمي."],
+  ["قارن الخيارات", "استعمل البطاقات والأسئلة لتقارن بين المدرسة، الجامعة، التكوين، أو الدراسة بالخارج."],
+  ["اطلب مساعدة إضافية", "أرسل سؤالك بتفاصيل كافية حتى تحصل على توجيه أولي منظم."],
+];
 
 export function LocalizedHome(_: { locale: Locale }) {
-  const latestArticles = articles.slice(0, 3);
-  const usefulResources = resources.slice(0, 5);
-  const careersToShow = careerPreview.map((slug) => careers.find((career) => career.slug === slug)).filter(Boolean);
+  const latestArticles = articles.slice(0, 6);
 
   return (
     <>
-      <section className="section-soft relative overflow-hidden">
-        <div className="page-shell grid gap-10 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-20">
-          <div>
-            <p className="eyebrow-pill-light">
-              <Compass className="h-4 w-4" /> منصتي — منصة مغربية للتوجيه الدراسي والمهني
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#b91c1c_0%,#0f7a3b_58%,#075c32_100%)] text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.16),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(255,214,10,0.14),transparent_24%)]" />
+        <div className="page-shell relative py-16 text-center sm:py-24">
+          <div className="mx-auto max-w-3xl">
+            <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-black text-white">
+              منصتي — منصة التوجيه الدراسي المغربية
             </p>
-            <h1 className="mt-6 max-w-3xl text-3xl font-black leading-tight text-slate-950 sm:text-6xl">
-              اختَر مسارك الدراسي<br />والمهني بثقة
-            </h1>
-            <p className="mt-6 max-w-3xl text-lg font-bold leading-[2] text-slate-650">
-              منصتي تساعد التلاميذ والطلبة في المغرب على فهم اختياراتهم بعد الباك، اكتشاف المسارات الدراسية والمهنية، مقارنة الخيارات، والوصول إلى مقالات وموارد عملية تساعدهم على اتخاذ قرار أفضل.
+            <h1 className="mt-6 text-4xl font-black leading-tight sm:text-6xl">منصة التوجيه المدرسي<br />المغربية</h1>
+            <p className="mx-auto mt-5 max-w-2xl text-lg font-bold leading-[2] text-white/90">
+              رفيقك الموثوق لاختيار مسارك الدراسي والمهني في المغرب وخارجه.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/orientation" className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-4 text-base font-black text-white">
-                ابدأ التوجيه <ArrowLeft className="h-4 w-4" />
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link href="/guidance-request" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-black text-emerald-800">
+                ابدأ التقييم الآن <ArrowLeft className="h-4 w-4" />
               </Link>
-              <Link href="/articles" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-7 py-4 text-base font-black text-slate-950">
-                اقرأ مقالات التوجيه
+              <Link href="/schools" className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-7 py-4 text-base font-black text-white">
+                اكتشف المدارس
               </Link>
-              <Link href="/after-bac" className="inline-flex items-center justify-center rounded-full border border-blue-200 bg-blue-50 px-7 py-4 text-base font-black text-blue-800">
-                اكتشف ما بعد الباك
+              <Link href="/articles" className="inline-flex items-center justify-center rounded-full border border-white/25 px-7 py-4 text-base font-black text-white/95">
+                تصفح المقالات
               </Link>
             </div>
           </div>
-
-          <div className="rounded-[2rem] border border-white bg-white p-5 shadow-soft">
-            <div className="rounded-3xl bg-slate-950 p-5 text-white">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-black text-teal-300">لوحة قرار الطالب</span>
-                <GraduationCap className="h-6 w-6 text-amber-300" />
-              </div>
-              <div className="mt-6 grid gap-3">
-                {["الميول", "بعد الباك", "المهن", "الخطوات"].map((item, index) => (
-                  <div key={item} className="rounded-2xl bg-white/10 p-4">
-                    <div className="flex items-center justify-between text-sm font-bold">
-                      <span>{item}</span>
-                      <span className="text-teal-300">{(index + 1) * 25}%</span>
-                    </div>
-                    <div className="mt-3 h-2 rounded-full bg-white/10">
-                      <div className="h-2 rounded-full bg-teal-300" style={{ width: `${(index + 1) * 25}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-2xl bg-amber-300 p-4 text-sm font-black leading-7 text-slate-950">
-                القرار الجيد يبدأ بسؤال واضح ومعلومة موثوقة وخطوة صغيرة قابلة للتجربة.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-light">
-        <div className="page-shell py-14">
-          <h2 className="text-3xl font-black text-slate-950">لماذا يحتاج الطالب إلى توجيه واضح؟</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {problems.map((problem) => (
-              <div key={problem} className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-                <TriangleAlert className="h-5 w-5 text-amber-600" />
-                <p className="mt-4 font-black text-slate-950">{problem}</p>
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="rounded-xl border border-white/15 bg-white/10 p-5 text-center backdrop-blur">
+                <p className="text-2xl font-black">{stat.value}</p>
+                <h2 className="mt-1 font-black">{stat.label}</h2>
+                <p className="mt-1 text-xs font-bold text-white/75">{stat.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-soft">
+      <section className="bg-white">
         <div className="page-shell py-14">
-          <p className="eyebrow-pill-light">مجالات التوجيه</p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {categories.map(([title, href, desc]) => (
-              <Link key={href} href={href} className="card-premium group p-6">
-                <Sparkles className="h-6 w-6 text-blue-600" />
-                <h3 className="mt-4 text-xl font-black text-slate-950 group-hover:text-blue-700">{title}</h3>
-                <p className="mt-2 text-sm font-bold leading-7 text-slate-600">{desc}</p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {actions.map(({ icon: Icon, title, description, cta, href }) => (
+              <Link key={href} href={href} className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg">
+                <span className="grid h-12 w-12 place-items-center rounded-xl bg-emerald-50 text-emerald-700">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <h2 className="mt-5 text-xl font-black text-slate-950">{title}</h2>
+                <p className="mt-3 text-sm font-bold leading-7 text-slate-600">{description}</p>
+                <span className="mt-5 inline-flex text-sm font-black text-red-700 group-hover:text-emerald-700">{cta} ←</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-light">
+      <section className="bg-slate-50">
+        <div className="page-shell py-14">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="inline-flex rounded-full bg-red-50 px-4 py-2 text-sm font-black text-red-700">التوجيه الشخصي</p>
+              <h2 className="mt-5 text-3xl font-black text-slate-950">كيف يعمل التوجيه؟</h2>
+              <p className="mt-4 text-sm font-bold leading-8 text-slate-600">
+                التقييم ليس حكماً نهائياً على مستقبلك. هو طريقة منظمة لجمع المعلومات، فهم اهتماماتك، ثم مقارنة اختياراتك بشكل أهدأ.
+              </p>
+              <Link href="/guidance-request" className="mt-6 inline-flex rounded-full bg-emerald-700 px-6 py-3 text-sm font-black text-white">اطلب توجيهك</Link>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {steps.map(([title, desc], index) => (
+                <div key={title} className="rounded-xl border border-slate-200 bg-white p-5">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-red-700 text-sm font-black text-white">{index + 1}</span>
+                  <h3 className="mt-4 font-black text-slate-950">{title}</h3>
+                  <p className="mt-2 text-sm font-bold leading-7 text-slate-600">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
         <div className="page-shell py-14">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="eyebrow-pill-light">بعد الباك</p>
-              <h2 className="mt-4 text-3xl font-black text-slate-950">اختيارات تحتاج مقارنة هادئة</h2>
+              <p className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-black text-emerald-700">النصائح والمقالات</p>
+              <h2 className="mt-4 text-3xl font-black text-slate-950">أحدث النصائح والمقالات</h2>
             </div>
-            <Link href="/after-bac" className="hidden text-sm font-black text-blue-700 sm:block">كل اختيارات ما بعد الباك ←</Link>
+            <Link href="/articles" className="hidden text-sm font-black text-red-700 sm:block">كل المقالات ←</Link>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {afterBacOptions.slice(0, 5).map((option) => (
-              <Link key={option.slug} href="/after-bac" className="card-premium p-5">
-                <School className="h-5 w-5 text-teal-600" />
-                <h3 className="mt-3 font-black text-slate-950">{option.title}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-7 text-slate-600">{option.description}</p>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {latestArticles.map((article) => (
+              <Link key={article.slug} href={`/articles/${article.slug}`} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-emerald-200 hover:shadow-md">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-600">{article.category}</span>
+                <h3 className="mt-4 font-black text-slate-950">{article.title}</h3>
+                <p className="mt-2 line-clamp-2 text-sm font-bold leading-7 text-slate-600">{article.excerpt}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-soft">
-        <div className="page-shell py-14">
-          <p className="eyebrow-pill-light">المسارات المهنية</p>
-          <h2 className="mt-4 text-3xl font-black text-slate-950">اكتشف مهنًا قبل أن تختار التخصص</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {careersToShow.map((career) => career && (
-              <Link key={career.slug} href={`/careers/${career.slug}`} className="card-premium p-5">
-                <Map className="h-5 w-5 text-blue-600" />
-                <h3 className="mt-3 font-black text-slate-950">{career.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-7 text-slate-600">{career.description}</p>
-              </Link>
-            ))}
+      <section className="bg-slate-50">
+        <div className="page-shell grid gap-4 py-12 md:grid-cols-2">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+            <ClipboardCheck className="h-6 w-6 text-amber-700" />
+            <h2 className="mt-3 text-xl font-black text-slate-950">تنبيه مهم</h2>
+            <p className="mt-2 text-sm font-black leading-7 text-amber-950">{calendarWarning}</p>
           </div>
-        </div>
-      </section>
-
-      <section className="section-light">
-        <div className="page-shell grid gap-10 py-14 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <p className="eyebrow-pill-light">المقالات</p>
-            <h2 className="mt-4 text-3xl font-black text-slate-950">مقالات التوجيه للبحث والـ SEO</h2>
-            <div className="mt-7 grid gap-4">
-              {latestArticles.map((article) => (
-                <Link key={article.slug} href={`/articles/${article.slug}`} className="card-premium p-5">
-                  <span className="badge-soon">{article.category}</span>
-                  <h3 className="mt-3 text-xl font-black text-slate-950">{article.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">{article.excerpt}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="eyebrow-pill-light">الموارد</p>
-            <h2 className="mt-4 text-3xl font-black text-slate-950">قوالب وقوائم فحص</h2>
-            <div className="mt-7 space-y-3">
-              {usefulResources.map((resource) => (
-                <Link key={resource.slug} href={`/resources/${resource.slug}`} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 font-black text-slate-800">
-                  <span>{resource.title}</span>
-                  <span className="text-xs text-blue-700">{resourceTypeLabel(resource.type)}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-soft">
-        <div className="page-shell grid gap-5 py-14 lg:grid-cols-2">
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-7">
-            <BookOpenCheck className="h-7 w-7 text-emerald-700" />
-            <h2 className="mt-4 text-2xl font-black text-slate-950">القرآن الكريم متاح مجانًا داخل منصتي</h2>
-            <p className="mt-3 text-sm font-bold leading-7 text-slate-700">يبقى القرآن أداة ثانوية مجانية للقراءة والاستماع، وليس الهوية الرئيسية للمنصة.</p>
-            <Link href="/quran" className="mt-5 inline-flex rounded-full bg-emerald-700 px-5 py-3 text-sm font-black text-white">فتح القرآن</Link>
-          </div>
-          <div className="rounded-2xl border border-blue-200 bg-blue-50 p-7">
-            <FileText className="h-7 w-7 text-blue-700" />
-            <h2 className="mt-4 text-2xl font-black text-slate-950">هل تحتاج توجيهًا؟</h2>
-            <p className="mt-3 text-sm font-bold leading-7 text-slate-700">اطلب توجيهاً عبر نموذج بسيط وسنراجع سؤالك حسب المعلومات التي ترسلها.</p>
-            <Link href="/guidance-request" className="mt-5 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white">اطلب توجيهًا</Link>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+            <BookOpenCheck className="h-6 w-6 text-emerald-700" />
+            <h2 className="mt-3 text-xl font-black text-slate-950">القرآن الكريم متاح مجانًا داخل منصتي</h2>
+            <p className="mt-2 text-sm font-bold leading-7 text-slate-700">أداة ثانوية مجانية للقراءة والاستماع، مع بقاء التوجيه الدراسي هو هوية المنصة الأساسية.</p>
+            <Link href="/quran" className="mt-4 inline-flex rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-black text-white">فتح القرآن</Link>
           </div>
         </div>
       </section>

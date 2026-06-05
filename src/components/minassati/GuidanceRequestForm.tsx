@@ -16,6 +16,7 @@ export function GuidanceRequestForm() {
       `المدينة: ${formData.get("city") || "-"}`,
       `المستوى الحالي: ${formData.get("level") || "-"}`,
       `الاهتمامات: ${formData.get("interests") || "-"}`,
+      `المجالات المفضلة: ${formData.get("preferredFields") || "-"}`,
       "",
       `السؤال: ${formData.get("question") || ""}`,
     ].join("\n");
@@ -38,18 +39,30 @@ export function GuidanceRequestForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto grid max-w-3xl gap-4 rounded-2xl border border-blue-100 bg-white p-6 shadow-soft">
+    <form onSubmit={onSubmit} className="mx-auto grid max-w-3xl gap-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div>
+        <h2 className="text-2xl font-black text-slate-950">استمارة تقييم مبسطة</h2>
+        <p className="mt-2 text-sm font-bold leading-7 text-slate-600">املأ الحقول بما يكفي لفهم وضعك. لا ترسل معلومات حساسة.</p>
+      </div>
       <label className="hidden">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
       <div className="grid gap-4 sm:grid-cols-2">
-        <input required name="name" placeholder="الاسم" className="h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-blue-400" />
-        <input required type="email" name="email" placeholder="البريد الإلكتروني" className="h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-blue-400" />
-        <input name="phone" placeholder="الهاتف (اختياري)" className="h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-blue-400" />
-        <input required name="city" placeholder="المدينة" className="h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-blue-400" />
-        <input required name="level" placeholder="المستوى الحالي" className="h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-blue-400" />
-        <input required name="interests" placeholder="الاهتمامات: طب، هندسة، تسويق..." className="h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-blue-400" />
+        <select required name="level" className="h-12 rounded-lg border border-slate-200 bg-white px-4 font-bold outline-none focus:border-emerald-500">
+          <option value="">المستوى الحالي</option>
+          <option>أولى باك</option>
+          <option>ثانية باك</option>
+          <option>طالب جامعي</option>
+          <option>تكوين مهني</option>
+          <option>إعادة توجيه</option>
+        </select>
+        <input required name="city" placeholder="المدينة" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
+        <input required name="interests" placeholder="اهتماماتك: علوم، اقتصاد، لغات..." className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
+        <input required name="preferredFields" placeholder="المجالات المفضلة: طب، هندسة، قانون..." className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
+        <input required name="name" placeholder="الاسم" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
+        <input required type="email" name="email" placeholder="البريد الإلكتروني" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500" />
+        <input name="phone" placeholder="الهاتف (اختياري)" className="h-12 rounded-lg border border-slate-200 px-4 font-bold outline-none focus:border-emerald-500 sm:col-span-2" />
       </div>
-      <textarea required minLength={10} name="question" placeholder="اكتب سؤالك أو الحيرة التي تريد توجيهاً حولها" className="min-h-36 rounded-xl border border-slate-200 p-4 font-bold leading-7 outline-none focus:border-blue-400" />
-      <button type="submit" disabled={status === "loading"} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-slate-950 px-6 text-sm font-black text-white disabled:opacity-60">
+      <textarea required minLength={10} name="question" placeholder="ما السؤال أو الحيرة التي تريد توجيهاً حولها؟" className="min-h-36 rounded-lg border border-slate-200 p-4 font-bold leading-7 outline-none focus:border-emerald-500" />
+      <button type="submit" disabled={status === "loading"} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-emerald-700 px-6 text-sm font-black text-white disabled:opacity-60">
         {status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
         إرسال طلب التوجيه
       </button>
