@@ -1,10 +1,10 @@
 export const site = {
-  name: "منصتي",
+  name: "Minassati",
   url: "https://minassati.ma",
-  title: "منصتي — دليلك بعد الباك والتوجيه الدراسي",
+  title: "Minassati — Créez et gérez votre entreprise au Maroc",
   description:
-    "دليل مغربي يساعد التلاميذ والطلبة على فهم اختيارات ما بعد الباك، المدارس والمعاهد، الفرص بالخارج، التوجيه الشخصي، والمقالات العملية.",
-  author: "عبد الخالق بدوفي",
+    "La plateforme marocaine qui centralise la création d’entreprise, les démarches juridiques, la comptabilité, les échéances et la facturation.",
+  author: "Abdelkhalek Boudofi",
 };
 
 export function absoluteUrl(path = "") {
