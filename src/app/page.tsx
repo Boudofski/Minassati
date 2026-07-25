@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { LocalizedHome } from "@/components/minassati/LocalizedHome";
+import { BusinessHome } from "@/components/business/BusinessHome";
 
 export const metadata: Metadata = {
-  title: "منصتي — دليلك بعد الباك والتوجيه الدراسي",
-  description: "دليل مغربي يساعد التلاميذ والطلبة على فهم اختيارات ما بعد الباك، المدارس والمعاهد، الفرص بالخارج، التوجيه الشخصي، والمقالات العملية.",
+  title: "Création et gestion d’entreprise au Maroc",
+  description: "Minassati centralise la création d’entreprise, les démarches juridiques, la comptabilité, les échéances et la facturation pour les entrepreneurs au Maroc.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "منصتي — دليلك بعد الباك والتوجيه الدراسي",
-    description: "اختيار المدارس، الفرص الأجنبية، التوجيه الشخصي، التقويم، والنصائح العملية للطلبة في المغرب.",
+    title: "Minassati — Créez et gérez votre entreprise au Maroc",
+    description: "Une plateforme claire pour lancer, administrer et piloter votre entreprise au Maroc.",
   },
 };
 
 export default function HomePage() {
-  return <LocalizedHome locale="ar" />;
+  return <BusinessHome />;
 }
